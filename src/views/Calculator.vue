@@ -1,7 +1,7 @@
 <template></template>
 <script>
 export default {
-  name: "calculator"
+  name: 'calculator'
 };
 </script>
 <style>

@@ -15,7 +15,7 @@
 </template>
 <script>
 export default {
-  name: "login",
+  name: 'login',
   data() {
     return {
       username: this.$store.state.username,
@@ -44,17 +44,17 @@ export default {
             if (authResponse.status === 201) {
               this.userToken = window.btoa(authResponse.body.token);
               localStorage.setItem(
-                "authResponse",
+                'authResponse',
                 JSON.stringify(authResponse)
               );
-              this.$router.push({ path: "/dashboard" });
+              this.$router.push({ path: '/dashboard' });
             }
           },
           authResponse => {
             if (authResponse.status === 401) {
-              console.log("invalid credentials");
+              console.log('invalid credentials');
             } else {
-              console.log("login error");
+              console.log('login error');
             }
           }
         );

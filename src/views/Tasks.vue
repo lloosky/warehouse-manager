@@ -1,6 +1,6 @@
 <template></template>
 <script>
-export default { name: "tasks" };
+export default { name: 'tasks' };
 </script>
 <style>
 </style>

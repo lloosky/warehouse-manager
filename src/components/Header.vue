@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.commit("LOGOUT");
+      this.$store.commit('LOGOUT');
     }
   }
 };
@@ -75,4 +75,3 @@ li:hover {
   transform: translateX(-5px);
 }
 </style>
-

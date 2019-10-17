@@ -41,18 +41,18 @@
   </div>
 </template>
 <script>
-import Header from "../components/Header.vue";
+import Header from '../components/Header.vue';
 export default {
-  name: "warehouse",
+  name: 'warehouse',
   data() {
     return {
-      userToken: "",
+      userToken: '',
       showModal: false,
       isWidth: 0,
-      productTitle: "",
-      productQuantity: "",
-      productUnit: "",
-      productPrice: ""
+      productTitle: '',
+      productQuantity: '',
+      productUnit: '',
+      productPrice: ''
     };
   },
   components: {
@@ -60,19 +60,19 @@ export default {
   },
   methods: {
     removeProduct(id, index) {
-      this.$store.commit("REMOVE_PRODUCT", { id, index });
+      this.$store.commit('REMOVE_PRODUCT', { id, index });
     },
     openAddingProduct() {
       this.isWidth = 100;
     },
     addProduct() {
-      let txt = localStorage.getItem("authResponse");
+      let txt = localStorage.getItem('authResponse');
       let obj = JSON.parse(txt);
       this.userToken = window.btoa(obj.body.token);
 
       this.$http
         .post(
-          "http://karol.switalla.pl/api/warehouse",
+          'http://karol.switalla.pl/api/warehouse',
           {
             title: this.productTitle,
             quantity: this.productQuantity,
@@ -93,7 +93,7 @@ export default {
           });
         })
         .catch(() => {
-          console.log("ERROR");
+          console.log('ERROR');
         });
       this.isWidth = 0;
     }
@@ -104,7 +104,7 @@ export default {
     }
   },
   created() {
-    this.$store.commit("GET_PRODUCTLIST");
+    this.$store.commit('GET_PRODUCTLIST');
   }
 };
 </script>
