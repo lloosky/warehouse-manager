@@ -1,4 +1,3 @@
-    
 <template>
   <div id="application">
     <app-header v-if="$route.meta.hideNavigation"></app-header>
@@ -8,15 +7,16 @@
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
+
 export default {
-  name: "App",
+  name: 'App',
   components: {
     appHeader: Header,
     appFooter: Footer
   }
-};
+}
 </script>
 <style>
 * {
@@ -39,4 +39,3 @@ h2 {
   margin-bottom: 0;
 }
 </style>
-

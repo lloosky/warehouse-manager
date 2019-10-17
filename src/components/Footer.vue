@@ -7,10 +7,10 @@
 </template>
 <script>
 export default {
-  data() {
-    return {};
+  data () {
+    return {}
   }
-};
+}
 </script>
 
 <style>
@@ -28,4 +28,3 @@ footer {
   justify-self: center;
 }
 </style>
-
