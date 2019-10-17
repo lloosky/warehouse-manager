@@ -4,7 +4,7 @@ import VueResource from 'vue-resource';
 
 import App from './App.vue';
 import axios from 'axios';
-import router from './router';
+import router from './routes/router';
 import store from './store';
 import './registerServiceWorker';
 

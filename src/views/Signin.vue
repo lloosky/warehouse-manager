@@ -1,7 +1,7 @@
 <template>
   <div class="login-page">
     <div class="login-container">
-      <img src="./../logo.png" alt="logo" class="logo-login" />
+      <img src="/img/logo.png" alt="logo" class="logo-login" />
       <form action>
         <label for>Użytkownik:</label>
         <input type="text" v-model="username" />

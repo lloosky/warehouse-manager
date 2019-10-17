@@ -31,7 +31,7 @@ body {
       rgba(65, 65, 65, 0.79),
       rgba(65, 65, 65, 0.79)
     ),
-    url("..//src/background.jpg");
+    url("/img/background.jpg");
   height: 100vh;
   background-repeat: no-repeat;
 }

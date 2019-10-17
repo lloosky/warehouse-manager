@@ -1,6 +1,6 @@
 <template>
   <header>
-    <img src="../logo.png" alt="logo" class="header-logo" />
+    <img src="/img/logo.png" alt="logo" class="header-logo" />
     <ul>
       <li>
         <router-link to="/dashboard">Pulpit</router-link>
