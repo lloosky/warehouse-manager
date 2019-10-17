@@ -41,7 +41,6 @@
   </div>
 </template>
 <script>
-import Header from '../components/Header.vue';
 export default {
   name: 'warehouse',
   data() {
@@ -54,9 +53,6 @@ export default {
       productUnit: '',
       productPrice: ''
     };
-  },
-  components: {
-    appHeader: Header
   },
   methods: {
     removeProduct(id, index) {

@@ -26,13 +26,6 @@ export default {
   },
   methods: {
     login() {
-      const requestBody = {
-        expiresAt: 1569867856,
-        expiresIn: 60000,
-        token: this.encodedUsername,
-        username: this.username
-      };
-
       this.$http
         .post(`http://karol.switalla.pl/auth/token`, {
           username: this.username,
