@@ -78,13 +78,14 @@ export default {
   align-content: center;
   justify-content: center;
 }
-input {
+input, select {
   background-color: #d2d2d2;
   height: 47px;
   margin-bottom: 5%;
 }
 label,
-input {
+input,
+select {
   width: 100%;
 }
 label {

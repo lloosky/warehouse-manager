@@ -1,7 +1,7 @@
 <template>
-  <div class="warehouse-container">
+  <div class="view-container">
     <div class="modal-container" :style="{width: isWidth + '%'}">
-      <div class="modal-box">
+      <div class="modal-box" v-if="showModal">
         <form action>
           <label for>Nazwa:</label>
           <input type="text" v-model="productTitle" />
@@ -51,7 +51,8 @@ export default {
       productTitle: '',
       productQuantity: '',
       productUnit: '',
-      productPrice: ''
+      productPrice: '',
+      productFormat: ''
     };
   },
   methods: {
@@ -60,6 +61,7 @@ export default {
     },
     openAddingProduct() {
       this.isWidth = 100;
+      this.showModal = true
     },
     addProduct() {
       let txt = localStorage.getItem('authResponse');
@@ -92,6 +94,7 @@ export default {
           console.log('ERROR');
         });
       this.isWidth = 0;
+      this.showModal = false;
     }
   },
   computed: {
@@ -138,6 +141,7 @@ export default {
   color: white;
   padding: 0px 15px 0px 15px;
   height: 100%;
+  border:none;
 }
 .confirm-btn::before {
   content: "";
@@ -152,7 +156,7 @@ export default {
 .confirm-btn:hover::before {
   width: 100%;
 }
-.warehouse-container {
+.view-container {
   display: grid;
   grid-template-columns: auto;
   align-content: center;
