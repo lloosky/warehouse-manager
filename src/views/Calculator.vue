@@ -65,10 +65,6 @@ export default {
 };
 </script>
 <style scoped>
-select,
-input {
-  width: 100%;
-}
 .calc-inputs {
   display: grid;
   grid-template-columns: auto auto;
