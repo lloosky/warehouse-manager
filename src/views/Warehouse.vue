@@ -71,6 +71,7 @@ export default {
     openAddingProduct() {
       this.isWidth = 100;
       this.showModal = true;
+      this.clearInputs();
     },
     addProduct() {
       let txt = localStorage.getItem("authResponse");
@@ -116,7 +117,6 @@ export default {
           });
         this.isWidth = 0;
         this.showModal = false;
-        this.clearInputs();
       }
     },
     clearInputs() {
