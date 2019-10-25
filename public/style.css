@@ -4,7 +4,7 @@
   right: 0;
   top: 0;
   z-index: 1;
-  transition: 0.3s all;
+  transition: 0.3s ease;
   display: grid;
   grid-template-columns: 70%;
   align-content: center;
@@ -36,13 +36,13 @@ select {
 label,
 input,
 select {
-    margin: 5px;
+    margin: 10px;
 }
 .modal-btn-container {
     display: grid;
     grid-template-columns: 20% 20% auto;
     position: relative;
     overflow: hidden;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }

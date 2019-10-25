@@ -15,9 +15,13 @@
           <input type="number" v-model="productPrice" />
         </form>
         <div class="modal-btn-container">
-          <button class="button" @click="addProduct">wyczyść</button>
-          <button class="button" @click="addProduct">anuluj</button>
-          <button style="width:50%;justify-self:end;" class="button accept-btn" @click="addProduct">dodaj produkt</button>
+          <button class="button" @click="clearInputs">wyczyść</button>
+          <button class="button" @click="cancelAddingProduct">anuluj</button>
+          <button
+            style="width:50%;justify-self:end;"
+            class="button accept-btn"
+            @click="addProduct"
+          >dodaj produkt</button>
         </div>
       </div>
     </div>
@@ -56,8 +60,7 @@ export default {
       productQuantity: "",
       productUnit: "",
       productPrice: "",
-      productFormat: "",
-      units: [{unit: 'cm'},{unit: 'm2'}]
+      units: [{ unit: "cm" }, { unit: "m2" }]
     };
   },
   methods: {
@@ -100,7 +103,18 @@ export default {
         });
       this.isWidth = 0;
       this.showModal = false;
-    }
+    },
+    clearInputs() {
+      this.productTitle = "";
+      this.productQuantity = "";
+      this.productUnit = "";
+      this.productPrice = "";
+    },
+    cancelAddingProduct() {
+      this.clearInputs();
+      this.isWidth = 0;
+      this.showModal = false;
+    },
   },
   computed: {
     products() {
