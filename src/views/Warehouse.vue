@@ -8,23 +8,23 @@
           <label for>Ilość:</label>
           <input type="number" v-model="productQuantity" />
           <label for>Jednostka:</label>
-          <select style="width:100%;height: 20px;" v-model="productUnit">
+          <select v-model="productUnit">
             <option v-for="product in units" v-bind:value="product.unit">{{ product.unit }}</option>
           </select>
           <label for>Cena netto:</label>
           <input type="number" v-model="productPrice" />
         </form>
-        <div class="btn-container">
-          <button style="width:70%;justify-self:start;" @click="addProduct">wyczyść</button>
-          <button style="width:70%;justify-self:start;" @click="addProduct">anuluj</button>
-          <button style="width:50%;justify-self:end;" @click="addProduct">dodaj produkt</button>
+        <div class="modal-btn-container">
+          <button class="button" @click="addProduct">wyczyść</button>
+          <button class="button" @click="addProduct">anuluj</button>
+          <button style="width:50%;justify-self:end;" class="button accept-btn" @click="addProduct">dodaj produkt</button>
         </div>
       </div>
     </div>
     <div class="component-navigation">
       <h2>Magazyn</h2>
       <div class="btn-container">
-        <button class="confirm-btn" @click="openAddingProduct">dodaj produkt</button>
+        <button @click="openAddingProduct">dodaj produkt</button>
       </div>
     </div>
     <div class="table-header">
@@ -39,7 +39,7 @@
       <span>{{product.unit}}</span>
       <span>{{product.price}}</span>
       <span>
-        <button class="close-btn" @click="removeProduct(product.id,index)">usuń</button>
+        <button @click="removeProduct(product.id,index)">usuń</button>
       </span>
     </div>
   </div>
@@ -112,56 +112,7 @@ export default {
   }
 };
 </script>
-<style>
-.close-btn {
-  color: white;
-  background-color: rgb(223, 78, 78);
-  border: 1px solid rgb(163, 3, 3);
-  font-weight: 100;
-  width: 100%;
-}
-.modal-container {
-  height: 70%;
-  background-color: rgba(0, 0, 0, 0.925);
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 1;
-  transition: 0.3s all;
-  display: grid;
-  grid-template-columns: 70%;
-  align-content: center;
-  justify-content: center;
-}
-.modal-box {
-  padding: 20px;
-}
-.btn-container {
-  display: grid;
-  grid-template-columns: 20% 20% auto;
-  position: relative;
-  overflow: hidden;
-}
-.confirm-btn {
-  background-color: #e18500;
-  color: white;
-  padding: 0px 15px 0px 15px;
-  height: 100%;
-  border: none;
-}
-.confirm-btn::before {
-  content: "";
-  position: absolute;
-  height: 100%;
-  width: 0%;
-  background-color: #fadcaf42;
-  transition: all 0.3s ease 0s;
-  top: 0;
-  left: 0;
-}
-.confirm-btn:hover::before {
-  width: 100%;
-}
+<style scoped>
 .view-container {
   display: grid;
   grid-template-columns: auto;
@@ -194,9 +145,5 @@ export default {
 }
 .table-row:nth-child(even) {
   background-color: #d2d2d2;
-}
-.modal-box > form > input {
-  height: 20px;
-  width: 100%;
 }
 </style>

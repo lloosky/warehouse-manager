@@ -1,0 +1,48 @@
+.modal-container {
+  background-color: rgba(214, 214, 214, 0.925);
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  transition: 0.3s all;
+  display: grid;
+  grid-template-columns: 70%;
+  align-content: center;
+  justify-content: center;
+}
+.modal-box {
+  padding: 20px;
+}
+label,
+input,
+select {
+  width: 100%;
+}
+input,
+select {
+  border: 1px solid #9c9c9c;
+  height: 30px;
+  background-color: #e2e2e2
+}
+.button {
+    background-color: transparent;
+    border: none;
+    justify-self: center;
+}
+.accept-btn {
+    border: 1px solid #acacac;
+    background-color: #e1e1e1;
+}
+label,
+input,
+select {
+    margin: 5px;
+}
+.modal-btn-container {
+    display: grid;
+    grid-template-columns: 20% 20% auto;
+    position: relative;
+    overflow: hidden;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
