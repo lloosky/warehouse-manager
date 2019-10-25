@@ -2,6 +2,7 @@
   <div class="view-container">
     <div class="modal-container" :style="{width: isWidth + '%'}">
       <div class="modal-box" v-if="showModal">
+        <div id="validationAlerts"></div>
         <form action>
           <label for>Nazwa:</label>
           <input type="text" v-model="productTitle" />
@@ -28,7 +29,7 @@
     <div class="component-navigation">
       <h2>Magazyn</h2>
       <div class="btn-container">
-        <button @click="openAddingProduct">dodaj produkt</button>
+        <button class="accept-btn" @click="openAddingProduct">dodaj produkt</button>
       </div>
     </div>
     <div class="table-header">
@@ -76,33 +77,47 @@ export default {
       let obj = JSON.parse(txt);
       this.userToken = window.btoa(obj.body.token);
 
-      this.$http
-        .post(
-          "http://karol.switalla.pl/api/warehouse",
-          {
-            title: this.productTitle,
-            quantity: this.productQuantity,
-            unit: this.productUnit,
-            price: this.productPrice
-          },
-          {
-            headers: { Authorization: `Bearer ${this.userToken}` }
-          }
-        )
-        .then(data => {
-          console.log(data);
-          this.products.push({
-            title: this.productTitle,
-            quantity: this.productQuantity,
-            unit: this.productUnit,
-            price: this.productPrice
+      const validationInfo = document.getElementById("validationAlerts");
+
+      if (
+        this.productTitle == "" ||
+        this.productQuantity == "" ||
+        this.productUnit == "" ||
+        this.productPrice == ""
+      ) {
+        validationInfo.innerHTML = "Uzupełnij wymagane pola";
+      } else if (this.productQuantity < 1 || this.productPrice < 1) {
+        validationInfo.innerHTML = "Cena oraz ilość musi być większa od 0";
+      } else {
+        this.$http
+          .post(
+            "http://karol.switalla.pl/api/warehouse",
+            {
+              title: this.productTitle,
+              quantity: this.productQuantity,
+              unit: this.productUnit,
+              price: this.productPrice
+            },
+            {
+              headers: { Authorization: `Bearer ${this.userToken}` }
+            }
+          )
+          .then(data => {
+            console.log(data);
+            this.products.push({
+              title: this.productTitle,
+              quantity: this.productQuantity,
+              unit: this.productUnit,
+              price: this.productPrice
+            });
+          })
+          .catch(() => {
+            console.log("ERROR");
           });
-        })
-        .catch(() => {
-          console.log("ERROR");
-        });
-      this.isWidth = 0;
-      this.showModal = false;
+        this.isWidth = 0;
+        this.showModal = false;
+        this.clearInputs();
+      }
     },
     clearInputs() {
       this.productTitle = "";
@@ -114,7 +129,7 @@ export default {
       this.clearInputs();
       this.isWidth = 0;
       this.showModal = false;
-    },
+    }
   },
   computed: {
     products() {
