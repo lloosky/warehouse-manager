@@ -8,12 +8,16 @@
           <label for>Ilość:</label>
           <input type="number" v-model="productQuantity" />
           <label for>Jednostka:</label>
-          <input type="text" v-model="productUnit" />
+          <select style="width:100%;height: 20px;" v-model="productUnit">
+            <option v-for="product in units" v-bind:value="product.unit">{{ product.unit }}</option>
+          </select>
           <label for>Cena netto:</label>
           <input type="number" v-model="productPrice" />
         </form>
         <div class="btn-container">
-          <button class @click="addProduct">dodaj produkt</button>
+          <button style="width:70%;justify-self:start;" @click="addProduct">wyczyść</button>
+          <button style="width:70%;justify-self:start;" @click="addProduct">anuluj</button>
+          <button style="width:50%;justify-self:end;" @click="addProduct">dodaj produkt</button>
         </div>
       </div>
     </div>
@@ -42,35 +46,36 @@
 </template>
 <script>
 export default {
-  name: 'warehouse',
+  name: "warehouse",
   data() {
     return {
-      userToken: '',
+      userToken: "",
       showModal: false,
       isWidth: 0,
-      productTitle: '',
-      productQuantity: '',
-      productUnit: '',
-      productPrice: '',
-      productFormat: ''
+      productTitle: "",
+      productQuantity: "",
+      productUnit: "",
+      productPrice: "",
+      productFormat: "",
+      units: [{unit: 'cm'},{unit: 'm2'}]
     };
   },
   methods: {
     removeProduct(id, index) {
-      this.$store.commit('REMOVE_PRODUCT', { id, index });
+      this.$store.commit("REMOVE_PRODUCT", { id, index });
     },
     openAddingProduct() {
       this.isWidth = 100;
-      this.showModal = true
+      this.showModal = true;
     },
     addProduct() {
-      let txt = localStorage.getItem('authResponse');
+      let txt = localStorage.getItem("authResponse");
       let obj = JSON.parse(txt);
       this.userToken = window.btoa(obj.body.token);
 
       this.$http
         .post(
-          'http://karol.switalla.pl/api/warehouse',
+          "http://karol.switalla.pl/api/warehouse",
           {
             title: this.productTitle,
             quantity: this.productQuantity,
@@ -91,7 +96,7 @@ export default {
           });
         })
         .catch(() => {
-          console.log('ERROR');
+          console.log("ERROR");
         });
       this.isWidth = 0;
       this.showModal = false;
@@ -103,7 +108,7 @@ export default {
     }
   },
   created() {
-    this.$store.commit('GET_PRODUCTLIST');
+    this.$store.commit("GET_PRODUCTLIST");
   }
 };
 </script>
@@ -124,7 +129,7 @@ export default {
   z-index: 1;
   transition: 0.3s all;
   display: grid;
-  grid-template-columns: 50%;
+  grid-template-columns: 70%;
   align-content: center;
   justify-content: center;
 }
@@ -132,7 +137,8 @@ export default {
   padding: 20px;
 }
 .btn-container {
-  justify-self: end;
+  display: grid;
+  grid-template-columns: 20% 20% auto;
   position: relative;
   overflow: hidden;
 }
@@ -141,7 +147,7 @@ export default {
   color: white;
   padding: 0px 15px 0px 15px;
   height: 100%;
-  border:none;
+  border: none;
 }
 .confirm-btn::before {
   content: "";
