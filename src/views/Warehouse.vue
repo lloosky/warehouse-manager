@@ -16,11 +16,11 @@
           <input type="number" v-model="productPrice" />
         </form>
         <div class="modal-btn-container">
-          <button class="button" @click="clearInputs">wyczyść</button>
-          <button class="button" @click="cancelAddingProduct">anuluj</button>
+          <button class="button-normal" @click="clearInputs">wyczyść</button>
+          <button class="button-normal" @click="cancelAddingProduct">anuluj</button>
           <button
             style="width:50%;justify-self:end;"
-            class="button accept-btn"
+            class="button-normal accept-btn"
             @click="addProduct"
           >dodaj produkt</button>
         </div>

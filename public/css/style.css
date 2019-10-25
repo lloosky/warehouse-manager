@@ -24,7 +24,7 @@ select {
   height: 30px;
   background-color: #e2e2e2;
 }
-.button {
+.button-normal {
   background-color: transparent;
   border: none;
   justify-self: center;
