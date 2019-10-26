@@ -25,4 +25,4 @@ const routes = [
   ...dashboard
 ];
 
-export default new Router({ mode: 'history', routes });
+export default new Router({ base: process.env.BASE_URL, mode: 'history', routes });
