@@ -4,6 +4,8 @@ import router from './routes/router';
 
 Vue.use(Vuex);
 
+const API_HOST = process.env.VUE_APP_API_HOST;
+
 export default new Vuex.Store({
   state: {
     username: '',
@@ -24,7 +26,7 @@ export default new Vuex.Store({
       let obj = JSON.parse(txt);
       state.userToken = window.btoa(obj.body.token);
       Vue.http
-        .get('http://karol.switalla.pl/api/warehouse', {
+        .get(`${API_HOST}/api/warehouse`, {
           headers: { Authorization: `Bearer ${state.userToken}` }
         })
         .then(data => {
@@ -39,7 +41,7 @@ export default new Vuex.Store({
       let obj = JSON.parse(txt);
       state.userToken = window.btoa(obj.body.token);
       Vue.http
-        .get('http://karol.switalla.pl/api/orders', {
+        .get(`${API_HOST}/api/orders`, {
           headers: { Authorization: `Bearer ${state.userToken}` }
         })
         .then(data => {
@@ -51,7 +53,7 @@ export default new Vuex.Store({
     },
     REMOVE_PRODUCT(state, { id, index }) {
       Vue.http
-        .delete(`http://karol.switalla.pl/api/warehouse/${id}`, {
+        .delete(`${API_HOST}/api/warehouse/${id}`, {
           headers: { Authorization: `Bearer ${state.userToken}` }
         })
         .then(() => {

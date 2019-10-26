@@ -50,6 +50,8 @@
   </div>
 </template>
 <script>
+const API_HOST = process.env.VUE_APP_API_HOST;
+
 export default {
   name: "warehouse",
   data() {
@@ -92,7 +94,7 @@ export default {
       } else {
         this.$http
           .post(
-            "http://karol.switalla.pl/api/warehouse",
+            `${API_HOST}/api/warehouse`,
             {
               title: this.productTitle,
               quantity: this.productQuantity,

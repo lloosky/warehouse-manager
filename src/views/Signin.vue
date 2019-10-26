@@ -14,6 +14,8 @@
   </div>
 </template>
 <script>
+const API_HOST = process.env.VUE_APP_API_HOST;
+
 export default {
   name: 'login',
   data() {
@@ -27,7 +29,7 @@ export default {
   methods: {
     login() {
       this.$http
-        .post(`http://karol.switalla.pl/auth/token`, {
+        .post(`${API_HOST}/auth/token`, {
           username: this.username,
           password: this.password
         })
