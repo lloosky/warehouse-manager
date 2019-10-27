@@ -44,7 +44,7 @@
       <span>{{product.title}}</span>
       <span>{{product.quantity}}</span>
       <span>{{product.unit}}</span>
-      <span>{{product.price}}</span>
+      <span>{{showCurrency(product.price)}}</span>
       <span>
         <button @click="removeProduct(product.id,index)">usuń</button>
       </span>
@@ -69,6 +69,9 @@ export default {
     };
   },
   methods: {
+    showCurrency(price) {
+      return new Intl.NumberFormat('pl-PLN', { style: 'currency', currency: 'PLN' }).format(price)
+    },
     removeProduct(id, index) {
       this.$store.commit("REMOVE_PRODUCT", { id, index });
     },
