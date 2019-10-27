@@ -33,12 +33,14 @@
       </div>
     </div>
     <div class="table-header">
-      <span>nazwa</span>
+      <span>Lp.</span>
+      <span>Nazwa</span>
       <span>Ilość</span>
       <span>Jednostka</span>
       <span>Cena netto</span>
     </div>
     <div class="table-row" v-for="(product, index) in products" :key="index">
+      <span>{{index+1}}</span>
       <span>{{product.title}}</span>
       <span>{{product.quantity}}</span>
       <span>{{product.unit}}</span>
@@ -159,7 +161,7 @@ export default {
   background: #6d6d6d;
   border: 1px solid #e18500;
   display: grid;
-  grid-template-columns: 50% 15% 15% 15% 5%;
+  grid-template-columns: 5% 45% 15% 15% 15% 5%;
   align-content: center;
   margin-bottom: 20px;
 }
@@ -169,7 +171,7 @@ export default {
   background: #c2c2c2;
   color: black !important;
   display: grid;
-  grid-template-columns: 50% 15% 15% 15% 5%;
+  grid-template-columns: 5% 45% 15% 15% 15% 5%;
   align-content: center;
   font-weight: 800;
   transition: 0.3s all;
