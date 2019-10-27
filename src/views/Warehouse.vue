@@ -33,6 +33,7 @@
       </div>
     </div>
     <div class="table-header">
+      <span>lp</span>
       <span>nazwa</span>
       <span>Ilość</span>
       <span>Jednostka</span>
