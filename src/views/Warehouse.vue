@@ -152,6 +152,7 @@ export default {
           });
         this.isWidth = 0;
         this.showModal = false;
+        this.$store.commit("GET_PRODUCTLIST");
       }
     },
     clearInputs() {
