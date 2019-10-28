@@ -88,7 +88,7 @@ export default {
       const index = this.productInfo[0].productIndex
 
       this.$store.commit("REMOVE_PRODUCT", { id, index })
-      console.log(`Produkt nr ${index + 1} został usunięty pomyślnie`)
+      console.log(`Produkt o id ${id} został usunięty pomyślnie`)
       this.showConfirmBox = false
     },
     declineAlert() {
