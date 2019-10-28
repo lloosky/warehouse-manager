@@ -1,11 +1,11 @@
 <template>
   <div class="view-container">
-    <alert-box
-      v-if="showAlertBox"
-      :alertMsg="alertBoxQuestion"
+    <confirm-box
+      v-if="showConfirmBox"
+      :confirmMsg="confirmBoxQuestion"
       @accept="confirmAlert"
       @decline="declineAlert"
-    ></alert-box>
+    ></confirm-box>
     <div class="modal-container" :style="{width: isWidth + '%'}">
       <div class="modal-box" v-if="showModal">
         <div id="validationAlerts"></div>
@@ -59,7 +59,7 @@
 </template>
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
-import AlertBox from "./../components/AlertBox.vue";
+import ConfirmBox from "./../components/ConfirmBox.vue";
 
 export default {
   name: "warehouse",
@@ -73,14 +73,14 @@ export default {
       productUnit: "",
       productPrice: "",
       units: [{ unit: "cm" }, { unit: "m2" }],
-      alertBoxQuestion: "Na pewno chcesz usunąć ten produkt ?",
-      showAlertBox: false,
+      confirmBoxQuestion: "Na pewno chcesz usunąć ten produkt ?",
+      showConfirmBox: false,
       productInfo: []
     };
   },
   methods: {
     deleteProduct(id, index) {
-      this.showAlertBox = true;
+      this.showConfirmBox = true;
       this.productInfo.push({productID: id, productINDEX: index})
     },
     confirmAlert() {
@@ -88,24 +88,17 @@ export default {
       const index = this.productInfo[0].productINDEX
 
       this.$store.commit("REMOVE_PRODUCT", { id, index })
-      this.showAlertBox = false
+      this.showConfirmBox = false
     },
     declineAlert() {
       this.productInfo = []
-      this.showAlertBox = false;
+      this.showConfirmBox = false;
     },
     showCurrency(price) {
       return new Intl.NumberFormat("pl-PLN", {
         style: "currency",
         currency: "PLN"
       }).format(price);
-    },
-    removeProduct(id, index) {
-      this.showAlertBox = true;
-      if (this.confirmAlert == true) {
-      this.$store.commit("REMOVE_PRODUCT", { id, index })
-      }
-      console.log(id)
     },
     openAddingProduct() {
       this.isWidth = 100;
@@ -179,7 +172,7 @@ export default {
     this.$store.commit("GET_PRODUCTLIST");
   },
   components: {
-    alertBox: AlertBox
+    confirmBox: ConfirmBox
   }
 };
 </script>

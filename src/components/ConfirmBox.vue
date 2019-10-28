@@ -1,7 +1,7 @@
 <template>
-  <div class="alert-container">
-    <div class="alert-box">
-      <h3>{{alertMsg}}</h3>
+  <div class="confirm-container">
+    <div class="confirm-box">
+      <h3>{{confirmMsg}}</h3>
       <div>
         <button class="button-normal accept-btn" @click="$emit('accept')">Tak</button>
         <button class="button-normal" @click="$emit('decline')">Nie</button>
@@ -14,13 +14,13 @@ export default {
   data() {
     return {};
   },
-  props: { alertMsg: String },
+  props: { confirmMsg: String },
   methods: {}
 };
 </script>
 
 <style scoped>
-.alert-container {
+.confirm-container {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
@@ -30,7 +30,7 @@ export default {
   position: absolute;
   top: 25%;
 }
-.alert-box {
+.confirm-box {
   display: grid;
   padding: 10px;
   width: 50%;
