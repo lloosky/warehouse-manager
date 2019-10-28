@@ -8,13 +8,18 @@
           <label for style="width:50%">Produkt:</label>
           <label for style="width:50%">Ilość:</label>
           <select style="width:50%;height: 20px;" id="productList" v-model="orderedProducts">
-            <option v-for="product in products" v-bind:value="product.title">{{product.title }}</option>
+            <option
+              v-for="product in products"
+              v-bind:value="product.title"
+              :key="product.id"
+            >{{product.title}} {{product.price}}</option>
           </select>
           <input type="text" style="width:50%" v-model="orderedQuantity" />
           <label for style="width:50%">Obsługa:</label>
-          <select style="width:50%;height: 20px;" id="productList" v-model="whoServes">
+          <select style="width:50%;height: 20px;" v-model="whoServes">
             <option v-for="serve in staff" v-bind:value="serve.worker">{{ serve.worker }}</option>
           </select>
+          <!-- <p>{{getOrderDate}}</p> -->
         </form>
         <div class="btn-container">
           <button @click="addOrder">dodaj zamówienie</button>
@@ -37,13 +42,13 @@
     </div>
     <div class="table-row" v-for="(order, index) in orders " :key="index">
       <span>{{index+1}}</span>
-      <span>{{order.id}}</span>
+      <span>N-SR-{{order.id}}</span>
       <span>{{order.name}}</span>
       <span>{{order.orderedQuantity}}</span>
       <span>{{order.serves}}</span>
-      <span>22.11.9000</span>
+      <span>{{order.data}}</span>
       <span>
-        <button @click>usuń</button>
+        <button @click="test(index)">usuń</button>
       </span>
     </div>
   </div>
@@ -60,9 +65,13 @@ export default {
       orderedProducts: "",
       orderedQuantity: "",
       whoServes: "",
+      data: ""
     };
   },
   methods: {
+    test(index) {
+      console.log(this.orders[index]);
+    },
     addOrder() {
       let txt = localStorage.getItem("authResponse");
       let obj = JSON.parse(txt);
@@ -75,7 +84,8 @@ export default {
             name: this.customerName,
             orderedProducts: this.orderedProducts,
             orderedQuantity: this.orderedQuantity,
-            serves: this.whoServes
+            serves: this.whoServes,
+            data: this.getOrderDate
           },
           {
             headers: { Authorization: `Bearer ${this.userToken}` }
@@ -87,7 +97,8 @@ export default {
             name: this.customerName,
             orderedProducts: this.orderedProducts,
             orderedQuantity: this.orderedQuantity,
-            serves: this.whoServes
+            serves: this.whoServes,
+            data: this.getOrderDate
           });
         })
         .catch(() => {
@@ -95,6 +106,8 @@ export default {
         });
       this.isWidth = 0;
       this.show = false;
+      this.$store.commit("GET_ORDERLIST");
+
       console.log(this.orders);
     }
   },
@@ -115,13 +128,18 @@ export default {
     worthOfOrder() {
       this.worthResult = 0;
       const productPrice = document.getElementById("productList").value;
-      return (this.worthResult += productPrice * this.orderedQuantity);
+      console.log((this.worthResult += productPrice * this.orderedQuantity));
+    },
+    getOrderDate() {
+      const date = new Date();
+      return ((date.getMonth() + 1) + "/" + (date.getDate()) + "/" + (date.getFullYear()))
     }
   }
 };
 </script>
-<style scoped> 
-.table-header, .table-row {
+<style scoped>
+.table-header,
+.table-row {
   grid-template-columns: 5% 20% 30% 15% 10% 15% 5%;
 }
 </style>
