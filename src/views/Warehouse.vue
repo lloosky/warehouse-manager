@@ -52,7 +52,7 @@
       <span>{{product.unit}}</span>
       <span>{{showCurrency(product.price)}}</span>
       <span>
-        <button @click="removeProduct(product.id,index)">usuń</button>
+        <button @click="deleteProduct(product.id,index)">usuń</button>
       </span>
     </div>
   </div>
@@ -75,14 +75,23 @@ export default {
       units: [{ unit: "cm" }, { unit: "m2" }],
       alertBoxQuestion: "Na pewno chcesz usunąć ten produkt ?",
       showAlertBox: false,
-      accepted: false
+      productInfo: []
     };
   },
   methods: {
+    deleteProduct(id, index) {
+      this.showAlertBox = true;
+      this.productInfo.push({productID: id, productINDEX: index})
+    },
     confirmAlert() {
+      const id = this.productInfo[0].productID
+      const index = this.productInfo[0].productINDEX
+
+      this.$store.commit("REMOVE_PRODUCT", { id, index })
       this.showAlertBox = false
     },
     declineAlert() {
+      this.productInfo = []
       this.showAlertBox = false;
     },
     showCurrency(price) {
