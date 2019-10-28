@@ -1,5 +1,11 @@
 <template>
   <div class="view-container">
+    <confirm-box
+      v-if="showConfirmBox"
+      :confirmMsg="confirmBoxQuestion"
+      @accept="confirmAlert"
+      @decline="declineAlert"
+    ></confirm-box>
     <div class="modal-container" :style="{width: isWidth + '%'}">
       <div class="modal-box" v-if="showModal">
         <div id="validationAlerts"></div>
@@ -10,7 +16,7 @@
           <input type="number" v-model="productQuantity" />
           <label for>Jednostka:</label>
           <select v-model="productUnit">
-            <option v-for="product in units" v-bind:value="product.unit">{{ product.unit }}</option>
+            <option v-for="product in units" v-bind:value="product.unit" :key="product.id">{{ product.unit }}</option>
           </select>
           <label for>Cena netto:</label>
           <input type="number" v-model="productPrice" />
@@ -46,13 +52,14 @@
       <span>{{product.unit}}</span>
       <span>{{showCurrency(product.price)}}</span>
       <span>
-        <button @click="removeProduct(product.id,index)">usuń</button>
+        <button @click="deleteProduct(product.id,index)">usuń</button>
       </span>
     </div>
   </div>
 </template>
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
+import ConfirmBox from "./../components/ConfirmBox.vue";
 
 export default {
   name: "warehouse",
@@ -65,15 +72,35 @@ export default {
       productQuantity: "",
       productUnit: "",
       productPrice: "",
-      units: [{ unit: "cm" }, { unit: "m2" }]
+      units: [{ unit: "cm" }, { unit: "m2" }],
+      confirmBoxQuestion: "Na pewno chcesz usunąć ten produkt ?",
+      showConfirmBox: false,
+      productInfo: []
     };
   },
   methods: {
-    showCurrency(price) {
-      return new Intl.NumberFormat('pl-PLN', { style: 'currency', currency: 'PLN' }).format(price)
+    deleteProduct(id, index) {
+      this.showConfirmBox = true;
+      this.productInfo.push({productId: id, productIndex: index})
     },
-    removeProduct(id, index) {
-      this.$store.commit("REMOVE_PRODUCT", { id, index });
+    confirmAlert() {
+      const id = this.productInfo[0].productId
+      const index = this.productInfo[0].productIndex
+
+      this.$store.commit("REMOVE_PRODUCT", { id, index })
+      console.log(`Produkt o id ${id} został usunięty pomyślnie`)
+      this.showConfirmBox = false
+    },
+    declineAlert() {
+      this.productInfo = []
+      this.showConfirmBox = false;
+      console.log("Anulowałeś usuwanie produktu")
+    },
+    showCurrency(price) {
+      return new Intl.NumberFormat("pl-PLN", {
+        style: "currency",
+        currency: "PLN"
+      }).format(price);
     },
     openAddingProduct() {
       this.isWidth = 100;
@@ -145,6 +172,9 @@ export default {
   },
   created() {
     this.$store.commit("GET_PRODUCTLIST");
+  },
+  components: {
+    confirmBox: ConfirmBox
   }
 };
 </script>
