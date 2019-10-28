@@ -1,5 +1,6 @@
 <template>
   <div class="view-container">
+    <alert-box v-if="showAlertBox" :alertMsg="alertBoxQuestion" @accept="test"></alert-box>
     <div class="modal-container" :style="{width: isWidth + '%'}">
       <div class="modal-box" v-if="showModal">
         <div id="validationAlerts"></div>
@@ -53,6 +54,7 @@
 </template>
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
+import AlertBox from "./../components/AlertBox.vue";
 
 export default {
   name: "warehouse",
@@ -65,14 +67,23 @@ export default {
       productQuantity: "",
       productUnit: "",
       productPrice: "",
-      units: [{ unit: "cm" }, { unit: "m2" }]
+      units: [{ unit: "cm" }, { unit: "m2" }],
+      alertBoxQuestion: "Na pewno chcesz usunąć ten produkt ?",
+      showAlertBox: false
     };
   },
   methods: {
+    test() {
+      this.showAlertBox = false;
+    },
     showCurrency(price) {
-      return new Intl.NumberFormat('pl-PLN', { style: 'currency', currency: 'PLN' }).format(price)
+      return new Intl.NumberFormat("pl-PLN", {
+        style: "currency",
+        currency: "PLN"
+      }).format(price);
     },
     removeProduct(id, index) {
+      this.showAlertBox = true;
       this.$store.commit("REMOVE_PRODUCT", { id, index });
     },
     openAddingProduct() {
@@ -145,6 +156,9 @@ export default {
   },
   created() {
     this.$store.commit("GET_PRODUCTLIST");
+  },
+  components: {
+    alertBox: AlertBox
   }
 };
 </script>

@@ -16,7 +16,7 @@ export default {
     appHeader: Header,
     appFooter: Footer
   }
-};
+}
 </script>
 <style>
 * {
@@ -25,7 +25,6 @@ export default {
 }
 body {
   color: #e18500;
-  padding: 15px;
   background: linear-gradient(
       to left,
       rgba(65, 65, 65, 0.79),
