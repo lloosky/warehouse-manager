@@ -16,7 +16,7 @@
           <input type="number" v-model="productQuantity" />
           <label for>Jednostka:</label>
           <select v-model="productUnit">
-            <option v-for="product in units" v-bind:value="product.unit">{{ product.unit }}</option>
+            <option v-for="product in units" v-bind:value="product.unit" :key="product.id">{{ product.unit }}</option>
           </select>
           <label for>Cena netto:</label>
           <input type="number" v-model="productPrice" />
@@ -81,18 +81,20 @@ export default {
   methods: {
     deleteProduct(id, index) {
       this.showConfirmBox = true;
-      this.productInfo.push({productID: id, productINDEX: index})
+      this.productInfo.push({productId: id, productIndex: index})
     },
     confirmAlert() {
-      const id = this.productInfo[0].productID
-      const index = this.productInfo[0].productINDEX
+      const id = this.productInfo[0].productId
+      const index = this.productInfo[0].productIndex
 
       this.$store.commit("REMOVE_PRODUCT", { id, index })
+      console.log(`Produkt nr ${index + 1} został usunięty pomyślnie`)
       this.showConfirmBox = false
     },
     declineAlert() {
       this.productInfo = []
       this.showConfirmBox = false;
+      console.log("Anulowałeś usuwanie produktu")
     },
     showCurrency(price) {
       return new Intl.NumberFormat("pl-PLN", {

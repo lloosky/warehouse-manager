@@ -4,7 +4,7 @@
       <h3>{{confirmMsg}}</h3>
       <div>
         <button class="button-normal accept-btn" @click="$emit('accept')">Tak</button>
-        <button class="button-normal" @click="$emit('decline')">Nie</button>
+        <button class="button-normal decline-button" @click="$emit('decline')">Nie</button>
       </div>
     </div>
   </div>
@@ -49,7 +49,7 @@ button {
   width: 50%;
   justify-self: right;
 }
-button:nth-of-type(1) {
+.decline-button {
   justify-self: left;
 }
 </style>
