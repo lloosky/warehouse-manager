@@ -24,14 +24,28 @@
     <div class="component-navigation">
       <h2>Zamówienia</h2>
       <div class="btn-container">
-        <button class="confirm-btn" @click="show=true">dodaj zamówienie</button>
+        <button class="accept-btn" @click="show=true">dodaj zamówienie</button>
       </div>
     </div>
-    <div v-for="(order, index) in orders">
-  <p style="width:100%">{{order.name}} {{order.orderedProducts}} {{order.orderedQuantity}}/ Obsługa : {{order.serves}}/ Zamowienie nr: #{{order.id}}  </p>
-
+    <div class="table-header">
+      <span>Lp.</span>
+      <span>Numer zamówienia</span>
+      <span>Imię i Nazwisko</span>
+      <span>Wartość</span>
+      <span>Obsługa</span>
+      <span>Data utworzenia</span>
     </div>
-    
+    <div class="table-row" v-for="(order, index) in orders " :key="index">
+      <span>{{index+1}}</span>
+      <span>{{order.id}}</span>
+      <span>{{order.name}}</span>
+      <span>{{order.orderedQuantity}}</span>
+      <span>{{order.serves}}</span>
+      <span>22.11.9000</span>
+      <span>
+        <button @click>usuń</button>
+      </span>
+    </div>
   </div>
 </template>
 <script>
@@ -106,5 +120,8 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped> 
+.table-header, .table-row {
+  grid-template-columns: 5% 20% 30% 15% 10% 15% 5%;
+}
 </style>
