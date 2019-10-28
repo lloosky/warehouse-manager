@@ -4,7 +4,7 @@
       <h3>{{alertMsg}}</h3>
       <div>
         <button class="button-normal accept-btn" @click="$emit('accept')">Tak</button>
-        <button class="button-normal">Nie</button>
+        <button class="button-normal" @click="$emit('decline')">Nie</button>
       </div>
     </div>
   </div>

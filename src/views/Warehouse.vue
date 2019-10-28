@@ -1,6 +1,11 @@
 <template>
   <div class="view-container">
-    <alert-box v-if="showAlertBox" :alertMsg="alertBoxQuestion" @accept="test"></alert-box>
+    <alert-box
+      v-if="showAlertBox"
+      :alertMsg="alertBoxQuestion"
+      @accept="confirmAlert"
+      @decline="declineAlert"
+    ></alert-box>
     <div class="modal-container" :style="{width: isWidth + '%'}">
       <div class="modal-box" v-if="showModal">
         <div id="validationAlerts"></div>
@@ -69,11 +74,15 @@ export default {
       productPrice: "",
       units: [{ unit: "cm" }, { unit: "m2" }],
       alertBoxQuestion: "Na pewno chcesz usunąć ten produkt ?",
-      showAlertBox: false
+      showAlertBox: false,
+      accepted: false
     };
   },
   methods: {
-    test() {
+    confirmAlert() {
+      this.showAlertBox = false
+    },
+    declineAlert() {
       this.showAlertBox = false;
     },
     showCurrency(price) {
@@ -84,7 +93,10 @@ export default {
     },
     removeProduct(id, index) {
       this.showAlertBox = true;
-      this.$store.commit("REMOVE_PRODUCT", { id, index });
+      if (this.confirmAlert == true) {
+      this.$store.commit("REMOVE_PRODUCT", { id, index })
+      }
+      console.log(id)
     },
     openAddingProduct() {
       this.isWidth = 100;
