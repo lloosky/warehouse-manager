@@ -12,7 +12,7 @@
               v-for="product in products"
               v-bind:value="product.title"
               :key="product.id"
-            >{{product.title}} {{product.price}}</option>
+            >{{product.title}}</option>
           </select>
           <input type="text" style="width:50%" v-model="orderedQuantity" />
           <label for style="width:50%">Obsługa:</label>
@@ -62,7 +62,8 @@ export default {
     return {
       show: false,
       customerName: "",
-      orderedProducts: "",
+      orderedProducts: "",  
+      orderedProductsPrice: "",
       orderedQuantity: "",
       whoServes: "",
       data: ""
@@ -83,6 +84,7 @@ export default {
           {
             name: this.customerName,
             orderedProducts: this.orderedProducts,
+            orderedProductsPrice: this.orderedProductsPrice,
             orderedQuantity: this.orderedQuantity,
             serves: this.whoServes,
             data: this.getOrderDate
@@ -96,6 +98,7 @@ export default {
           this.orders.push({
             name: this.customerName,
             orderedProducts: this.orderedProducts,
+            orderedProductsPrice: this.orderedProductsPrice,
             orderedQuantity: this.orderedQuantity,
             serves: this.whoServes,
             data: this.getOrderDate
