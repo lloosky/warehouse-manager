@@ -3,7 +3,7 @@
     <div class="login-container">
       <img src="/img/logo.png" alt="logo" class="logo-login" />
       <form action>
-        <label for>Użytkownik:</label>
+        <label for>Użytkownikkk:</label>
         <input type="text" v-model="username" />
 
         <label for>Hasło:</label>
