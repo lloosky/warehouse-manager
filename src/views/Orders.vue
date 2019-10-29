@@ -20,7 +20,6 @@
               :key="product.id"
             >{{product.title}}</option>
           </select>
-          <span :value="score[0].result">{{score[0].result}}</span>
           <input
             type="text"
             style="width:50%"
@@ -79,15 +78,13 @@ export default {
       orderValue: "",
       whoServes: "",
       data: "",
-      selected: "",
-      score: [{ result: "" }]
+      selected: ""
     };
   },
   methods: {
     worthOfOrder(orderedProducts) {
-      this.score = [];
       const result = orderedProducts.price * this.orderedQuantity;
-      this.score.push({ result });
+      this.orderValue = result
     },
     addOrder() {
       let txt = localStorage.getItem("authResponse");
@@ -100,7 +97,7 @@ export default {
           {
             name: this.customerName,
             orderedProducts: this.orderedProducts,
-            orderedProductsValue: this.score[0].result,
+            orderedProductsValue: this.orderValue,
             orderedQuantity: this.orderedQuantity,
             serves: this.whoServes,
             data: this.getOrderDate
@@ -114,7 +111,7 @@ export default {
           this.orders.push({
             name: this.customerName,
             orderedProducts: this.orderedProducts,
-            orderedProductsValue: this.score[0].result,
+            orderedProductsValue: this.orderValue,
             orderedQuantity: this.orderedQuantity,
             serves: this.whoServes,
             data: this.getOrderDate
