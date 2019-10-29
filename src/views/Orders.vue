@@ -65,6 +65,7 @@
 </template>
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
+import moment from 'moment'
 
 export default {
   name: "orders",
@@ -147,10 +148,9 @@ return new Intl.NumberFormat("pl-PLN", {
       return this.$store.state.staff;
     },
     getOrderDate() {
-      const date = new Date();
-      return (
-        date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
-      );
+      moment.locale("pl"); 
+      const date = moment().format('ll');
+      return date;
     }
   }
 };
