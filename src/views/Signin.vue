@@ -3,10 +3,10 @@
     <div class="login-container">
       <img src="/img/logo.png" alt="logo" class="logo-login" />
       <form action>
-        <label for>Użytkownikkkk:</label>
+        <label for>Użytkownik:</label>
         <input type="text" v-model="username" />
 
-        <label for>Hasło:</label>
+        <label for>Hasłoo:</label>
         <input type="password" v-model="password" />
       </form>
       <button class="submit-button" @click="login">zaloguj</button>
