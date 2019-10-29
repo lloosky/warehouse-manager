@@ -5,10 +5,8 @@
         <form action>
           <label for>Imię i nazwisko:</label>
           <input type="text" v-model="customerName" />
-          <label for style="width:50%">Produkt:</label>
-          <label for style="width:50%">Ilość:</label>
+          <label>Produkt:</label>
           <select
-            style="width:50%;height: 20px;"
             id="productList"
             v-model="orderedProducts"
             @change="worthOfOrder(orderedProducts)"
@@ -20,15 +18,15 @@
               :key="product.id"
             >{{product.title}}</option>
           </select>
-          <input
-            type="text"
-            style="width:50%"
-            v-model="orderedQuantity"
-            @change="worthOfOrder(orderedProducts)"
-          />
-          <label for style="width:50%">Obsługa:</label>
-          <select style="width:50%;height: 20px;" v-model="whoServes">
-            <option v-for="serve in staff" v-bind:value="serve.worker" :key="serve.id">{{ serve.worker }}</option>
+          <label>Ilość:</label>
+          <input type="number" v-model="orderedQuantity" @change="worthOfOrder(orderedProducts)" />
+          <label>Obsługa:</label>
+          <select v-model="whoServes">
+            <option
+              v-for="serve in staff"
+              v-bind:value="serve.worker"
+              :key="serve.id"
+            >{{ serve.worker }}</option>
           </select>
         </form>
         <div class="btn-container">
@@ -65,7 +63,8 @@
 </template>
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
-import moment from 'moment'
+import moment from "moment";
+moment.locale("pl");
 
 export default {
   name: "orders",
@@ -83,15 +82,15 @@ export default {
     };
   },
   methods: {
-    showCurrency(orderedProductsValue){
-return new Intl.NumberFormat("pl-PLN", {
+    showCurrency(orderedProductsValue) {
+      return new Intl.NumberFormat("pl-PLN", {
         style: "currency",
         currency: "PLN"
       }).format(orderedProductsValue);
     },
     worthOfOrder(orderedProducts) {
       const result = orderedProducts.price * this.orderedQuantity;
-      this.orderValue = result
+      this.orderValue = result;
     },
     addOrder() {
       let txt = localStorage.getItem("authResponse");
@@ -148,9 +147,7 @@ return new Intl.NumberFormat("pl-PLN", {
       return this.$store.state.staff;
     },
     getOrderDate() {
-      moment.locale("pl"); 
-      const date = moment().format('ll');
-      return date;
+      return moment().format("ll");
     }
   }
 };
