@@ -90,6 +90,7 @@ export default {
       this.$store.commit("REMOVE_PRODUCT", { id, index })
       console.log(`Produkt o id ${id} został usunięty pomyślnie`)
       this.showConfirmBox = false
+      this.productInfo = []
     },
     declineAlert() {
       this.productInfo = []
@@ -151,6 +152,7 @@ export default {
           });
         this.isWidth = 0;
         this.showModal = false;
+        this.$store.commit("GET_PRODUCTLIST");
       }
     },
     clearInputs() {
