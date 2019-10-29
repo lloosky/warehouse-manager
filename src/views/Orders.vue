@@ -54,11 +54,11 @@
       <span>{{index+1}}</span>
       <span>N-SR-{{order.id}}</span>
       <span>{{order.name}}</span>
-      <span>{{order.orderedProductsValue}}</span>
-      <span>{{order.serves}}</span>
+      <span>{{showCurrency(order.orderedProductsValue)}}</span>
+      <span>{{order.employee}}</span>
       <span>{{order.data}}</span>
       <span>
-        <button>usuń</button>
+        <button>pokaż</button>
       </span>
     </div>
   </div>
@@ -82,6 +82,12 @@ export default {
     };
   },
   methods: {
+    showCurrency(orderedProductsValue){
+return new Intl.NumberFormat("pl-PLN", {
+        style: "currency",
+        currency: "PLN"
+      }).format(orderedProductsValue);
+    },
     worthOfOrder(orderedProducts) {
       const result = orderedProducts.price * this.orderedQuantity;
       this.orderValue = result
@@ -152,6 +158,6 @@ export default {
 <style scoped>
 .table-header,
 .table-row {
-  grid-template-columns: 5% 20% 30% 15% 10% 15% 5%;
+  grid-template-columns: 5% 20% 20% 20% 15% 13% 7%;
 }
 </style>
