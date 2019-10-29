@@ -20,23 +20,4 @@ export default {
 </script>
 <style>
 @import './assets/css/style.css';
-
-* {
-  font-family: AvantGarde Bk BT;
-  box-sizing: border-box;
-}
-body {
-  color: #e18500;
-  background: linear-gradient(
-      to left,
-      rgba(65, 65, 65, 0.79),
-      rgba(65, 65, 65, 0.79)
-    ),
-    url("/img/background.jpg");
-  height: 100vh;
-  background-repeat: no-repeat;
-}
-h2 {
-  margin-bottom: 0;
-}
 </style>
