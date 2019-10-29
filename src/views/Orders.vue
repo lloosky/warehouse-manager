@@ -7,19 +7,29 @@
           <input type="text" v-model="customerName" />
           <label for style="width:50%">Produkt:</label>
           <label for style="width:50%">Ilość:</label>
-          <select style="width:50%;height: 20px;" id="productList" v-model="orderedProducts" @change="worthOfOrder(orderedProducts)">
-            <option value="">Wybierz</option>
+          <select
+            style="width:50%;height: 20px;"
+            id="productList"
+            v-model="orderedProducts"
+            @change="worthOfOrder(orderedProducts)"
+          >
+            <option value>Wybierz</option>
             <option
               v-bind:value="product"
-              v-for="(product, id) in products"
+              v-for="product in products"
               :key="product.id"
-            >{{product.title}} </option>
+            >{{product.title}}</option>
           </select>
-          <span v-model="orderValue" :value="score[0].result">{{score[0].result}}</span>
-          <input type="text" style="width:50%" v-model="orderedQuantity"  @change="worthOfOrder(orderedProducts)"/>
+          <span :value="score[0].result">{{score[0].result}}</span>
+          <input
+            type="text"
+            style="width:50%"
+            v-model="orderedQuantity"
+            @change="worthOfOrder(orderedProducts)"
+          />
           <label for style="width:50%">Obsługa:</label>
           <select style="width:50%;height: 20px;" v-model="whoServes">
-            <option v-for="serve in staff" v-bind:value="serve.worker">{{ serve.worker }}</option>
+            <option v-for="serve in staff" v-bind:value="serve.worker" :key="serve.id">{{ serve.worker }}</option>
           </select>
         </form>
         <div class="btn-container">
@@ -63,24 +73,21 @@ export default {
     return {
       show: false,
       customerName: "",
-      orderedProducts: "",  
+      orderedProducts: "",
       orderedProductsPrice: "",
       orderedQuantity: "",
       orderValue: "",
       whoServes: "",
       data: "",
       selected: "",
-      score: [{result: ""}]
+      score: [{ result: "" }]
     };
   },
   methods: {
     worthOfOrder(orderedProducts) {
-      this.score = []
-      const result = orderedProducts.price * this.orderedQuantity
-      console.log(result)
-      this.score.push({result})
-      // this.score.push({price: price})
-      // this.sc()
+      this.score = [];
+      const result = orderedProducts.price * this.orderedQuantity;
+      this.score.push({ result });
     },
     addOrder() {
       let txt = localStorage.getItem("authResponse");
@@ -123,7 +130,6 @@ export default {
     }
   },
   created() {
-    console.log(this.orders)
     this.$store.commit("GET_ORDERLIST");
     this.$store.commit("GET_PRODUCTLIST");
   },
@@ -139,7 +145,9 @@ export default {
     },
     getOrderDate() {
       const date = new Date();
-      return ((date.getDate()) + "/" + (date.getMonth() +1) + "/" + (date.getFullYear()))
+      return (
+        date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+      );
     }
   }
 };
