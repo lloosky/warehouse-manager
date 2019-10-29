@@ -7,19 +7,20 @@
           <input type="text" v-model="customerName" />
           <label for style="width:50%">Produkt:</label>
           <label for style="width:50%">Ilość:</label>
-          <select style="width:50%;height: 20px;" id="productList" v-model="orderedProducts">
+          <select style="width:50%;height: 20px;" id="productList" v-model="orderedProducts" @change="worthOfOrder(orderedProducts)">
+            <option value="">Wybierz</option>
             <option
-              v-for="product in products"
-              v-bind:value="product.title"
+              v-bind:value="product"
+              v-for="(product, id) in products"
               :key="product.id"
-            >{{product.title}}</option>
+            >{{product.title}} </option>
           </select>
-          <input type="text" style="width:50%" v-model="orderedQuantity" />
+          <span v-model="orderValue" :value="score[0].result">{{score[0].result}}</span>
+          <input type="text" style="width:50%" v-model="orderedQuantity"  @change="worthOfOrder(orderedProducts)"/>
           <label for style="width:50%">Obsługa:</label>
           <select style="width:50%;height: 20px;" v-model="whoServes">
             <option v-for="serve in staff" v-bind:value="serve.worker">{{ serve.worker }}</option>
           </select>
-          <!-- <p>{{getOrderDate}}</p> -->
         </form>
         <div class="btn-container">
           <button @click="addOrder">dodaj zamówienie</button>
@@ -44,11 +45,11 @@
       <span>{{index+1}}</span>
       <span>N-SR-{{order.id}}</span>
       <span>{{order.name}}</span>
-      <span>{{order.orderedQuantity}}</span>
+      <span>{{order.orderedProductsValue}}</span>
       <span>{{order.serves}}</span>
       <span>{{order.data}}</span>
       <span>
-        <button @click="test(index)">usuń</button>
+        <button>usuń</button>
       </span>
     </div>
   </div>
@@ -65,13 +66,21 @@ export default {
       orderedProducts: "",  
       orderedProductsPrice: "",
       orderedQuantity: "",
+      orderValue: "",
       whoServes: "",
-      data: ""
+      data: "",
+      selected: "",
+      score: [{result: ""}]
     };
   },
   methods: {
-    test(index) {
-      console.log(this.orders[index]);
+    worthOfOrder(orderedProducts) {
+      this.score = []
+      const result = orderedProducts.price * this.orderedQuantity
+      console.log(result)
+      this.score.push({result})
+      // this.score.push({price: price})
+      // this.sc()
     },
     addOrder() {
       let txt = localStorage.getItem("authResponse");
@@ -84,7 +93,7 @@ export default {
           {
             name: this.customerName,
             orderedProducts: this.orderedProducts,
-            orderedProductsPrice: this.orderedProductsPrice,
+            orderedProductsValue: this.score[0].result,
             orderedQuantity: this.orderedQuantity,
             serves: this.whoServes,
             data: this.getOrderDate
@@ -98,7 +107,7 @@ export default {
           this.orders.push({
             name: this.customerName,
             orderedProducts: this.orderedProducts,
-            orderedProductsPrice: this.orderedProductsPrice,
+            orderedProductsValue: this.score[0].result,
             orderedQuantity: this.orderedQuantity,
             serves: this.whoServes,
             data: this.getOrderDate
@@ -110,11 +119,11 @@ export default {
       this.isWidth = 0;
       this.show = false;
       this.$store.commit("GET_ORDERLIST");
-
       console.log(this.orders);
     }
   },
   created() {
+    console.log(this.orders)
     this.$store.commit("GET_ORDERLIST");
     this.$store.commit("GET_PRODUCTLIST");
   },
@@ -128,14 +137,9 @@ export default {
     staff() {
       return this.$store.state.staff;
     },
-    worthOfOrder() {
-      this.worthResult = 0;
-      const productPrice = document.getElementById("productList").value;
-      console.log((this.worthResult += productPrice * this.orderedQuantity));
-    },
     getOrderDate() {
       const date = new Date();
-      return ((date.getMonth() + 1) + "/" + (date.getDate()) + "/" + (date.getFullYear()))
+      return ((date.getDate()) + "/" + (date.getMonth() +1) + "/" + (date.getFullYear()))
     }
   }
 };
