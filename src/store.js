@@ -66,6 +66,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    AUTO_LOGOUT({ commit }, expiresTime) {
+      setTimeout(() => {
+        commit('LOGOUT');
+      }, expiresTime * 1000);
+    }
   },
   getters: {}
 });
