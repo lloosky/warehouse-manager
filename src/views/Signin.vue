@@ -37,6 +37,7 @@ export default {
           authResponse => {
             console.log(authResponse);
             if (authResponse.status === 201) {
+              console.log(authResponse.body.expiresIn)
               this.userToken = window.btoa(authResponse.body.token);
               localStorage.setItem(
                 'authResponse',
