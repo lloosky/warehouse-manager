@@ -65,6 +65,7 @@ export default new Vuex.Store({
       router.push({ path: '/' });
     }
   },
-  actions: {},
+  actions: {
+  },
   getters: {}
 });
