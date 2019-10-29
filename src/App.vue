@@ -19,6 +19,8 @@ export default {
 }
 </script>
 <style>
+@import './assets/css/style.css';
+
 * {
   font-family: AvantGarde Bk BT;
   box-sizing: border-box;
