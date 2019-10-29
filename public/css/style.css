@@ -1,5 +1,5 @@
 * {
-  font-family: AvantGarde Bk BT;
+  font-family: 'Fira Sans Extra Condensed', sans-serif;
   box-sizing: border-box;
 }
 body {
@@ -89,7 +89,6 @@ select {
   display: grid;
   grid-template-columns: 5% 45% 15% 15% 15% 5%;
   align-content: center;
-  font-weight: 800;
   transition: 0.3s all;
 }
 .table-row:nth-child(even) {
