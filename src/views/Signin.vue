@@ -17,7 +17,7 @@
 const API_HOST = process.env.VUE_APP_API_HOST;
 
 export default {
-  name: 'login',
+  name: "login",
   data() {
     return {
       username: this.$store.state.username,
@@ -37,21 +37,24 @@ export default {
           authResponse => {
             console.log(authResponse);
             if (authResponse.status === 201) {
-              console.log(`Zostaniesz wylogowany za ${authResponse.body.expiresIn/10} min`)
+              console.log(
+                `Zostaniesz wylogowany za ${authResponse.body.expiresIn /
+                  10} min`
+              );
               this.userToken = window.btoa(authResponse.body.token);
               localStorage.setItem(
-                'authResponse',
+                "authResponse",
                 JSON.stringify(authResponse)
               );
-              this.$router.push({ path: '/dashboard' });
-              this.$store.dispatch("AUTO_LOGOUT", authResponse.body.expiresIn )
+              this.$router.push({ path: "/dashboard" });
+              this.$store.dispatch("AUTO_LOGOUT", authResponse.body.expiresIn);
             }
           },
           authResponse => {
             if (authResponse.status === 401) {
-              console.log('invalid credentials');
+              console.log("invalid credentials");
             } else {
-              console.log('login error');
+              console.log("login error");
             }
           }
         );
