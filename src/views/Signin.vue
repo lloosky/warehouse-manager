@@ -44,6 +44,7 @@ export default {
                 JSON.stringify(authResponse)
               );
               this.$router.push({ path: '/dashboard' });
+              this.$store.dispatch("AUTO_LOGOUT", authResponse.body.expiresIn )
             }
           },
           authResponse => {
