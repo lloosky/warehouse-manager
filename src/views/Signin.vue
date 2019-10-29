@@ -6,7 +6,7 @@
         <label for>Użytkownik:</label>
         <input type="text" v-model="username" />
 
-        <label for>Hasło1:</label>
+        <label for>Hasło:</label>
         <input type="password" v-model="password" />
       </form>
       <button class="submit-button" @click="login">zaloguj</button>
