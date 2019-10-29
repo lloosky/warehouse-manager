@@ -37,7 +37,7 @@ export default {
           authResponse => {
             console.log(authResponse);
             if (authResponse.status === 201) {
-              console.log(authResponse.body.expiresIn)
+              console.log("Zostaniesz wylogowany za" + " " + (authResponse.body.expiresIn/10) + " " + "min")
               this.userToken = window.btoa(authResponse.body.token);
               localStorage.setItem(
                 'authResponse',
