@@ -49,3 +49,31 @@ select {
 .component-navigation > .btn-container {
     justify-self: end;
 }
+.component-navigation {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-bottom: 20px;
+}
+.table-header {
+  padding: 5px;
+  background: #6d6d6d;
+  border: 1px solid #e18500;
+  display: grid;
+  grid-template-columns: 5% 45% 15% 15% 15% 5%;
+  align-content: center;
+  margin-bottom: 20px;
+}
+.table-row {
+  border: none;
+  padding: 5px;
+  background: #c2c2c2;
+  color: black !important;
+  display: grid;
+  grid-template-columns: 5% 45% 15% 15% 15% 5%;
+  align-content: center;
+  font-weight: 800;
+  transition: 0.3s all;
+}
+.table-row:nth-child(even) {
+  background-color: #d2d2d2;
+}

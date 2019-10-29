@@ -5,15 +5,28 @@
         <form action>
           <label for>Imię i nazwisko:</label>
           <input type="text" v-model="customerName" />
-          <label for style="width:50%">Produkt:</label>
-          <label for style="width:50%">Ilość:</label>
-          <select style="width:50%;height: 20px;" id="productList" v-model="orderedProducts">
-            <option v-for="product in products" v-bind:value="product.title">{{product.title }}</option>
+          <label>Produkt:</label>
+          <select
+            id="productList"
+            v-model="orderedProducts"
+            @change="worthOfOrder(orderedProducts)"
+          >
+            <option value>Wybierz</option>
+            <option
+              v-bind:value="product"
+              v-for="product in products"
+              :key="product.id"
+            >{{product.title}}</option>
           </select>
-          <input type="text" style="width:50%" v-model="orderedQuantity" />
-          <label for style="width:50%">Obsługa:</label>
-          <select style="width:50%;height: 20px;" id="productList" v-model="whoServes">
-            <option v-for="serve in staff" v-bind:value="serve.worker">{{ serve.worker }}</option>
+          <label>Ilość:</label>
+          <input type="number" v-model="orderedQuantity" @change="worthOfOrder(orderedProducts)" />
+          <label>Obsługa:</label>
+          <select v-model="whoServes">
+            <option
+              v-for="serve in staff"
+              v-bind:value="serve.worker"
+              :key="serve.id"
+            >{{ serve.worker }}</option>
           </select>
         </form>
         <div class="btn-container">
@@ -24,18 +37,34 @@
     <div class="component-navigation">
       <h2>Zamówienia</h2>
       <div class="btn-container">
-        <button class="confirm-btn" @click="show=true">dodaj zamówienie</button>
+        <button class="accept-btn" @click="show=true">dodaj zamówienie</button>
       </div>
     </div>
-    <div v-for="(order, index) in orders">
-  <p style="width:100%">{{order.name}} {{order.orderedProducts}} {{order.orderedQuantity}}/ Obsługa : {{order.serves}}/ Zamowienie nr: #{{order.id}}  </p>
-
+    <div class="table-header">
+      <span>Lp.</span>
+      <span>Numer zamówienia</span>
+      <span>Imię i Nazwisko</span>
+      <span>Wartość</span>
+      <span>Obsługa</span>
+      <span>Data utworzenia</span>
     </div>
-    
+    <div class="table-row" v-for="(order, index) in orders " :key="index">
+      <span>{{index+1}}</span>
+      <span>N-SR-{{order.id}}</span>
+      <span>{{order.name}}</span>
+      <span>{{showCurrency(order.orderedProductsValue)}}</span>
+      <span>{{order.employee}}</span>
+      <span>{{order.data}}</span>
+      <span>
+        <button>pokaż</button>
+      </span>
+    </div>
   </div>
 </template>
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
+import moment from "moment";
+moment.locale("pl");
 
 export default {
   name: "orders",
@@ -44,11 +73,25 @@ export default {
       show: false,
       customerName: "",
       orderedProducts: "",
+      orderedProductsPrice: "",
       orderedQuantity: "",
+      orderValue: "",
       whoServes: "",
+      data: "",
+      selected: ""
     };
   },
   methods: {
+    showCurrency(orderedProductsValue) {
+      return new Intl.NumberFormat("pl-PLN", {
+        style: "currency",
+        currency: "PLN"
+      }).format(orderedProductsValue);
+    },
+    worthOfOrder(orderedProducts) {
+      const result = orderedProducts.price * this.orderedQuantity;
+      this.orderValue = result;
+    },
     addOrder() {
       let txt = localStorage.getItem("authResponse");
       let obj = JSON.parse(txt);
@@ -60,8 +103,10 @@ export default {
           {
             name: this.customerName,
             orderedProducts: this.orderedProducts,
+            orderedProductsValue: this.orderValue,
             orderedQuantity: this.orderedQuantity,
-            serves: this.whoServes
+            employee: this.whoServes,
+            data: this.getOrderDate
           },
           {
             headers: { Authorization: `Bearer ${this.userToken}` }
@@ -72,8 +117,10 @@ export default {
           this.orders.push({
             name: this.customerName,
             orderedProducts: this.orderedProducts,
+            orderedProductsValue: this.orderValue,
             orderedQuantity: this.orderedQuantity,
-            serves: this.whoServes
+            employee: this.whoServes,
+            data: this.getOrderDate
           });
         })
         .catch(() => {
@@ -81,6 +128,7 @@ export default {
         });
       this.isWidth = 0;
       this.show = false;
+      this.$store.commit("GET_ORDERLIST");
       console.log(this.orders);
     }
   },
@@ -98,13 +146,15 @@ export default {
     staff() {
       return this.$store.state.staff;
     },
-    worthOfOrder() {
-      this.worthResult = 0;
-      const productPrice = document.getElementById("productList").value;
-      return (this.worthResult += productPrice * this.orderedQuantity);
+    getOrderDate() {
+      return moment().format("ll");
     }
   }
 };
 </script>
-<style>
+<style scoped>
+.table-header,
+.table-row {
+  grid-template-columns: 5% 20% 20% 20% 15% 13% 7%;
+}
 </style>
