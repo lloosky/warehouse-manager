@@ -99,7 +99,7 @@ export default {
             orderedProducts: this.orderedProducts,
             orderedProductsValue: this.orderValue,
             orderedQuantity: this.orderedQuantity,
-            serves: this.whoServes,
+            employee: this.whoServes,
             data: this.getOrderDate
           },
           {
@@ -113,7 +113,7 @@ export default {
             orderedProducts: this.orderedProducts,
             orderedProductsValue: this.orderValue,
             orderedQuantity: this.orderedQuantity,
-            serves: this.whoServes,
+            employee: this.whoServes,
             data: this.getOrderDate
           });
         })
