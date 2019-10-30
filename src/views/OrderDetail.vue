@@ -4,7 +4,7 @@
       <h2>Zamówienie N-SR-{{id}}</h2>
       <div class="btn-container">
         <router-link to="/orders">
-          <button class="accept-btn">powrót</button>
+          <button class="accept-btn" @click="close">x</button>
         </router-link>
       </div>
     </div>
@@ -30,6 +30,7 @@ export default {
     return {};
   },
   methods: {
+      close() {this.$store.state.widthOfOrderDetail = 0},
     orderedProductsDetail(id) {
       return (
         this.orders[id - 1].orderedProducts.title +
@@ -59,5 +60,9 @@ export default {
 span {
     background-color: rgba(255, 255, 255, 0.418);
     color: black;
+}
+.btn-container {
+    align-self: center;
+    justify-self: center;
 }
 </style>

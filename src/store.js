@@ -18,7 +18,8 @@ export default new Vuex.Store({
       { worker: 'Worker #1' },
       { worker: 'Worker #2' },
       { worker: 'Worker #3' }
-    ]
+    ],
+    widthOfOrderDetail: 0
   },
   mutations: {
     GET_PRODUCTLIST(state) {

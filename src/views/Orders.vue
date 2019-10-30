@@ -61,7 +61,9 @@
         </router-link>
       </span>
     </div>
-    <router-view></router-view>
+    <div class="order-details" :style="{width: this.$store.state.widthOfOrderDetail + '%'}">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 <script>
@@ -86,6 +88,7 @@ export default {
   },
   methods: {
     showOrderDetail(id) {
+      this.$store.state.widthOfOrderDetail = 100;
       console.log(this.orders[id - 1]);
     },
     showCurrency(orderedProductsValue) {
@@ -162,5 +165,16 @@ export default {
 .table-header,
 .table-row {
   grid-template-columns: 5% 20% 20% 20% 15% 13% 7%;
+}
+.order-details {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: #fffffff2;
+  transition: 0.2s all;
+  display: grid;
+  align-items: center;
+  justify-content: center;
 }
 </style>
