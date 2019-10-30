@@ -9,7 +9,7 @@ export default [
     children: [
       {
         name: 'order-detail',
-        path: 'order-detail/:id',
+        path: ':id',
         props: true,
         component: OrderDetail,
         meta: { hideNavigation: true },

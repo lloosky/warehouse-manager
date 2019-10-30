@@ -56,7 +56,7 @@
       <span>{{order.employee}}</span>
       <span>{{order.data}}</span>
       <span>
-        <router-link :to="`orders/order-detail/${order.id}`">
+        <router-link :to="`orders/${order.id}`">
           <button @click="showOrderDetail(order.id)">Otwórz</button>
         </router-link>
       </span>
