@@ -56,7 +56,7 @@
       <span>{{order.employee}}</span>
       <span>{{order.data}}</span>
       <span>
-        <button>pokaż</button>
+        <button @click="showOrder(order.id)">Otwórz</button>
       </span>
     </div>
   </div>
