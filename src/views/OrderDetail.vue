@@ -1,6 +1,21 @@
 <template>
   <div class="view-container">
-      <h4>{{orders[id-1].name}}</h4>
+    <div class="component-navigation">
+      <h2>Zamówienie N-SR-{{id}}</h2>
+      <div class="btn-container">
+        <router-link to="/orders">
+          <button class="accept-btn">powrót</button>
+        </router-link>
+      </div>
+    </div>
+    <span>Data:</span>
+    <p>{{orders[id-1].data}}</p>
+    <span>Zamówiony towar:</span>
+    <p>{{orderedProductsDetail(id)}}</p>
+    <span>Obsługa:</span>
+    <p>{{orders[id-1].employee}}</p>
+    <span>Dane osoby zamawiającej:</span>
+    <p>{{orders[id-1].name}}</p>
   </div>
 </template>
 <script>
@@ -12,10 +27,24 @@ export default {
   name: "orderDetail",
   props: ["id"],
   data() {
-    return {
-    };
+    return {};
   },
-  methods: {},
+  methods: {
+    orderedProductsDetail(id) {
+      return (
+        this.orders[id - 1].orderedProducts.title +
+        " " +
+        this.orders[id - 1].orderedQuantity +
+        " " +
+        this.orders[id - 1].orderedProducts.unit +
+        " - " +
+        new Intl.NumberFormat("pl-PLN", {
+          style: "currency",
+          currency: "PLN"
+        }).format(this.orders[id - 1].orderedProductsValue)
+      );
+    }
+  },
   created() {
     this.$store.commit("GET_ORDERLIST");
   },
@@ -27,5 +56,8 @@ export default {
 };
 </script>
 <style scoped>
-
+span {
+    background-color: rgba(255, 255, 255, 0.418);
+    color: black;
+}
 </style>
