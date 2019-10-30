@@ -24,7 +24,7 @@ import moment from "moment";
 moment.locale("pl");
 
 export default {
-  name: "orderDetail",
+  name: "order-detail",
   props: ["id"],
   data() {
     return {};

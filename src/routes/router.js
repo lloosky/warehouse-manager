@@ -7,7 +7,7 @@ import tasks from './tasks';
 import warehouse from './warehouse';
 import calculator from './calculator';
 import orders from './orders';
-import orderDetail from './orderDetail';
+// import orderDetail from './orderDetail';
 import dashboard from './dashboard';
 
 Vue.use(Router);
@@ -23,7 +23,7 @@ const routes = [
   ...warehouse,
   ...calculator,
   ...orders,
-  ...orderDetail,
+  // ...orderDetail,
   ...dashboard
 ];
 
