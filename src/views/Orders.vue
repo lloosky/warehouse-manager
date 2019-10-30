@@ -57,7 +57,7 @@
       <span>{{order.data}}</span>
       <span>
         <router-link :to="`orders/order-detail/${order.id}`">
-        <button @click="showOrderDetail(order.id)">Otwórz</button>
+          <button @click="showOrderDetail(order.id)">Otwórz</button>
         </router-link>
       </span>
     </div>
@@ -87,7 +87,6 @@ export default {
   methods: {
     showOrderDetail(id) {
       console.log(this.orders[id - 1]);
-      // this.$router.push({ name: "order-detail", path: `/orders/order-detail/${id}`, params: {id : id} })
     },
     showCurrency(orderedProductsValue) {
       return new Intl.NumberFormat("pl-PLN", {
