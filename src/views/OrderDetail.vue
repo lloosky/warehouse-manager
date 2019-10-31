@@ -20,6 +20,8 @@
 </template>
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
+import { showCurrency } from '../utils/showCurrency.js'
+
 import moment from "moment";
 moment.locale("pl");
 
@@ -30,7 +32,9 @@ export default {
     return {};
   },
   methods: {
-      close() {this.$store.state.widthOfOrderDetail = 0},
+    close() {
+      this.$store.state.widthOfOrderDetail = 0;
+    },
     orderedProductsDetail(id) {
       return (
         this.orders[id - 1].orderedProducts.title +
@@ -58,11 +62,11 @@ export default {
 </script>
 <style scoped>
 span {
-    background-color: rgba(255, 255, 255, 0.418);
-    color: black;
+  background-color: rgba(255, 255, 255, 0.418);
+  color: black;
 }
 .btn-container {
-    align-self: center;
-    justify-self: center;
+  align-self: center;
+  justify-self: center;
 }
 </style>

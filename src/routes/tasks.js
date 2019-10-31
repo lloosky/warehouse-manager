@@ -1,21 +1,12 @@
 import Tasks from '../views/Tasks.vue';
+import { beforeEnter } from '../utils/beforeEnter.js';
 
 export default [
   {
     path: '/tasks',
     name: 'tasks',
     component: Tasks,
-    beforeEnter(to, from, next) {
-      let storageToken = localStorage.getItem('authResponse');
-
-      if (storageToken) {
-        next();
-        console.log('success');
-      } else {
-        next('/');
-        console.log('error');
-      }
-    },
+    beforeEnter: beforeEnter,
     meta: { hideNavigation: true }
   }
 ];

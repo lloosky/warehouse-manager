@@ -1,10 +1,10 @@
 import Orders from '../views/Orders.vue';
 import OrderDetail from '../views/OrderDetail.vue';
+import { beforeEnter } from '../utils/beforeEnter.js';
 
 export default [
   {
     path: '/orders',
-    // name: 'orders',
     component: Orders,
     children: [
       {
@@ -13,30 +13,10 @@ export default [
         props: true,
         component: OrderDetail,
         meta: { hideNavigation: true },
-        beforeEnter(to, from, next) {
-          let storageToken = localStorage.getItem('authResponse');
-
-          if (storageToken) {
-            next();
-            console.log('success');
-          } else {
-            next('/');
-            console.log('error');
-          }
-        }
+        beforeEnter: beforeEnter
       }
     ],
-    beforeEnter(to, from, next) {
-      let storageToken = localStorage.getItem('authResponse');
-
-      if (storageToken) {
-        next();
-        console.log('success');
-      } else {
-        next('/');
-        console.log('error');
-      }
-    },
+    beforeEnter: beforeEnter,
     meta: { hideNavigation: true }
   }
 ];

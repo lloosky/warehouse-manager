@@ -60,6 +60,8 @@
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
 import ConfirmBox from "./../components/ConfirmBox.vue";
+import { showCurrnecy } from "../utils/showCurrency.js";
+
 
 export default {
   name: "warehouse",
@@ -96,12 +98,6 @@ export default {
       this.productInfo = []
       this.showConfirmBox = false;
       console.log("Anulowałeś usuwanie produktu")
-    },
-    showCurrency(price) {
-      return new Intl.NumberFormat("pl-PLN", {
-        style: "currency",
-        currency: "PLN"
-      }).format(price);
     },
     openAddingProduct() {
       this.isWidth = 100;

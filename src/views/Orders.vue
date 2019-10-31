@@ -52,7 +52,7 @@
       <span>{{index+1}}</span>
       <span>N-SR-{{order.id}}</span>
       <span>{{order.name}}</span>
-      <span>{{showCurrency(order.orderedProductsValue)}}</span>
+      <span>{{showCurrnecy(order.orderedProductsValue)}}</span>
       <span>{{order.employee}}</span>
       <span>{{order.data}}</span>
       <span>
@@ -63,11 +63,13 @@
     </div>
     <div class="order-details" :style="{width: this.$store.state.widthOfOrderDetail + '%'}">
       <router-view></router-view>
+      <router-view name="helper"></router-view>
     </div>
   </div>
 </template>
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
+import { showCurrnecy } from "../utils/showCurrency.js";
 import moment from "moment";
 moment.locale("pl");
 
@@ -87,15 +89,10 @@ export default {
     };
   },
   methods: {
+    showCurrnecy,
     showOrderDetail(id) {
       this.$store.state.widthOfOrderDetail = 100;
       console.log(this.orders[id - 1]);
-    },
-    showCurrency(orderedProductsValue) {
-      return new Intl.NumberFormat("pl-PLN", {
-        style: "currency",
-        currency: "PLN"
-      }).format(orderedProductsValue);
     },
     worthOfOrder(orderedProducts) {
       const result = orderedProducts.price * this.orderedQuantity;
