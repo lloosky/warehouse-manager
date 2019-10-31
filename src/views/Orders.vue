@@ -52,17 +52,23 @@
       <span>{{index+1}}</span>
       <span>N-SR-{{order.id}}</span>
       <span>{{order.name}}</span>
-      <span>{{showCurrency(order.orderedProductsValue)}}</span>
+      <span>{{showCurrnecy(order.orderedProductsValue)}}</span>
       <span>{{order.employee}}</span>
       <span>{{order.data}}</span>
       <span>
-        <button>pokaż</button>
+        <router-link :to="`orders/${order.id}`">
+          <button @click="showOrderDetail(order.id)">Otwórz</button>
+        </router-link>
       </span>
+    </div>
+    <div class="order-details" :style="{width: this.$store.state.widthOfOrderDetail + '%'}">
+      <router-view></router-view>
     </div>
   </div>
 </template>
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
+import showCurrnecy from "../utils/showCurrency.js";
 import moment from "moment";
 moment.locale("pl");
 
@@ -82,11 +88,10 @@ export default {
     };
   },
   methods: {
-    showCurrency(orderedProductsValue) {
-      return new Intl.NumberFormat("pl-PLN", {
-        style: "currency",
-        currency: "PLN"
-      }).format(orderedProductsValue);
+    showCurrnecy,
+    showOrderDetail(id) {
+      this.$store.state.widthOfOrderDetail = 100;
+      console.log(this.orders[id - 1]);
     },
     worthOfOrder(orderedProducts) {
       const result = orderedProducts.price * this.orderedQuantity;
@@ -156,5 +161,16 @@ export default {
 .table-header,
 .table-row {
   grid-template-columns: 5% 20% 20% 20% 15% 13% 7%;
+}
+.order-details {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: #fffffff2;
+  transition: 0.2s all;
+  display: grid;
+  align-items: center;
+  justify-content: center;
 }
 </style>

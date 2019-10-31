@@ -1,21 +1,22 @@
 import Orders from '../views/Orders.vue';
+import OrderDetail from '../views/OrderDetail.vue';
+import { beforeEnter } from '../utils/beforeEnter.js';
 
 export default [
   {
     path: '/orders',
-    name: 'orders',
     component: Orders,
-    beforeEnter(to, from, next) {
-      let storageToken = localStorage.getItem('authResponse');
-
-      if (storageToken) {
-        next();
-        console.log('success');
-      } else {
-        next('/');
-        console.log('error');
+    children: [
+      {
+        name: 'order-detail',
+        path: ':id',
+        props: true,
+        component: OrderDetail,
+        meta: { hideNavigation: true },
+        beforeEnter
       }
-    },
+    ],
+    beforeEnter: beforeEnter,
     meta: { hideNavigation: true }
   }
 ];

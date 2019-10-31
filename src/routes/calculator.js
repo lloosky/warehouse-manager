@@ -1,21 +1,12 @@
 import Calculator from '../views/Calculator.vue';
+import { beforeEnter } from '../utils/beforeEnter.js';
 
 export default [
   {
     path: '/calculator',
     name: 'calculator',
     component: Calculator,
-    beforeEnter(to, from, next) {
-      let storageToken = localStorage.getItem('authResponse');
-
-      if (storageToken) {
-        next();
-        console.log('success');
-      } else {
-        next('/');
-        console.log('error');
-      }
-    },
+    beforeEnter: beforeEnter,
     meta: { hideNavigation: true }
   }
 ];

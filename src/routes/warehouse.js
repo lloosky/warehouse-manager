@@ -1,21 +1,12 @@
 import Warehouse from '../views/Warehouse.vue';
+import { beforeEnter } from '../utils/beforeEnter.js';
 
 export default [
   {
     path: '/warehouse',
     name: 'warehouse',
     component: Warehouse,
-    beforeEnter(to, from, next) {
-      let storageToken = localStorage.getItem('authResponse');
-
-      if (storageToken) {
-        next();
-        console.log('success');
-      } else {
-        next('/');
-        console.log('error');
-      }
-    },
+    beforeEnter: beforeEnter,
     meta: { hideNavigation: true }
   }
 ];
