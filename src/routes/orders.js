@@ -13,7 +13,7 @@ export default [
         props: true,
         component: OrderDetail,
         meta: { hideNavigation: true },
-        beforeEnter: beforeEnter
+        beforeEnter
       }
     ],
     beforeEnter: beforeEnter,

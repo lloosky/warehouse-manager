@@ -60,7 +60,7 @@
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
 import ConfirmBox from "./../components/ConfirmBox.vue";
-import { showCurrnecy } from "../utils/showCurrency.js";
+import showCurrency from "../utils/showCurrency.js";
 
 
 export default {
@@ -81,6 +81,7 @@ export default {
     };
   },
   methods: {
+    showCurrency,
     deleteProduct(id, index) {
       this.showConfirmBox = true;
       this.productInfo.push({productId: id, productIndex: index})

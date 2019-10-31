@@ -63,13 +63,12 @@
     </div>
     <div class="order-details" :style="{width: this.$store.state.widthOfOrderDetail + '%'}">
       <router-view></router-view>
-      <router-view name="helper"></router-view>
     </div>
   </div>
 </template>
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
-import { showCurrnecy } from "../utils/showCurrency.js";
+import showCurrnecy from "../utils/showCurrency.js";
 import moment from "moment";
 moment.locale("pl");
 
