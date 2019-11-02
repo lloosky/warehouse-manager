@@ -49,14 +49,17 @@ export default {
   methods: {
     confirmAlert(reasonOfCancel) {
       const id = this.orderInfo[0].orderId;
-
-      this.$store.commit("REMOVE_ORDER", id);
-      console.log(`Zamówienie o id ${id} zostało usunięte`);
-      console.log(`Przyczyna usunięcia: ${reasonOfCancel}`)
-      this.showCancelBox = false;
-      this.orderInfo = [];
-      this.$store.state.widthOfOrderDetail = 0;
-      this.$router.push({ path: "/orders" });
+      if (reasonOfCancel == "") {
+        console.log("Podaj przyczynę usunięcia zamówienia");
+      } else {
+        this.$store.commit("REMOVE_ORDER", id);
+        console.log(`Zamówienie o id ${id} zostało usunięte`);
+        console.log(`Przyczyna usunięcia: ${reasonOfCancel}`);
+        this.showCancelBox = false;
+        this.orderInfo = [];
+        this.$store.state.widthOfOrderDetail = 0;
+        this.$router.push({ path: "/orders" });
+      }
     },
     declineAlert() {
       this.orderInfo = [];
