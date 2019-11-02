@@ -6,7 +6,7 @@ export default [
     path: '/warehouse',
     name: 'warehouse',
     component: Warehouse,
-    beforeEnter: beforeEnter,
+    beforeEnter,
     meta: { hideNavigation: true }
   }
 ];

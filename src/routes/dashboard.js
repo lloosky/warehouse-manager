@@ -6,7 +6,7 @@ export default [
     path: '/dashboard',
     component: Dashboard,
     name: 'Dashboard',
-    beforeEnter: beforeEnter,
+    beforeEnter,
     meta: { hideNavigation: true }
   }
 ];

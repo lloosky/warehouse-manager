@@ -50,7 +50,7 @@
       <span>{{product.title}}</span>
       <span>{{product.quantity}}</span>
       <span>{{product.unit}}</span>
-      <span>{{showCurrency(product.price)}}</span>
+      <span>{{formatCurrency(product.price)}}</span>
       <span>
         <button @click="deleteProduct(product.id,index)">usuń</button>
       </span>
@@ -60,7 +60,7 @@
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
 import ConfirmBox from "./../components/ConfirmBox.vue";
-import showCurrency from "../utils/showCurrency.js";
+import formatCurrency from "../utils/formatCurrency.js";
 
 
 export default {
@@ -81,7 +81,7 @@ export default {
     };
   },
   methods: {
-    showCurrency,
+    formatCurrency,
     deleteProduct(id, index) {
       this.showConfirmBox = true;
       this.productInfo.push({productId: id, productIndex: index})

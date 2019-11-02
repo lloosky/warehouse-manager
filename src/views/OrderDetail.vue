@@ -30,7 +30,7 @@
 </template>
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
-import showCurrency from "../utils/showCurrency.js";
+import formatCurrency from "../utils/formatCurrency.js";
 import CancelBox from "./../components/CancelBox.vue";
 
 import moment from "moment";
@@ -47,14 +47,14 @@ export default {
     };
   },
   methods: {
-    confirmAlert(reasonOfCancel) {
+    confirmAlert(reasonOfCancellation) {
       const id = this.orderInfo[0].orderId;
-      if (reasonOfCancel == "") {
+      if (reasonOfCancellation == "") {
         console.log("Podaj przyczynę usunięcia zamówienia");
       } else {
         this.$store.commit("REMOVE_ORDER", id);
         console.log(`Zamówienie o id ${id} zostało usunięte`);
-        console.log(`Przyczyna usunięcia: ${reasonOfCancel}`);
+        console.log(`Przyczyna usunięcia: ${reasonOfCancellation}`);
         this.showCancelBox = false;
         this.orderInfo = [];
         this.$store.state.widthOfOrderDetail = 0;
@@ -82,7 +82,7 @@ export default {
         " " +
         this.orders[id - 1].orderedProducts.unit +
         " - " +
-        showCurrency(this.orders[id - 1].orderedProductsValue)
+        formatCurrency(this.orders[id - 1].orderedProductsValue)
       );
     }
   },

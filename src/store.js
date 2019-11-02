@@ -27,9 +27,7 @@ export default new Vuex.Store({
       let obj = JSON.parse(txt);
       state.userToken = window.btoa(obj.body.token);
       Vue.http
-        .get(`${API_HOST}/api/warehouse`, {
-          headers: { Authorization: `Bearer ${state.userToken}` }
-        })
+        .get(`${API_HOST}/api/warehouse`)
         .then(data => {
           state.products = data.body;
         })
@@ -42,9 +40,7 @@ export default new Vuex.Store({
       let obj = JSON.parse(txt);
       state.userToken = window.btoa(obj.body.token);
       Vue.http
-        .get(`${API_HOST}/api/orders`, {
-          headers: { Authorization: `Bearer ${state.userToken}` }
-        })
+        .get(`${API_HOST}/api/orders`)
         .then(data => {
           state.orders = data.body;
         })
@@ -54,18 +50,14 @@ export default new Vuex.Store({
     },
     REMOVE_PRODUCT(state, { id, index }) {
       Vue.http
-        .delete(`${API_HOST}/api/warehouse/${id}`, {
-          headers: { Authorization: `Bearer ${state.userToken}` }
-        })
+        .delete(`${API_HOST}/api/warehouse/${id}`)
         .then(() => {
           state.products.splice(index, 1);
         });
     },
     REMOVE_ORDER(state, id) {
       Vue.http
-        .delete(`${API_HOST}/api/orders/${id}`, {
-          headers: { Authorization: `Bearer ${state.userToken}` }
-        })
+        .delete(`${API_HOST}/api/orders/${id}`)
         .then(() => {
           state.orders.splice((id - 1), 1);
         });

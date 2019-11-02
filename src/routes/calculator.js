@@ -6,7 +6,7 @@ export default [
     path: '/calculator',
     name: 'calculator',
     component: Calculator,
-    beforeEnter: beforeEnter,
+    beforeEnter,
     meta: { hideNavigation: true }
   }
 ];

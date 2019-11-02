@@ -52,7 +52,7 @@
       <span>{{index+1}}</span>
       <span>N-SR-{{order.id}}</span>
       <span>{{order.name}}</span>
-      <span>{{showCurrnecy(order.orderedProductsValue)}}</span>
+      <span>{{formatCurrency(order.orderedProductsValue)}}</span>
       <span>{{order.employee}}</span>
       <span>{{order.data}}</span>
       <span>
@@ -68,7 +68,7 @@
 </template>
 <script>
 const API_HOST = process.env.VUE_APP_API_HOST;
-import showCurrnecy from "../utils/showCurrency.js";
+import formatCurrency from "../utils/formatCurrency.js";
 import moment from "moment";
 moment.locale("pl");
 
@@ -88,7 +88,7 @@ export default {
     };
   },
   methods: {
-    showCurrnecy,
+    formatCurrency,
     showOrderDetail(id) {
       this.$store.state.widthOfOrderDetail = 100;
       console.log(this.orders[id - 1]);

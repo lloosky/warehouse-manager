@@ -6,7 +6,7 @@ export default [
     path: '/tasks',
     name: 'tasks',
     component: Tasks,
-    beforeEnter: beforeEnter,
+    beforeEnter,
     meta: { hideNavigation: true }
   }
 ];
