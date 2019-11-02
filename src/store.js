@@ -61,6 +61,15 @@ export default new Vuex.Store({
           state.products.splice(index, 1);
         });
     },
+    REMOVE_ORDER(state, id) {
+      Vue.http
+        .delete(`${API_HOST}/api/orders/${id}`, {
+          headers: { Authorization: `Bearer ${state.userToken}` }
+        })
+        .then(() => {
+          state.orders.splice((id - 1), 1);
+        });
+    },
     LOGOUT() {
       localStorage.removeItem('authResponse');
       router.push({ path: '/' });
