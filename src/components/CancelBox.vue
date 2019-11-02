@@ -2,8 +2,9 @@
   <div class="cancel-container">
     <div class="cancel-box">
       <h3>{{confirmMsg}}</h3>
+      <input type="text" placeholder="Podaj przyczynę usunięcia zamówienia" v-model="reasonOfCancel">
       <div>
-        <button class="button-normal accept-btn" @click="$emit('accept')">Tak</button>
+        <button class="button-normal accept-btn" @click="$emit('accept', reasonOfCancel)">Tak</button>
         <button class="button-normal decline-button" @click="$emit('decline')">Nie</button>
       </div>
     </div>
@@ -12,7 +13,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      reasonOfCancel: ""
+    };
   },
   props: { confirmMsg: String },
   methods: {}
@@ -20,6 +23,9 @@ export default {
 </script>
 
 <style scoped>
+input {
+  margin: 0px;
+}
 .cancel-container {
   display: grid;
   grid-template-columns: auto;
@@ -40,7 +46,7 @@ export default {
   justify-self: center;
   align-self: center;
   border: 1px solid #e18500;
-  grid-template-rows: 50% 50%;
+  grid-template-rows: auto;
   align-items: center;
 }
 h3 {

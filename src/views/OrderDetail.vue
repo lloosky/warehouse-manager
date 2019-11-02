@@ -47,25 +47,26 @@ export default {
     };
   },
   methods: {
-    confirmAlert() {
-      const id = this.orderInfo[0].orderId
+    confirmAlert(reasonOfCancel) {
+      const id = this.orderInfo[0].orderId;
 
-      this.$store.commit("REMOVE_ORDER", id)
-      console.log(`Produkt o id ${id} został usunięty pomyślnie`)
-      this.showCancelBox = false
-      this.orderInfo = []
+      this.$store.commit("REMOVE_ORDER", id);
+      console.log(`Zamówienie o id ${id} zostało usunięte`);
+      console.log(`Przyczyna usunięcia: ${reasonOfCancel}`)
+      this.showCancelBox = false;
+      this.orderInfo = [];
       this.$store.state.widthOfOrderDetail = 0;
       this.$router.push({ path: "/orders" });
     },
     declineAlert() {
-      this.orderInfo = []
+      this.orderInfo = [];
       this.showCancelBox = false;
-      console.log("Anulowałeś usuwanie zamówienia")
+      console.log("Anulowałeś usuwanie zamówienia");
     },
     deleteOrder(id) {
       this.showCancelBox = true;
-      this.orderInfo.push({orderId: id})
-      console.log(this.orderInfo)
+      this.orderInfo.push({ orderId: id });
+      console.log(this.orderInfo);
     },
     close() {
       this.$store.state.widthOfOrderDetail = 0;
