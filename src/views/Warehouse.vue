@@ -52,7 +52,7 @@
       <span>{{product.unit}}</span>
       <span>{{formatCurrency(product.price)}}</span>
       <span>
-        <button @click="deleteProduct(product.id,index)">usuń</button>
+        <button @click="deleteProduct(product.id,index)" v-if="showButton">usuń</button>
       </span>
     </div>
   </div>
@@ -77,7 +77,8 @@ export default {
       units: [{ unit: "cm" }, { unit: "m2" }],
       confirmBoxQuestion: "Na pewno chcesz usunąć ten produkt ?",
       showConfirmBox: false,
-      productInfo: []
+      productInfo: [],
+      showButton: true
     };
   },
   methods: {
