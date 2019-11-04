@@ -6,6 +6,12 @@
       @accept="confirmAlert"
       @decline="declineAlert"
     ></cancel-box>
+    <realize-box
+      v-if="showRealizeBox"
+      :realizeMsg="realizeBoxQuestion"
+      @accept="confirmRealization"
+      @decline="declineRealization"
+    ></realize-box>
     <div class="component-navigation">
       <h3>Zamówienie N-SR-{{id}}</h3>
       <div class="btn-container">
@@ -24,7 +30,7 @@
     <p>{{orders[id-1].name}}</p>
     <div class="btn-container">
       <button class="accept-btn" @click="deleteOrder(id)">anuluj</button>
-      <button class="button-normal">zrealizuj</button>
+      <button class="realize-btn" @click="realizeOrder(id)">zrealizuj</button>
     </div>
   </div>
 </template>
@@ -32,6 +38,7 @@
 const API_HOST = process.env.VUE_APP_API_HOST;
 import formatCurrency from "../utils/formatCurrency.js";
 import CancelBox from "./../components/CancelBox.vue";
+import RealizeBox from "./../components/RealizeBox.vue";
 
 import moment from "moment";
 moment.locale("pl");
@@ -42,7 +49,9 @@ export default {
   data() {
     return {
       confirmBoxQuestion: "Na pewno chcesz usunąć to zamówienie ?",
+      realizeBoxQuestion: "Na pewno chcesz zrealizować to zamówienie ?",
       showCancelBox: false,
+      showRealizeBox: false,
       orderInfo: []
     };
   },
@@ -71,6 +80,37 @@ export default {
       this.orderInfo.push({ orderId: id });
       console.log(this.orderInfo);
     },
+    realizeOrder(id) {
+      this.showRealizeBox = true;
+      this.orderInfo.push({ orderId: id });
+      console.log(this.orderInfo);
+    },
+    confirmRealization() {
+      const id = this.orderInfo[0].orderId;
+      const productId = this.orders[id - 1].orderedProducts.id;
+      const value = (this.products[productId - 1].quantity -= this.orders[
+        id - 1
+      ].orderedQuantity);
+      this.$http
+        .put(`${API_HOST}/api/warehouse/${productId}`, {
+          title: this.products[productId - 1].title,
+          quantity: value,
+          unit: this.products[productId - 1].unit,
+          price: this.products[productId - 1].price
+        })
+        .then(() => {});
+        this.$store.commit("REMOVE_ORDER", id);
+      this.orders.splice(id, 1);
+      this.showRealizeBox = false;
+this.$router.push("/orders")
+this.close()
+    },
+    declineRealization() {
+      const id = this.orderInfo[0].orderId;
+      this.showRealizeBox = false;
+      console.log(`Anulowałeś realizowanie zamówienia o id ${id}`);
+      this.orderInfo = [];
+    },
     close() {
       this.$store.state.widthOfOrderDetail = 0;
     },
@@ -88,14 +128,19 @@ export default {
   },
   created() {
     this.$store.commit("GET_ORDERLIST");
+    this.$store.commit("GET_PRODUCTLIST");
   },
   computed: {
     orders() {
       return this.$store.state.orders;
+    },
+    products() {
+      return this.$store.state.products;
     }
   },
   components: {
-    cancelBox: CancelBox
+    cancelBox: CancelBox,
+    realizeBox: RealizeBox
   }
 };
 </script>
@@ -116,7 +161,12 @@ span {
   border: 1px solid #8c0909;
   color: white;
 }
+.realize-btn {
+  background-color: #52e000;
+  border: 1px solid #1f6100;
+  color: white;
+}
 .component-navigation {
-  grid-template-columns: auto auto
+  grid-template-columns: auto auto;
 }
 </style>

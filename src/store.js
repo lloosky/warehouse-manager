@@ -40,7 +40,6 @@ export default new Vuex.Store({
       try {
         const { data } = await Vue.http.get(`${API_HOST}/api/orders`);
         state.orders = data;
-        console.log(data[0].orderedProducts.title);
       } catch {
         console.log('ERROR - get order list');
       }
