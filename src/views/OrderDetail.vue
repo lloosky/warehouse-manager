@@ -85,25 +85,37 @@ export default {
       this.orderInfo.push({ orderId: id });
       console.log(this.orderInfo);
     },
-    confirmRealization() {
+    async confirmRealization() {
       const id = this.orderInfo[0].orderId;
       const productId = this.orders[id - 1].orderedProducts.id;
-      const value = (this.products[productId - 1].quantity -= this.orders[
-        id - 1
-      ].orderedQuantity);
-      this.$http
-        .put(`${API_HOST}/api/warehouse/${productId}`, {
-          title: this.products[productId - 1].title,
-          quantity: value,
-          unit: this.products[productId - 1].unit,
-          price: this.products[productId - 1].price
-        })
-        .then(() => {});
+
+      const value =
+        this.orders[id - 1].orderedProducts.quantity -
+        this.orders[id - 1].orderedQuantity;
+      if (value < 0) {
+        console.log("Niewystaczająca ilość produktu na stanie magazynowym");
+      } else {
+        try {
+          const product = this.orders[id - 1].orderedProducts;
+          const { data } = await this.$http.put(
+            `${API_HOST}/api/warehouse/${productId}`,
+            {
+              price: product.price,
+              quantity: value,
+              title: product.title,
+              unit: product.unit
+            }
+          );
+          console.log(data);
+        } catch {
+          console.log("ERROR - order detail");
+        }
         this.$store.commit("REMOVE_ORDER", id);
-      this.orders.splice(id, 1);
-      this.showRealizeBox = false;
-this.$router.push("/orders")
-this.close()
+        this.orders.splice(id, 1);
+        this.showRealizeBox = false;
+        this.$router.push("/orders");
+        this.close();
+      }
     },
     declineRealization() {
       const id = this.orderInfo[0].orderId;
