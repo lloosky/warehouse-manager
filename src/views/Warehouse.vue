@@ -74,7 +74,7 @@ export default {
       productQuantity: "",
       productUnit: "",
       productPrice: "",
-      units: [{ unit: "cm" }, { unit: "m2" }],
+      units: [{ unit: "cm" }, { unit: "m2" }, { unit: "szt" }, { unit: "kpl" }],
       confirmBoxQuestion: "Na pewno chcesz usunąć ten produkt ?",
       showConfirmBox: false,
       productInfo: [],
