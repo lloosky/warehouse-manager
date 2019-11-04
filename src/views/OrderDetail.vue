@@ -7,7 +7,7 @@
       @decline="declineAlert"
     ></cancel-box>
     <div class="component-navigation">
-      <h2>Zamówienie N-SR-{{id}}</h2>
+      <h3>Zamówienie N-SR-{{id}}</h3>
       <div class="btn-container">
         <router-link to="/orders">
           <button class="button-normal" @click="close">x</button>
@@ -115,5 +115,8 @@ span {
   background-color: #e13800;
   border: 1px solid #8c0909;
   color: white;
+}
+.component-navigation {
+  grid-template-columns: auto auto
 }
 </style>

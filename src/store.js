@@ -22,49 +22,42 @@ export default new Vuex.Store({
     widthOfOrderDetail: 0
   },
   mutations: {
-    GET_PRODUCTLIST(state) {
+    async GET_PRODUCTLIST(state) {
       let txt = localStorage.getItem('authResponse');
       let obj = JSON.parse(txt);
       state.userToken = window.btoa(obj.body.token);
-      Vue.http
-        .get(`${API_HOST}/api/warehouse`)
-        .then(data => {
-          state.products = data.body;
-        })
-        .catch(() => {
-          console.log('ERROR-get product list ');
-        });
+      try {
+        const { data } = await Vue.http.get(`${API_HOST}/api/warehouse`);
+        state.products = data;
+      } catch {
+        console.log('ERROR-get product list ');
+      }
     },
-    GET_ORDERLIST(state) {
+    async GET_ORDERLIST(state) {
       let txt = localStorage.getItem('authResponse');
       let obj = JSON.parse(txt);
       state.userToken = window.btoa(obj.body.token);
-      Vue.http
-        .get(`${API_HOST}/api/orders`)
-        .then(data => {
-          state.orders = data.body;
-        })
-        .catch(() => {
-          console.log('ERROR - get order list');
-        });
+      try {
+        const { data } = await Vue.http.get(`${API_HOST}/api/orders`);
+        state.orders = data;
+      } catch {
+        console.log('ERROR - get order list');
+      }
     },
     REMOVE_PRODUCT(state, { id, index }) {
-      Vue.http
-        .delete(`${API_HOST}/api/warehouse/${id}`)
-        .then(() => {
-          state.products.splice(index, 1);
-        });
+      Vue.http.delete(`${API_HOST}/api/warehouse/${id}`).then(() => {
+        state.products.splice(index, 1);
+      });
     },
     REMOVE_ORDER(state, id) {
-      Vue.http
-        .delete(`${API_HOST}/api/orders/${id}`)
-        .then(() => {
-          state.orders.splice((id - 1), 1);
-        });
+      Vue.http.delete(`${API_HOST}/api/orders/${id}`).then(() => {
+        state.orders.splice(id - 1, 1);
+      });
     },
     LOGOUT() {
       localStorage.removeItem('authResponse');
       router.push({ path: '/' });
+      console.log('Zostałeś wylogowany');
     }
   },
   actions: {

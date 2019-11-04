@@ -57,7 +57,7 @@
       <span>{{order.data}}</span>
       <span>
         <router-link :to="`orders/${order.id}`">
-          <button @click="showOrderDetail(order.id)">Otwórz</button>
+          <button class="accept-btn" @click="showOrderDetail(order.id)">Otwórz</button>
         </router-link>
       </span>
     </div>
@@ -167,7 +167,7 @@ export default {
   top: 0;
   left: 0;
   height: 100vh;
-  background-color: #fffffff2;
+  background-color: #ffffffde;
   transition: 0.2s all;
   display: grid;
   align-items: center;
