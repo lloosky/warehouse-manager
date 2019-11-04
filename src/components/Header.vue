@@ -1,6 +1,6 @@
 <template>
   <header>
-    <img src="/img/logo.png" alt="logo" class="header-logo" />
+    <div alt="logo" class="header-logo" /></div>
     <ul>
       <li>
         <router-link to="/dashboard">Pulpit</router-link>
@@ -69,7 +69,10 @@ li {
   transition: 0.3s all;
 }
 .header-logo {
-  width: 25%;
+  width: 100%;
+  background-image: url("../../public/img/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 li:hover {
   transform: translateX(-5px);

@@ -16,7 +16,7 @@ export default [
         beforeEnter
       }
     ],
-    beforeEnter: beforeEnter,
+    beforeEnter,
     meta: { hideNavigation: true }
   }
 ];

@@ -13,9 +13,10 @@ Vue.use(VueResource);
 
 Vue.config.productionTip = false;
 
-axios.defaults.baseURL = 'https://projectstone-app.firebaseio.com/';
-axios.defaults.headers.get['Accepts'] = 'application/json';
-Vue.http.headers.common['Authorization'] = 'Basic a2Fyb2w6YXBpY2xpZW50';
+Vue.http.interceptors.push(function(request) {
+  // modify headers
+  request.headers.set('Authorization', `Bearer ${store.state.userToken}`);
+});
 
 const reqInterceptor = axios.interceptors.request.use(config => {
   console.log('Request Interceptor', config);

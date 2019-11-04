@@ -1,7 +1,7 @@
-function showCurrnecy(arg) {
+function formatCurrency(arg) {
   return new Intl.NumberFormat('pl-PLN', {
     style: 'currency',
     currency: 'PLN'
   }).format(arg);
 }
-export default showCurrnecy;
+export default formatCurrency;

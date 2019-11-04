@@ -62,59 +62,8 @@ export default {
   }
 };
 </script>
-<style>
-.logo-login {
-  width: 100%;
-  margin-bottom: 15%;
-}
-.login-page {
-  display: grid;
-  height: 100vh;
-  grid-template-columns: auto;
-  grid-template-rows: auto;
-  align-content: center;
-  justify-content: center;
-}
-.login-container {
-  display: grid;
-  height: 60vh;
-  width: 45vh;
-  background-color: #414141;
-  border: 1px solid #e18500;
-  grid-template-columns: 80%;
-  align-content: center;
-  justify-content: center;
-}
-label,
-input,
-select {
-  width: 100%;
-}
-label {
-  font-size: 15px;
-  color: #e18500;
-}
-.submit-button {
-  font-size: 20px;
-  color: #e18500;
-  margin-top: 20px;
-  border: 1px solid #e18500;
-  padding: 5px;
-  transition: 0.2s all;
-}
-.submit-button:hover {
-  color: #e18500;
-  background-color: #fadcaf;
-}
-@media (max-width: 767px) {
-  .login-container {
-    height: 100vh;
-    grid-template-columns: 100%;
-    background-color: transparent;
-    border: none;
-  }
-  .logo-login {
-    margin-top: 0%;
-  }
+<style scoped>
+body {
+  padding: 0px
 }
 </style>
