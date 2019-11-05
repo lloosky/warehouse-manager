@@ -186,7 +186,7 @@ export default {
   top: 0;
   left: 0;
   height: 100vh;
-  background-color: #ffffffde;
+  background-color: #fffffffc;
   transition: 0.2s all;
   display: grid;
   align-items: center;

@@ -1,9 +1,7 @@
 * {
-  font-family: 'Fira Sans Extra Condensed', sans-serif;
+  font-family: 'IBM Plex Mono', monospace;
   box-sizing: border-box;
-}
-html {
-  padding: 10px;
+  font-size: 0.9rem;
 }
 body {
   color: #e18500;
@@ -12,6 +10,7 @@ body {
   background-size: cover;
   height: 100vh;
   background-repeat: no-repeat;
+  padding: 10px;
 }
 .slide-enter-active {
   animation: slide-in 0.2s ease-out;
@@ -43,7 +42,7 @@ h2 {
   margin-bottom: 0;
 }
 .modal-container {
-  background-color: rgba(214, 214, 214, 0.925);
+  background-color: rgba(214, 214, 214, 0.98);
   position: absolute;
   right: 0;
   top: 0;
@@ -53,6 +52,7 @@ h2 {
   grid-template-columns: 70%;
   align-content: center;
   justify-content: center;
+  width: 100%;
 }
 .modal-box {
   padding: 20px;
@@ -65,8 +65,12 @@ select {
 input,
 select {
   border: 1px solid #9c9c9c;
-  height: 30px;
+  height: 40px;
   background-color: #e2e2e2;
+  padding: 5px;
+}
+button {
+  padding: 5px;
 }
 .button-normal {
   background-color: transparent;
@@ -80,7 +84,7 @@ select {
 label,
 input,
 select {
-  margin: 10px;
+  margin: 5px;
 }
 .modal-btn-container {
   display: grid;
@@ -96,7 +100,7 @@ select {
 }
 .component-navigation {
   display: grid;
-  grid-template-columns: auto 80%;
+  grid-template-columns: 30% 70%;
   margin-bottom: 20px;
 }
 .table-header {
@@ -118,9 +122,10 @@ select {
   grid-template-columns: 5% 45% 15% 15% 15% 5%;
   align-items: center;
   transition: 0.3s all;
+  height: 52px;
 }
-.table-row:nth-child(even) {
-  background-color: #d2d2d2;
+.table-row:hover {
+  background: #dadada;
 }
 .table-header,
 .table-row {
@@ -133,7 +138,7 @@ select {
   color: black;
 }
 .component-navigation > h2:before {
-  content: "";
+  content: '';
   margin-left: -10px;
   width: 3%;
   height: 100%;
@@ -141,7 +146,7 @@ select {
   position: absolute;
 }
 .component-navigation > h2:after {
-  content: "";
+  content: '';
   margin-left: -10px;
   width: 1%;
   height: 100%;
@@ -157,19 +162,22 @@ select {
   display: grid;
   height: 100vh;
   grid-template-columns: auto;
-  grid-template-rows: auto;
+  grid-template-rows: 50%;
   align-content: center;
   justify-content: center;
 }
 .login-container {
+  border-top-right-radius: 10%;
   display: grid;
-  height: 60vh;
-  width: 45vh;
-  background-color: #414141;
-  border: 1px solid #e18500;
+  height: 100%;
+  width: 50vh;
+  background-color: #ffffff;
   grid-template-columns: 80%;
   align-content: center;
   justify-content: center;
+}
+.login-container > form > label {
+  color:black;
 }
 label,
 input,
@@ -182,25 +190,24 @@ label {
 }
 .submit-button {
   font-size: 20px;
-  color: #e18500;
+  color: #ffffff;
   margin-top: 20px;
-  border: 1px solid #e18500;
+  background-color: #6363BC;
+  border: none;
   padding: 5px;
   transition: 0.2s all;
 }
-.submit-button:hover {
-  color: #e18500;
-  background-color: #fadcaf;
+button,
+label {
+  text-transform: capitalize;
 }
 @media (max-width: 767px) {
   .login-container {
-    height: 100vh;
     grid-template-columns: 100%;
-    background-color: transparent;
     border: none;
+    padding: 20px;
   }
   .logo-login {
     margin-top: 0%;
-  }
+  } 
 }
-

@@ -1,27 +1,39 @@
 <template>
-  <header>
-    <div alt="logo" class="header-logo" /></div>
-    <ul>
-      <li>
-        <router-link to="/dashboard">Pulpit</router-link>
-      </li>
-      <li>
-        <router-link to="/orders">Zamówienia</router-link>
-      </li>
-      <li>
-        <router-link to="/warehouse">Magazyn</router-link>
-      </li>
-      <li>
-        <router-link to="/tasks">Zadania</router-link>
-      </li>
-      <!-- <li>
-        <router-link to="/calculator">Kalkulator</router-link>
-      </li> -->
-      <li @click="logout">
-        <strong>Wyloguj</strong>
-      </li>
-    </ul>
-  </header>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="/dashboard">
+      warehouse<strong>manager</strong>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <router-link to="/dashboard" class="nav-link">Pulpit</router-link>
+        </li>
+                <li class="nav-item">
+          <router-link to="/orders" class="nav-link">Zamówienia</router-link>
+        </li>
+                <li class="nav-item">
+          <router-link to="/warehouse" class="nav-link">Magazyn</router-link>
+        </li>
+                <li class="nav-item">
+          <router-link to="/tasks" class="nav-link">Zadania</router-link>
+        </li>
+                <li class="nav-item" >
+          <a class="nav-link" @click="logout">Wyloguj</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </template>
 <script>
 export default {
@@ -30,51 +42,34 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.commit('LOGOUT');
+      this.$store.commit("LOGOUT");
     }
   }
 };
 </script>
 
 <style scoped>
-a {
-  text-decoration: none;
-  color: black;
+.navbar {
+  padding: 0px;
+  margin-bottom: 10px;
 }
-a:hover {
-  text-decoration: none;
-  color: #e18500;
+.navbar-brand {
+  padding-top: 0px;
+  color: white;
 }
-li > a {
-  color: #e18500;
+.navbar-expand-lg .navbar-collapse {
+  justify-content: flex-end;
 }
-header {
-  display: grid;
-  grid-template-columns: auto auto;
-  align-content: center;
-  margin-bottom: 20px;
+strong {
+  font-size: 1.25rem;
 }
-ul {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  text-align: center;
-  font-size: 17px;
-  align-content: center;
-  margin-bottom: 0px;
-  color: #e18500;
-}
-li {
-  display: inline;
+.navbar-light .navbar-nav .nav-link {
+  color: white;
   cursor: pointer;
-  transition: 0.3s all;
 }
-.header-logo {
-  width: 100%;
-  background-image: url("../../public/img/logo.png");
-  background-size: contain;
-  background-repeat: no-repeat;
+.navbar-light .navbar-brand:hover {
+  color: white;
 }
-li:hover {
-  transform: translateX(-5px);
+@media (max-width: 767px) {
 }
 </style>

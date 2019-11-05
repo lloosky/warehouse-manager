@@ -56,7 +56,7 @@
       <span>{{product.unit}}</span>
       <span>{{formatCurrency(product.price)}}</span>
       <span>
-        <button @click="deleteProduct(product.id,index)" v-if="product.activeDeleteButton">usuń</button>
+        <button class="accept-btn" @click="deleteProduct(product.id,index)" v-if="product.activeDeleteButton">usuń</button>
       </span>
     </div>
   </div>
