@@ -109,7 +109,6 @@ export default {
       this.orderValue = ""
       this.orderedQuantity = ""
       this.whoServes = ""
-      this.getOrderDate = ""
     },
     cancelAddingOrder() {
       this.clearInputs();

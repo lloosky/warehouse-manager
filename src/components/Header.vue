@@ -14,9 +14,9 @@
       <li>
         <router-link to="/tasks">Zadania</router-link>
       </li>
-      <li>
+      <!-- <li>
         <router-link to="/calculator">Kalkulator</router-link>
-      </li>
+      </li> -->
       <li @click="logout">
         <strong>Wyloguj</strong>
       </li>
@@ -56,7 +56,7 @@ header {
 }
 ul {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   text-align: center;
   font-size: 17px;
   align-content: center;
