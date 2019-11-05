@@ -111,7 +111,7 @@ export default {
             orderedProductsValue: this.orderValue,
             orderedQuantity: this.orderedQuantity,
             employee: this.whoServes,
-            data: this.getOrderDate
+            data: this.getOrderDate,
           },
           {
             headers: { Authorization: `Bearer ${this.userToken}` }
@@ -125,7 +125,7 @@ export default {
             orderedProductsValue: this.orderValue,
             orderedQuantity: this.orderedQuantity,
             employee: this.whoServes,
-            data: this.getOrderDate
+            data: this.getOrderDate,
           });
         })
         .catch(() => {

@@ -106,7 +106,7 @@ export default {
               unit: product.unit
             }
           );
-          console.log(`Nowy stan magazynowy produkt ${this.orders[id - 1].orderedProducts.id} wynosi ${value}`);
+          console.log(`Nowy stan magazynowy produktu o id ${this.orders[id - 1].orderedProducts.id} wynosi ${value}`);
         } catch {
           console.log("ERROR - order detail");
         }
