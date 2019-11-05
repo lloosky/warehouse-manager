@@ -16,7 +16,7 @@
               v-bind:value="product"
               v-for="product in products"
               :key="product.id"
-            >{{product.title}}</option>
+            >{{product.title}} - {{product.quantity}} {{product.unit}}</option>
           </select>
           <label>Ilość:</label>
           <input type="number" v-model="orderedQuantity" @change="worthOfOrder(orderedProducts)" />
