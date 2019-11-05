@@ -1,34 +1,37 @@
 <template>
   <div class="view-container">
-    <div class="modal-container">
-      <div class="modal-box" v-if="show">
-        <form action>
-          <label for>Imię:</label>
-          <input type="text" />
-          <label for>Nazwisko:</label>
-          <input type="number" />
-          <label for>Jednostka:</label>
-          <input type="text" />
-          <label for>Cena netto:</label>
-          <input type="number" />
-        </form>
-        <div class="btn-container">
-          <button>dodaj zadanie</button>
-        </div>
-      </div>
-    </div>
     <div class="component-navigation">
       <h2>Zadania</h2>
-      <div class="btn-container">
-        <button class="confirm-btn">dodaj zadanie</button>
-      </div>
     </div>
-    <div id="worker-one">Pracownik nr1 = {{ workerOne }}</div>
-    <div id="worker-two">Pracownik nr2 = {{ workerTwo }}</div>
-    <div id="worker-three">Pracownik nr3 = {{ workerThree }}</div>
+    <div class="table-header">
+      <span>Lp.</span>
+      <span>Pracownik</span>
+      <span>Liczba zadań</span>
+      <span>Wartość zadań</span>
+    </div>
+    <div class="table-row">
+      <span>1</span>
+      <span>Pracownik nr 1</span>
+      <span>{{workerOne.length}}</span>
+      <span>{{ formatCurrency(this.workerOneInfo.reduce((a, b) => a + b)) }}</span>
+    </div>
+    <div class="table-row">
+      <span>2</span>
+      <span>Pracownik nr 2</span>
+      <span>{{workerTwo.length}}</span>
+      <span>{{ formatCurrency(this.workerTwoInfo.reduce((a, b) => a + b)) }}</span>
+    </div>
+    <div class="table-row">
+      <span>3</span>
+      <span>Pracownik nr 3</span>
+      <span>{{workerThree.length}}</span>
+      <span>{{ formatCurrency(this.workerThreeInfo.reduce((a, b) => a + b)) }}</span>
+    </div>
   </div>
 </template>
 <script>
+import formatCurrency from "../utils/formatCurrency.js";
+
 export default {
   name: "tasks",
   data() {
@@ -36,18 +39,46 @@ export default {
       workerOne: [],
       workerTwo: [],
       workerThree: [],
-      show: false
+      show: false,
+      workerOneInfo: [],
+      workerTwoInfo: [],
+      workerThreeInfo: []
     };
   },
   methods: {
+    formatCurrency,
+    updateWorkerOneInfo() {
+      for (let i in this.workerOne) {
+        this.workerOneInfo.push(this.workerOne[i].worth);
+      }
+    },
+    updateWorkerTwoInfo() {
+      for (let i in this.workerTwo) {
+        this.workerTwoInfo.push(this.workerTwo[i].worth);
+      }
+    },
+    updateWorkerThreeInfo() {
+      for (let i in this.workerThree) {
+        this.workerThreeInfo.push(this.workerThree[i].worth);
+      }
+    },
     checkTasks() {
       for (let i in this.orders) {
         if (this.orders[i].employee === "Worker #1") {
-          this.workerOne.push({ task: this.orders[i].id });
+          this.workerOne.push({
+              task: this.orders[i].id,
+              worth: this.orders[i].orderedProductsValue
+          });
         } else if (this.orders[i].employee === "Worker #2") {
-          this.workerTwo.push({ task: this.orders[i].id });
+          this.workerTwo.push({
+            task: this.orders[i].id,
+            worth: this.orders[i].orderedProductsValue
+          });
         } else {
-          this.workerThree.push({ task: this.orders[i].id })
+          this.workerThree.push({
+            task: this.orders[i].id,
+            worth: this.orders[i].orderedProductsValue
+          });
         }
       }
     }
@@ -55,6 +86,9 @@ export default {
   created() {
     this.$store.commit("GET_ORDERLIST");
     this.checkTasks();
+    this.updateWorkerOneInfo();
+    this.updateWorkerTwoInfo();
+    this.updateWorkerThreeInfo();
   },
   computed: {
     orders() {
@@ -63,5 +97,9 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
+.table-header,
+.table-row {
+  grid-template-columns: 5% 60% 15% 20%;
+}
 </style>
