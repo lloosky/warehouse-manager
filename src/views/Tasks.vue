@@ -3,19 +3,35 @@
     <div class="component-navigation">
       <h2>Zadania</h2>
     </div>
-    <div id="worker-one" v-for="item in workerOne">{{ item.tasks.worth }}</div>
-    <div id="worker-two">Pracownik nr2 = {{ workerTwo }}</div>
-    <div id="worker-three">Pracownik nr3 = {{ workerThree }}</div>
     <div class="table-header">
       <span>Lp.</span>
       <span>Pracownik</span>
       <span>Liczba zadań</span>
       <span>Wartość zadań</span>
     </div>
-    <div class="table-row"></div>
+    <div class="table-row">
+      <span>1</span>
+      <span>Pracownik nr 1</span>
+      <span>{{workerOne.length}}</span>
+      <span>{{ formatCurrency(this.workerOneInfo.reduce((a, b) => a + b)) }}</span>
+    </div>
+    <div class="table-row">
+      <span>2</span>
+      <span>Pracownik nr 2</span>
+      <span>{{workerTwo.length}}</span>
+      <span>{{ formatCurrency(this.workerTwoInfo.reduce((a, b) => a + b)) }}</span>
+    </div>
+    <div class="table-row">
+      <span>3</span>
+      <span>Pracownik nr 3</span>
+      <span>{{workerThree.length}}</span>
+      <span>{{ formatCurrency(this.workerThreeInfo.reduce((a, b) => a + b)) }}</span>
+    </div>
   </div>
 </template>
 <script>
+import formatCurrency from "../utils/formatCurrency.js";
+
 export default {
   name: "tasks",
   data() {
@@ -30,35 +46,28 @@ export default {
     };
   },
   methods: {
+    formatCurrency,
     updateWorkerOneInfo() {
-      console.log(this.workerOne);
       for (let i in this.workerOne) {
-        this.workerTwoInfo.push(this.workerOne[i].worth);
+        this.workerOneInfo.push(this.workerOne[i].worth);
       }
-      console.log(this.workerTwoInfo.reduce((a, b) => a + b));
     },
     updateWorkerTwoInfo() {
-      console.log(this.workerTwo);
       for (let i in this.workerTwo) {
         this.workerTwoInfo.push(this.workerTwo[i].worth);
       }
-      console.log(this.workerTwoInfo.reduce((a, b) => a + b));
     },
     updateWorkerThreeInfo() {
-      console.log(this.workerThree);
       for (let i in this.workerThree) {
-        this.workerTwoInfo.push(this.workerThree[i].worth);
+        this.workerThreeInfo.push(this.workerThree[i].worth);
       }
-      console.log(this.workerTwoInfo.reduce((a, b) => a + b));
     },
     checkTasks() {
       for (let i in this.orders) {
         if (this.orders[i].employee === "Worker #1") {
           this.workerOne.push({
-            tasks: {
               task: this.orders[i].id,
               worth: this.orders[i].orderedProductsValue
-            }
           });
         } else if (this.orders[i].employee === "Worker #2") {
           this.workerTwo.push({
@@ -77,7 +86,9 @@ export default {
   created() {
     this.$store.commit("GET_ORDERLIST");
     this.checkTasks();
-    this.check();
+    this.updateWorkerOneInfo();
+    this.updateWorkerTwoInfo();
+    this.updateWorkerThreeInfo();
   },
   computed: {
     orders() {
@@ -87,9 +98,6 @@ export default {
 };
 </script>
 <style scoped>
-div {
-  color: black;
-}
 .table-header,
 .table-row {
   grid-template-columns: 5% 60% 15% 20%;
