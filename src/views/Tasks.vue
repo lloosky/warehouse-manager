@@ -42,9 +42,9 @@ export default {
   methods: {
     checkTasks() {
       for (let i in this.orders) {
-        if (this.orders[i].serves === "Worker #1") {
+        if (this.orders[i].employee === "Worker #1") {
           this.workerOne.push({ task: this.orders[i].id });
-        } else if (this.orders[i].serves === "Worker #2") {
+        } else if (this.orders[i].employee === "Worker #2") {
           this.workerTwo.push({ task: this.orders[i].id });
         } else {
           this.workerThree.push({ task: this.orders[i].id })

@@ -16,7 +16,11 @@
           <input type="number" v-model="productQuantity" />
           <label for>Jednostka:</label>
           <select v-model="productUnit">
-            <option v-for="product in units" v-bind:value="product.unit" :key="product.id">{{ product.unit }}</option>
+            <option
+              v-for="product in units"
+              v-bind:value="product.unit"
+              :key="product.id"
+            >{{ product.unit }}</option>
           </select>
           <label for>Cena netto:</label>
           <input type="number" v-model="productPrice" />
@@ -52,7 +56,7 @@
       <span>{{product.unit}}</span>
       <span>{{formatCurrency(product.price)}}</span>
       <span>
-        <button @click="deleteProduct(product.id,index)" v-if="showButton">usuń</button>
+        <button @click="deleteProduct(product.id,index)" v-if="product.activeDeleteButton">usuń</button>
       </span>
     </div>
   </div>
@@ -61,7 +65,6 @@
 const API_HOST = process.env.VUE_APP_API_HOST;
 import ConfirmBox from "./../components/ConfirmBox.vue";
 import formatCurrency from "../utils/formatCurrency.js";
-
 
 export default {
   name: "warehouse",
@@ -73,33 +76,42 @@ export default {
       productTitle: "",
       productQuantity: "",
       productUnit: "",
+      activeDeleteButton: true,
       productPrice: "",
       units: [{ unit: "cm" }, { unit: "m2" }, { unit: "szt" }, { unit: "kpl" }],
       confirmBoxQuestion: "Na pewno chcesz usunąć ten produkt ?",
       showConfirmBox: false,
-      productInfo: [],
-      showButton: true
+      productInfo: []
     };
   },
   methods: {
     formatCurrency,
+    showDeleteButton() {
+      for (let i in this.products) {
+        for (let j in this.orders) {
+          if(this.orders[j].orderedProducts.title === this.products[i].title){
+            this.products[i].activeDeleteButton = false
+          }
+        }
+      }
+    },
     deleteProduct(id, index) {
       this.showConfirmBox = true;
-      this.productInfo.push({productId: id, productIndex: index})
+      this.productInfo.push({ productId: id, productIndex: index });
     },
     confirmAlert() {
-      const id = this.productInfo[0].productId
-      const index = this.productInfo[0].productIndex
+      const id = this.productInfo[0].productId;
+      const index = this.productInfo[0].productIndex;
 
-      this.$store.commit("REMOVE_PRODUCT", { id, index })
-      console.log(`Produkt o id ${id} został usunięty pomyślnie`)
-      this.showConfirmBox = false
-      this.productInfo = []
+      this.$store.commit("REMOVE_PRODUCT", { id, index });
+      console.log(`Produkt o id ${id} został usunięty pomyślnie`);
+      this.showConfirmBox = false;
+      this.productInfo = [];
     },
     declineAlert() {
-      this.productInfo = []
+      this.productInfo = [];
       this.showConfirmBox = false;
-      console.log("Anulowałeś usuwanie produktu")
+      console.log("Anulowałeś usuwanie produktu");
     },
     openAddingProduct() {
       this.isWidth = 100;
@@ -130,7 +142,8 @@ export default {
               title: this.productTitle,
               quantity: this.productQuantity,
               unit: this.productUnit,
-              price: this.productPrice
+              price: this.productPrice,
+              activeDeleteButton: this.activeDeleteButton
             },
             {
               headers: { Authorization: `Bearer ${this.userToken}` }
@@ -142,7 +155,8 @@ export default {
               title: this.productTitle,
               quantity: this.productQuantity,
               unit: this.productUnit,
-              price: this.productPrice
+              price: this.productPrice,
+              activeDeleteButton: this.activeDeleteButton
             });
           })
           .catch(() => {
@@ -168,10 +182,18 @@ export default {
   computed: {
     products() {
       return this.$store.state.products;
+    },
+    orders() {
+      return this.$store.state.orders;
     }
   },
   created() {
     this.$store.commit("GET_PRODUCTLIST");
+    this.$store.commit("GET_ORDERLIST");
+    this.showDeleteButton();
+  },
+  updated() {
+    this.showDeleteButton();
   },
   components: {
     confirmBox: ConfirmBox
@@ -184,5 +206,4 @@ export default {
   grid-template-columns: auto;
   align-content: center;
 }
-
 </style>
