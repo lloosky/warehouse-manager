@@ -29,8 +29,14 @@
             >{{ serve.worker }}</option>
           </select>
         </form>
-        <div class="btn-container">
-          <button @click="addOrder">dodaj zamówienie</button>
+        <div class="modal-btn-container">
+          <button class="button-normal" @click="clearInputs">wyczyść</button>
+          <button class="button-normal" @click="cancelAddingOrder">anuluj</button>
+          <button
+            style="width:50%;justify-self:end;"
+            class="button-normal accept-btn"
+            @click="addOrder"
+          >dodaj zamówienie</button>
         </div>
       </div>
     </div>
@@ -97,6 +103,19 @@ export default {
       const result = orderedProducts.price * this.orderedQuantity;
       this.orderValue = result;
     },
+    clearInputs() {
+      this.customerName = ""
+      this.orderedProducts = ""
+      this.orderValue = ""
+      this.orderedQuantity = ""
+      this.whoServes = ""
+      this.getOrderDate = ""
+    },
+    cancelAddingOrder() {
+      this.clearInputs();
+      this.isWidth = 0;
+      this.show = false
+    },
     addOrder() {
       let txt = localStorage.getItem("authResponse");
       let obj = JSON.parse(txt);
@@ -111,7 +130,7 @@ export default {
             orderedProductsValue: this.orderValue,
             orderedQuantity: this.orderedQuantity,
             employee: this.whoServes,
-            data: this.getOrderDate,
+            data: this.getOrderDate
           },
           {
             headers: { Authorization: `Bearer ${this.userToken}` }
@@ -125,7 +144,7 @@ export default {
             orderedProductsValue: this.orderValue,
             orderedQuantity: this.orderedQuantity,
             employee: this.whoServes,
-            data: this.getOrderDate,
+            data: this.getOrderDate
           });
         })
         .catch(() => {
@@ -133,6 +152,7 @@ export default {
         });
       this.isWidth = 0;
       this.show = false;
+      this.clearInputs();
       this.$store.commit("GET_ORDERLIST");
       console.log(this.orders);
     }
