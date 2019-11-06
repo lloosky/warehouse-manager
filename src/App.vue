@@ -1,10 +1,14 @@
 <template>
   <div id="application">
-    <app-header v-if="$route.meta.hideNavigation"></app-header>
-    <transition name="slide" mode="out-in">
-      <router-view></router-view>
-    </transition>
-    <app-footer></app-footer>
+    <div class="header">
+      <app-header v-if="$route.meta.hideNavigation"></app-header>
+    </div>
+    <div class="app-body">
+      <transition name="slide" mode="out-in">
+        <router-view></router-view>
+      </transition>
+      <app-footer></app-footer>
+    </div>
   </div>
 </template>
 
@@ -22,4 +26,5 @@ export default {
 </script>
 <style>
 @import "./assets/css/style.css";
+
 </style>

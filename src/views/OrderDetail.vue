@@ -30,7 +30,7 @@
     <p>{{orders[id-1].name}}</p>
     <div class="btn-container">
       <button class="accept-btn" @click="deleteOrder(id)">anuluj</button>
-      <button class="realize-btn" @click="realizeOrder(id)">zrealizuj</button>
+      <button class="accept-btn" @click="realizeOrder(id)">zrealizuj</button>
     </div>
   </div>
 </template>
@@ -128,7 +128,7 @@ export default {
     },
     orderedProductsDetail(id) {
       return (
-        this.orders[id - 1].orderedProducts.title +
+        this.orders[id -1].orderedProducts.title +
         " " +
         this.orders[id - 1].orderedQuantity +
         " " +
@@ -167,16 +167,6 @@ span {
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 5px;
-}
-.accept-btn {
-  background-color: #e13800;
-  border: 1px solid #8c0909;
-  color: white;
-}
-.realize-btn {
-  background-color: #52e000;
-  border: 1px solid #1f6100;
-  color: white;
 }
 .component-navigation {
   grid-template-columns: auto auto;

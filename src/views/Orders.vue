@@ -1,6 +1,7 @@
 <template>
   <div class="view-container">
-    <div class="modal-container">
+    <div @click="openingAddingOrder" class="add-button">&#43;</div>
+    <div class="modal-container" :style="{width: isWidth + '%'}">
       <div class="modal-box" v-if="show">
         <form action>
           <label for>Imię i nazwisko:</label>
@@ -36,15 +37,13 @@
             style="width:50%;justify-self:end;"
             class="button-normal accept-btn"
             @click="addOrder"
-          >dodaj zamówienie</button>
+          >dodaj</button>
         </div>
       </div>
     </div>
     <div class="component-navigation">
       <h2>Zamówienia</h2>
-      <div class="btn-container">
-        <button class="accept-btn" @click="show=true">dodaj zamówienie</button>
-      </div>
+      <div class="btn-container"></div>
     </div>
     <div class="table-header">
       <span>Lp.</span>
@@ -52,7 +51,7 @@
       <span>Imię i Nazwisko</span>
       <span>Wartość</span>
       <span>Obsługa</span>
-      <span>Data utworzenia</span>
+      <span>Data</span>
     </div>
     <div class="table-row" v-for="(order, index) in orders " :key="index">
       <span>{{index+1}}</span>
@@ -90,30 +89,36 @@ export default {
       orderValue: "",
       whoServes: "",
       data: "",
-      selected: ""
+      selected: "",
+      isWidth: 0
     };
   },
   methods: {
     formatCurrency,
+    openingAddingOrder() {
+      this.isWidth = 50;
+      this.show = true;
+      this.clearInputs();
+    },
     showOrderDetail(id) {
-      this.$store.state.widthOfOrderDetail = 100;
-      console.log(this.orders[id - 1]);
+      this.$store.state.widthOfOrderDetail = 50;
+      console.log(this.orders[id - 2]);
     },
     worthOfOrder(orderedProducts) {
       const result = orderedProducts.price * this.orderedQuantity;
       this.orderValue = result;
     },
     clearInputs() {
-      this.customerName = ""
-      this.orderedProducts = ""
-      this.orderValue = ""
-      this.orderedQuantity = ""
-      this.whoServes = ""
+      this.customerName = "";
+      this.orderedProducts = "";
+      this.orderValue = "";
+      this.orderedQuantity = "";
+      this.whoServes = "";
     },
     cancelAddingOrder() {
       this.clearInputs();
       this.isWidth = 0;
-      this.show = false
+      this.show = false;
     },
     addOrder() {
       let txt = localStorage.getItem("authResponse");
@@ -179,14 +184,15 @@ export default {
 <style scoped>
 .table-header,
 .table-row {
-  grid-template-columns: 5% 20% 20% 20% 15% 13% 7%;
+  grid-template-columns: 5% 20% 20% 20% 15% 12% 8%;
 }
 .order-details {
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   height: 100vh;
-  background-color: #fffffffc;
+  background-color: #ffffff;
+  border:1px solid #d2d2d2;
   transition: 0.2s all;
   display: grid;
   align-items: center;

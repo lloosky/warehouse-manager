@@ -1,5 +1,6 @@
 <template>
   <div class="view-container">
+        <div class="add-button" @click="openAddingProduct">&#43;</div>
     <confirm-box
       v-if="showConfirmBox"
       :confirmMsg="confirmBoxQuestion"
@@ -32,14 +33,13 @@
             style="width:50%;justify-self:end;"
             class="button-normal accept-btn"
             @click="addProduct"
-          >dodaj produkt</button>
+          >dodaj</button>
         </div>
       </div>
     </div>
     <div class="component-navigation">
       <h2>Magazyn</h2>
       <div class="btn-container">
-        <button class="accept-btn" @click="openAddingProduct">dodaj produkt</button>
       </div>
     </div>
     <div class="table-header">
@@ -114,7 +114,7 @@ export default {
       console.log("Anulowałeś usuwanie produktu");
     },
     openAddingProduct() {
-      this.isWidth = 100;
+      this.isWidth = 50;
       this.showModal = true;
       this.clearInputs();
     },
