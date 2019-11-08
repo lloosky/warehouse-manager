@@ -38,8 +38,7 @@ export default {
       this.$store.commit("LOGOUT");
     },
     closeNavbar() {
-      this.$store.state.menuWidth = 0;
-      this.$store.state.menuLeft = -100;
+      this.$store.state.menuLeft = -225;
     }
   }
 };

@@ -99,11 +99,17 @@ export default {
     formatCurrency,
     openingAddingOrder() {
       this.isWidth = 50;
+      if (window.innerWidth < 767) {
+        this.isWidth = 100;
+      }
       this.show = true;
       this.clearInputs();
     },
     showOrderDetail() {
       this.$store.state.widthOfOrderDetail = 50;
+      if (window.innerWidth < 767) {
+        this.$store.state.widthOfOrderDetail = 100;
+      }
     },
     worthOfOrder(orderedProducts) {
       const result = orderedProducts.price * this.orderedQuantity;

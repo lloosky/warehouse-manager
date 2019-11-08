@@ -242,8 +242,8 @@ header {
   }
   header {
     position: absolute;
-    width: 0%;
-    left: -100px;
+    width: 60%;
+    left: -225px;
     z-index: 1;
   }
   .dashboard {
@@ -251,5 +251,8 @@ header {
   }
   .menu-button {
     display: block !important;
+  }
+  .order-details {
+    width: 100%;
   }
 }

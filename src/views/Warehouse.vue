@@ -120,6 +120,9 @@ export default {
     },
     openAddingProduct() {
       this.isWidth = 50;
+      if (window.innerWidth < 767) {
+        this.isWidth = 100;
+      }
       this.showModal = true;
       this.clearInputs();
     },

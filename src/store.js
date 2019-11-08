@@ -20,7 +20,6 @@ export default new Vuex.Store({
       { worker: 'Worker #3' }
     ],
     widthOfOrderDetail: 0,
-    menuWidth: 0,
     menuLeft: 0
   },
   mutations: {

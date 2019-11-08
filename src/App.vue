@@ -4,7 +4,7 @@
       <button @click="openMenu" class="menu-button">&#9776;</button>
       <app-header
         v-if="$route.meta.hideNavigation"
-        :style="{width: this.$store.state.menuWidth + '%', left: this.$store.state.menuLeft + 'px'}"
+        :style="{left: this.$store.state.menuLeft + 'px'}"
       ></app-header>
     </div>
     <div class="app-body" @click="closeMenu">
@@ -28,17 +28,18 @@ export default {
   },
   methods: {
     openMenu() {
-      this.$store.state.menuWidth = 60;
       this.$store.state.menuLeft = 0;
     },
     closeMenu() {
-      this.$store.state.menuWidth = 0;
-      this.$store.state.menuLeft = -100;
+      this.$store.state.menuLeft = -225;
     }
   },
-  created() {
-    this.$store.state.menuWidth = 0;
-    this.$store.state.menuLeft = -100;
+  created() { 
+  },
+  computed: {
+    menuWidth() {
+
+    }
   }
 };
 </script>
