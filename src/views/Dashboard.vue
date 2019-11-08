@@ -9,9 +9,9 @@
         <div class="board-title">
           <div>Ostatnie zamówienie: N-SR-{{this.orders[this.orders.length-1].id}}</div>
         </div>
-        <div style="font-size:20px;">Wartość:</div>
+        <div class="board-sub-title">Wartość:</div>
         <div
-          style="font-size: 50px;align-self:stretch;"
+          class="board-sub-body"
         >{{formatCurrency(this.orders[this.orders.length-1].orderedProductsValue)}}</div>
         <div class="board-body"></div>
       </div>
@@ -19,8 +19,8 @@
         <div class="board-title">
           <div>Magazyn</div>
         </div>
-        <div style="font-size:20px;">Ilość produktów:</div>
-        <div style="font-size: 50px;align-self:stretch;">{{this.products.length}}</div>
+        <div class="board-sub-title">Ilość produktów:</div>
+        <div class="board-sub-body">{{this.products.length}}</div>
         <div class="board-body"></div>
       </div>
       <div class="board">
@@ -86,7 +86,12 @@ export default {
   color: black;
 }
 .board-title {
-  background: linear-gradient( 45deg, rgba(2, 0, 36, 1) 0%, rgba(216, 75, 75, 1) 0%, rgba(238, 139, 63, 1) 100% );
+  background: linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(216, 75, 75, 1) 0%,
+    rgba(238, 139, 63, 1) 100%
+  );
   width: 100%;
   height: 100%;
   padding: 5px;
@@ -96,5 +101,12 @@ export default {
   justify-items: center;
   align-items: center;
   border-bottom: 1px solid #d2d2d2;
+}
+.board-sub-title {
+  font-size: 20px;
+}
+.board-sub-body {
+  font-size: 50px;
+  align-self: stretch;
 }
 </style>
