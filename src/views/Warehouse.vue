@@ -1,6 +1,6 @@
 <template>
   <div class="view-container">
-        <div class="add-button" @click="openAddingProduct">&#43;</div>
+    <div class="add-button" @click="openAddingProduct">&#43;</div>
     <confirm-box
       v-if="showConfirmBox"
       :confirmMsg="confirmBoxQuestion"
@@ -40,6 +40,7 @@
     <div class="component-navigation">
       <h2>Magazyn</h2>
       <div class="btn-container">
+        <input type="text" placeholder="wyszukaj" />
       </div>
     </div>
     <div class="table-header">
@@ -56,7 +57,11 @@
       <span>{{product.unit}}</span>
       <span>{{formatCurrency(product.price)}}</span>
       <span>
-        <button class="accept-btn" @click="deleteProduct(product.id,index)" v-if="product.activeDeleteButton">usuń</button>
+        <button
+          class="accept-btn"
+          @click="deleteProduct(product.id,index)"
+          v-if="product.activeDeleteButton"
+        >usuń</button>
       </span>
     </div>
   </div>
@@ -89,8 +94,8 @@ export default {
     showDeleteButton() {
       for (let i in this.products) {
         for (let j in this.orders) {
-          if(this.orders[j].orderedProducts.title === this.products[i].title){
-            this.products[i].activeDeleteButton = false
+          if (this.orders[j].orderedProducts.title === this.products[i].title) {
+            this.products[i].activeDeleteButton = false;
           }
         }
       }

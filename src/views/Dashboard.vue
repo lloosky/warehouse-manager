@@ -20,9 +20,7 @@
           <div>Magazyn</div>
         </div>
         <div style="font-size:20px;">Ilość produktów:</div>
-        <div
-          style="font-size: 50px;align-self:stretch;"
-        >{{this.products.length}}</div>
+        <div style="font-size: 50px;align-self:stretch;">{{this.products.length}}</div>
         <div class="board-body"></div>
       </div>
       <div class="board">
@@ -97,6 +95,6 @@ export default {
   display: grid;
   justify-items: center;
   align-items: center;
-  border-bottom:1px solid #d2d2d2;
+  border-bottom: 1px solid #d2d2d2;
 }
 </style>

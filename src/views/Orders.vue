@@ -43,7 +43,9 @@
     </div>
     <div class="component-navigation">
       <h2>Zamówienia</h2>
-      <div class="btn-container"></div>
+      <div class="btn-container">
+        <input type="text" placeholder="wyszukaj" />
+      </div>
     </div>
     <div class="table-header">
       <span>Lp.</span>
@@ -61,8 +63,8 @@
       <span>{{order.employee}}</span>
       <span>{{order.data}}</span>
       <span>
-        <router-link :to="`orders/${order.id}`">
-          <button class="accept-btn" @click="showOrderDetail(order.id)">Otwórz</button>
+        <router-link :to="`orders/${index + 1}`">
+          <button class="accept-btn" @click="showOrderDetail">Otwórz</button>
         </router-link>
       </span>
     </div>
@@ -100,9 +102,8 @@ export default {
       this.show = true;
       this.clearInputs();
     },
-    showOrderDetail(id) {
+    showOrderDetail() {
       this.$store.state.widthOfOrderDetail = 50;
-      console.log(this.orders[id - 2]);
     },
     worthOfOrder(orderedProducts) {
       const result = orderedProducts.price * this.orderedQuantity;
@@ -192,7 +193,7 @@ export default {
   right: 0;
   height: 100vh;
   background-color: #ffffff;
-  border:1px solid #d2d2d2;
+  border: 1px solid #d2d2d2;
   transition: 0.2s all;
   display: grid;
   align-items: center;
