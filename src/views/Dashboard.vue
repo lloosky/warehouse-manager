@@ -86,7 +86,7 @@ export default {
   color: black;
 }
 .board-title {
-  background-color: #ee8a3f;
+  background: linear-gradient( 45deg, rgba(2, 0, 36, 1) 0%, rgba(216, 75, 75, 1) 0%, rgba(238, 139, 63, 1) 100% );
   width: 100%;
   height: 100%;
   padding: 5px;

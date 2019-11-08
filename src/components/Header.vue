@@ -6,9 +6,9 @@
         <li>manager</li>
       </ul>
     </div>
-    <ul class="sidebar-menu">
+    <ul class="sidebar-menu" @click="closeNavbar">
       <li>
-        <router-link to="/dashboard" active-class="active">Pulpit</router-link>
+        <router-link to="/dashboard" active-class="active" >Pulpit</router-link>
       </li>
       <li>
         <router-link to="/orders" active-class="active">Zamówienia</router-link>
@@ -36,6 +36,10 @@ export default {
   methods: {
     logout() {
       this.$store.commit("LOGOUT");
+    },
+    closeNavbar() {
+      this.$store.state.menuWidth = 0;
+      this.$store.state.menuLeft = -100;
     }
   }
 };
@@ -45,16 +49,6 @@ export default {
 ul {
   padding-left: 0px;
   width: 100%;
-}
-header {
-  background-color: #ffffff;
-  border-right: 1px solid #d2d2d2;
-  height: 100vh;
-  width: 100%;
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 10% 80% 10%;
-  justify-items: center;
 }
 header ul li {
   margin-top: 40px;
