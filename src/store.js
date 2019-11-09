@@ -20,7 +20,8 @@ export default new Vuex.Store({
       { worker: 'Worker #3' }
     ],
     widthOfOrderDetail: 0,
-    menuLeft: 0
+    menuLeft: 0,
+    orderIndexId: []
   },
   mutations: {
     async GET_PRODUCTLIST(state) {
@@ -30,8 +31,10 @@ export default new Vuex.Store({
       try {
         const { data } = await Vue.http.get(`${API_HOST}/api/warehouse`);
         state.products = data;
-      } catch {
-        console.log('ERROR-get product list ');
+      } catch (err) {
+        if (err.status === 403 || err.status === 404) {
+          this.commit('LOGOUT');
+        }
       }
     },
     async GET_ORDERLIST(state) {
@@ -40,9 +43,12 @@ export default new Vuex.Store({
       state.userToken = window.btoa(obj.body.token);
       try {
         const { data } = await Vue.http.get(`${API_HOST}/api/orders`);
+        console.log();
         state.orders = data;
-      } catch {
-        console.log('ERROR - get order list');
+      } catch (err) {
+        if (err.status === 403 || err.status === 404) {
+          this.commit('LOGOUT');
+        }
       }
     },
     REMOVE_PRODUCT(state, { id, index }) {
@@ -51,8 +57,9 @@ export default new Vuex.Store({
       });
     },
     REMOVE_ORDER(state, id) {
+      const index = state.orderIndexId[0].index;
       Vue.http.delete(`${API_HOST}/api/orders/${id}`).then(() => {
-        state.orders.splice(id - 1, 1);
+        state.orders.splice(index, 1);
       });
     },
     LOGOUT() {
@@ -62,11 +69,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    AUTO_LOGOUT({ commit }, expiresTime) {
-      setTimeout(() => {
-        commit('LOGOUT');
-      }, expiresTime * 1000);
-    }
   },
   getters: {}
 });

@@ -63,8 +63,8 @@
       <span>{{order.employee}}</span>
       <span>{{order.data}}</span>
       <span>
-        <router-link :to="`orders/${index + 1}`">
-          <button class="accept-btn" @click="showOrderDetail">Otwórz</button>
+        <router-link :to="`orders/${order.id}`">
+          <button class="accept-btn" @click="showOrderDetail(order.id, index)">Otwórz</button>
         </router-link>
       </span>
     </div>
@@ -105,11 +105,13 @@ export default {
       this.show = true;
       this.clearInputs();
     },
-    showOrderDetail() {
+    showOrderDetail(id, index) {
+      this.$store.state.orderIndexId = []
       this.$store.state.widthOfOrderDetail = 50;
       if (window.innerWidth < 767) {
         this.$store.state.widthOfOrderDetail = 100;
       }
+      this.$store.state.orderIndexId.push({id: id, index: index})
     },
     worthOfOrder(orderedProducts) {
       const result = orderedProducts.price * this.orderedQuantity;

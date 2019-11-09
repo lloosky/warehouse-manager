@@ -13,7 +13,8 @@
       @decline="declineRealization"
     ></realize-box>
     <div class="component-navigation">
-      <h3>Zamówienie N-SR-{{orders[id-1].id}}</h3>
+      <span>{{this.$store.state.orderIndexId[0].index}}</span>
+      <h3>Zamówienie N-SR-{{orders[this.$store.state.orderIndexId[0].index].id}}</h3>
       <div class="btn-container">
         <router-link to="/orders">
           <button class="button-normal" @click="close">x</button>
@@ -21,13 +22,13 @@
       </div>
     </div>
     <span>Data:</span>
-    <p>{{orders[id-1].data}}</p>
+    <p>{{orders[this.$store.state.orderIndexId[0].index].data}}</p>
     <span>Zamówiony towar:</span>
-    <p>{{orderedProductsDetail(id)}}</p>
+    <p>{{orderedProductsDetail(this.$store.state.orderIndexId[0].index)}}</p>
     <span>Obsługa:</span>
-    <p>{{orders[id-1].employee}}</p>
+    <p>{{orders[this.$store.state.orderIndexId[0].index].employee}}</p>
     <span>Dane osoby zamawiającej:</span>
-    <p>{{orders[id-1].name}}</p>
+    <p>{{orders[this.$store.state.orderIndexId[0].index].name}}</p>
     <div class="btn-container">
       <button class="accept-btn" @click="deleteOrder">anuluj</button>
       <button class="accept-btn" @click="realizeOrder">zrealizuj</button>
@@ -130,13 +131,13 @@ export default {
     },
     orderedProductsDetail(id) {
       return (
-        this.orders[id - 1].orderedProducts.title +
+        this.orders[id].orderedProducts.title +
         " " +
-        this.orders[id - 1].orderedQuantity +
+        this.orders[id].orderedQuantity +
         " " +
-        this.orders[id - 1].orderedProducts.unit +
+        this.orders[id].orderedProducts.unit +
         " - " +
-        formatCurrency(this.orders[id - 1].orderedProductsValue)
+        formatCurrency(this.orders[id].orderedProductsValue)
       );
     }
   },
