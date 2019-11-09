@@ -24,14 +24,20 @@
         <div class="board-body"></div>
       </div>
       <div class="board">
-        <div class="board-body">
-          <div class="board-title">Zamówienia</div>
+        <div class="board-title">
+          <div>Test</div>
         </div>
+        <div class="board-sub-title"></div>
+        <div class="board-sub-body"></div>
+        <div class="board-body"></div>
       </div>
       <div class="board">
-        <div class="board-body">
-          <div class="board-title">Zamówienia</div>
+        <div class="board-title">
+          <div>Test</div>
         </div>
+        <div class="board-sub-title"></div>
+        <div class="board-sub-body"></div>
+        <div class="board-body"></div>
       </div>
     </div>
   </div>

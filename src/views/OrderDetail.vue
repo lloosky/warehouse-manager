@@ -13,8 +13,7 @@
       @decline="declineRealization"
     ></realize-box>
     <div class="component-navigation">
-      <span>{{this.$store.state.orderIndexId[0].index}}</span>
-      <h3>Zamówienie N-SR-{{orders[this.$store.state.orderIndexId[0].index].id}}</h3>
+      <h3>Zamówienie N-SR-{{orders[this.index].id}}</h3>
       <div class="btn-container">
         <router-link to="/orders">
           <button class="button-normal" @click="close">x</button>
@@ -22,13 +21,13 @@
       </div>
     </div>
     <span>Data:</span>
-    <p>{{orders[this.$store.state.orderIndexId[0].index].data}}</p>
+    <p>{{orders[this.index].data}}</p>
     <span>Zamówiony towar:</span>
-    <p>{{orderedProductsDetail(this.$store.state.orderIndexId[0].index)}}</p>
+    <p>{{orderedProductsDetail(this.index)}}</p>
     <span>Obsługa:</span>
-    <p>{{orders[this.$store.state.orderIndexId[0].index].employee}}</p>
+    <p>{{orders[this.index].employee}}</p>
     <span>Dane osoby zamawiającej:</span>
-    <p>{{orders[this.$store.state.orderIndexId[0].index].name}}</p>
+    <p>{{orders[this.index].name}}</p>
     <div class="btn-container">
       <button class="accept-btn" @click="deleteOrder">anuluj</button>
       <button class="accept-btn" @click="realizeOrder">zrealizuj</button>
@@ -53,7 +52,8 @@ export default {
       realizeBoxQuestion: "Na pewno chcesz zrealizować to zamówienie ?",
       showCancelBox: false,
       showRealizeBox: false,
-      orderInfo: []
+      orderInfo: [],
+      index: this.$store.state.orderIndexId[0].index
     };
   },
   methods: {
