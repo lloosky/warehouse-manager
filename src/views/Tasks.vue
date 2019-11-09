@@ -25,7 +25,7 @@
       <span>3</span>
       <span>Pracownik nr 3</span>
       <span>{{workerThree.length}}</span>
-      <span >{{ formatCurrency(this.workerThreeInfo.reduce((a, b) => a + b)) }}</span>
+      <span>{{ formatCurrency(this.workerThreeInfo.reduce((a, b) => a + b)) }}</span>
     </div>
   </div>
 </template>
@@ -64,23 +64,18 @@ export default {
     },
     checkTasks() {
       for (let i in this.orders) {
+        const workerTasks = {
+          task: this.orders[i].id,
+          worth: this.orders[i].orderedProductsValue
+        };
         if (this.orders[i].employee === "Worker #1") {
-          this.workerOne.push({
-            task: this.orders[i].id,
-            worth: this.orders[i].orderedProductsValue
-          });
+          this.workerOne.push(workerTasks);
         } else if (this.orders[i].employee === "Worker #2") {
-          this.workerTwo.push({
-            task: this.orders[i].id,
-            worth: this.orders[i].orderedProductsValue
-          });
+          this.workerTwo.push(workerTasks);
         } else if (this.orders[i].employee === "Worker #3") {
-          this.workerThree.push({
-            task: this.orders[i].id,
-            worth: this.orders[i].orderedProductsValue
-          });
+          this.workerThree.push(workerTasks);
         } else {
-          console.log("Brak danych o zadaniach")
+          console.log("Brak danych o zadaniach");
         }
       }
     }

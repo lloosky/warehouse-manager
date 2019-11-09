@@ -7,7 +7,7 @@
       @accept="confirmAlert"
       @decline="declineAlert"
     ></confirm-box>
-    <div class="modal-container" :style="{width: isWidth + '%'}">
+    <div class="modal-container" :style="{width: widthOfModalBox + '%'}">
       <div class="modal-box" v-if="showModal">
         <div id="validationAlerts"></div>
         <form action>
@@ -77,7 +77,7 @@ export default {
     return {
       userToken: "",
       showModal: false,
-      isWidth: 0,
+      widthOfModalBox: 0,
       productTitle: "",
       productQuantity: "",
       productUnit: "",
@@ -119,9 +119,9 @@ export default {
       console.log("Anulowałeś usuwanie produktu");
     },
     openAddingProduct() {
-      this.isWidth = 50;
+      this.widthOfModalBox = 50;
       if (window.innerWidth < 767) {
-        this.isWidth = 100;
+        this.widthOfModalBox = 100;
       }
       this.showModal = true;
       this.clearInputs();
@@ -170,7 +170,7 @@ export default {
           .catch(() => {
             console.log("ERROR");
           });
-        this.isWidth = 0;
+        this.widthOfModalBox = 0;
         this.showModal = false;
         this.$store.commit("GET_PRODUCTLIST");
       }
@@ -183,7 +183,7 @@ export default {
     },
     cancelAddingProduct() {
       this.clearInputs();
-      this.isWidth = 0;
+      this.widthOfModalBox = 0;
       this.showModal = false;
     }
   },
