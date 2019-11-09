@@ -19,7 +19,8 @@ export default new Vuex.Store({
       { worker: 'Worker #2' },
       { worker: 'Worker #3' }
     ],
-    widthOfOrderDetail: 0
+    widthOfOrderDetail: 0,
+    menuLeft: 0
   },
   mutations: {
     async GET_PRODUCTLIST(state) {

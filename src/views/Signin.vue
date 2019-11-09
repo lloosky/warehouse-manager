@@ -1,7 +1,6 @@
 <template>
   <div class="login-page">
     <div class="login-container">
-      <img src="/img/logo.png" alt="logo" class="logo-login" />
       <form action>
         <label for>Użytkownik:</label>
         <input type="text" v-model="username" />
@@ -63,7 +62,12 @@ export default {
 };
 </script>
 <style scoped>
-body {
-  padding: 0px
+form {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto auto auto;
+  align-items: center;
+  justify-items: center;
 }
+
 </style>

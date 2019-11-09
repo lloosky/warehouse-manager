@@ -1,15 +1,11 @@
 * {
-  font-family: 'Fira Sans Extra Condensed', sans-serif;
+  font-family: 'Fira Sans', sans-serif;
   box-sizing: border-box;
-}
-html {
-  padding: 10px;
+  font-size: 0.9rem;
 }
 body {
   color: #e18500;
-  background: url('../../../public/img/background.png');
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #f3f3f3;
   height: 100vh;
   background-repeat: no-repeat;
 }
@@ -39,11 +35,34 @@ body {
     transform: scale(0);
   }
 }
+#application {
+  display: grid;
+  grid-template-columns: 15% 85%;
+}
+.app-body {
+  padding: 40px;
+}
+.header ul li {
+  list-style: none;
+}
 h2 {
   margin-bottom: 0;
 }
+.add-button {
+  position: absolute;
+  bottom: 10px;
+  right: 30px;
+  font-size: 60px;
+  cursor: pointer;
+  color: #ec8640;
+  transition: 0.3s;
+}
+.add-button:hover {
+  transform: scale(1.2);
+}
 .modal-container {
-  background-color: rgba(214, 214, 214, 0.925);
+  background-color: white;
+  border-left: 1px solid #d2d2d2;
   position: absolute;
   right: 0;
   top: 0;
@@ -53,6 +72,7 @@ h2 {
   grid-template-columns: 70%;
   align-content: center;
   justify-content: center;
+  height: 100%;
 }
 .modal-box {
   padding: 20px;
@@ -64,9 +84,10 @@ select {
 }
 input,
 select {
-  border: 1px solid #9c9c9c;
-  height: 30px;
-  background-color: #e2e2e2;
+  border: 1px solid #d2d2d2;
+  height: 40px;
+  background-color: #f3f3f3;
+  padding: 5px;
 }
 .button-normal {
   background-color: transparent;
@@ -74,13 +95,13 @@ select {
   justify-self: center;
 }
 .accept-btn {
-  border: 1px solid #acacac;
-  background-color: #e1e1e1;
+  border: 1px solid #d2d2d2;
+  background-color: #f3f3f3;
 }
 label,
 input,
 select {
-  margin: 10px;
+  margin: 5px;
 }
 .modal-btn-container {
   display: grid;
@@ -93,16 +114,24 @@ select {
 .component-navigation > .btn-container {
   justify-self: end;
   align-self: center;
+  margin-right: 5px;
 }
 .component-navigation {
   display: grid;
-  grid-template-columns: auto 80%;
+  grid-template-columns: 30% 70%;
   margin-bottom: 20px;
+}
+.btn-container input {
+  height: 24px;
 }
 .table-header {
   padding: 5px;
-  background: #6c6bcb;
-  border: 1px solid #4f4e95;
+  background: linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(216, 75, 75, 1) 0%,
+    rgba(238, 139, 63, 1) 100%
+  );
   color: white;
   display: grid;
   grid-template-columns: 5% 45% 15% 15% 15% 5%;
@@ -110,7 +139,7 @@ select {
   margin-bottom: 20px;
 }
 .table-row {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #d2d2d2;
   padding: 5px;
   background: #ffffff;
   color: black !important;
@@ -119,35 +148,16 @@ select {
   align-items: center;
   transition: 0.3s all;
 }
-.table-row:nth-child(even) {
-  background-color: #d2d2d2;
+.table-row:hover {
+  background: #dadada;
 }
 .table-header,
 .table-row {
   padding: 10px;
 }
 .component-navigation > h2 {
-  padding-left: 10px;
   position: relative;
-  background-color: rgba(255, 208, 188, 0.726);
   color: black;
-}
-.component-navigation > h2:before {
-  content: "";
-  margin-left: -10px;
-  width: 3%;
-  height: 100%;
-  background-color: rgb(246, 172, 0);
-  position: absolute;
-}
-.component-navigation > h2:after {
-  content: "";
-  margin-left: -10px;
-  width: 1%;
-  height: 100%;
-  background-color: rgb(246, 172, 0);
-  right: 0px;
-  position: absolute;
 }
 .logo-login {
   width: 100%;
@@ -155,21 +165,31 @@ select {
 }
 .login-page {
   display: grid;
-  height: 100vh;
+  height: 90vh;
   grid-template-columns: auto;
-  grid-template-rows: auto;
+  grid-template-rows: 50%;
+  -ms-flex-line-pack: center;
   align-content: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  position: absolute;
+  left: 25%;
 }
 .login-container {
   display: grid;
-  height: 60vh;
-  width: 45vh;
-  background-color: #414141;
-  border: 1px solid #e18500;
+  height: 100%;
+  width: 50vw;
+  background-color: #ffffff;
   grid-template-columns: 80%;
+  -ms-flex-line-pack: center;
   align-content: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+}
+.login-container > form > label {
+  color: black;
 }
 label,
 input,
@@ -178,29 +198,61 @@ select {
 }
 label {
   font-size: 15px;
-  color: #e18500;
+  color: #d94e4a;
 }
 .submit-button {
   font-size: 20px;
-  color: #e18500;
+  color: #ffffff;
   margin-top: 20px;
-  border: 1px solid #e18500;
+  background: linear-gradient( 45deg, rgba(2, 0, 36, 1) 0%, rgba(216, 75, 75, 1) 0%, rgba(238, 139, 63, 1) 100% );
+  border: none;
   padding: 5px;
   transition: 0.2s all;
 }
-.submit-button:hover {
-  color: #e18500;
-  background-color: #fadcaf;
+button,
+label {
+  text-transform: capitalize;
+}
+header {
+  background-color: #ffffff;
+  border-right: 1px solid #d2d2d2;
+  height: 100vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 10% 80% 10%;
+  justify-items: center;
+  transition: 0.3s all;
 }
 @media (max-width: 767px) {
   .login-container {
-    height: 100vh;
-    grid-template-columns: 100%;
-    background-color: transparent;
+    width:100vw;
     border: none;
+    padding: 20px;
+    background-color: transparent;
   }
   .logo-login {
     margin-top: 0%;
   }
+  .login-page {
+    left: 0;
+  }
+  #application {
+    grid-template-columns: 0% 100%;
+  }
+  header {
+    position: absolute;
+    width: 60%;
+    left: -225px;
+    z-index: 1;
+  }
+  .dashboard {
+    grid-template-columns: none !important;
+  }
+  .menu-button {
+    display: block !important;
+  }
+  .order-details {
+    width: 100%;
+  }
 }
-

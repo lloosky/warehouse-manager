@@ -13,7 +13,7 @@
       @decline="declineRealization"
     ></realize-box>
     <div class="component-navigation">
-      <h3>Zamówienie N-SR-{{id}}</h3>
+      <h3>Zamówienie N-SR-{{orders[id-1].id}}</h3>
       <div class="btn-container">
         <router-link to="/orders">
           <button class="button-normal" @click="close">x</button>
@@ -29,8 +29,8 @@
     <span>Dane osoby zamawiającej:</span>
     <p>{{orders[id-1].name}}</p>
     <div class="btn-container">
-      <button class="accept-btn" @click="deleteOrder(id)">anuluj</button>
-      <button class="realize-btn" @click="realizeOrder(id)">zrealizuj</button>
+      <button class="accept-btn" @click="deleteOrder">anuluj</button>
+      <button class="accept-btn" @click="realizeOrder">zrealizuj</button>
     </div>
   </div>
 </template>
@@ -75,22 +75,23 @@ export default {
       this.showCancelBox = false;
       console.log("Anulowałeś usuwanie zamówienia");
     },
-    deleteOrder(id) {
+    deleteOrder() {
       this.showCancelBox = true;
+      const id = this.$route.params.id;
       this.orderInfo.push({ orderId: id });
-      console.log(this.orderInfo);
+      console.log(id);
     },
-    realizeOrder(id) {
+    realizeOrder() {
       this.showRealizeBox = true;
+      const id = this.$route.params.id;
       this.orderInfo.push({ orderId: id });
-      console.log(this.orderInfo);
     },
     async confirmRealization() {
       const id = this.orderInfo[0].orderId;
       const productId = this.orders[id - 1].orderedProducts.id;
-
+      console.log(this.orders[id - 1].name);
       const value =
-        this.orders[id - 1].orderedProducts.quantity -
+        this.products[productId - 1].quantity -
         this.orders[id - 1].orderedQuantity;
       if (value < 0) {
         console.log("Niewystaczająca ilość produktu na stanie magazynowym");
@@ -106,12 +107,13 @@ export default {
               unit: product.unit
             }
           );
-          console.log(`Nowy stan magazynowy produktu o id ${this.orders[id - 1].orderedProducts.id} wynosi ${value}`);
+          console.log(
+            `Nowy stan magazynowy produktu o id ${this.orders[id - 1].orderedProducts.id} wynosi ${value}`
+          );
         } catch {
           console.log("ERROR - order detail");
         }
         this.$store.commit("REMOVE_ORDER", id);
-        this.orders.splice(id, 1);
         this.showRealizeBox = false;
         this.$router.push("/orders");
         this.close();
@@ -167,16 +169,6 @@ span {
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 5px;
-}
-.accept-btn {
-  background-color: #e13800;
-  border: 1px solid #8c0909;
-  color: white;
-}
-.realize-btn {
-  background-color: #52e000;
-  border: 1px solid #1f6100;
-  color: white;
 }
 .component-navigation {
   grid-template-columns: auto auto;

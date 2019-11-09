@@ -1,12 +1,13 @@
 <template>
   <div class="view-container">
+    <div class="add-button" @click="openAddingProduct">&#43;</div>
     <confirm-box
       v-if="showConfirmBox"
       :confirmMsg="confirmBoxQuestion"
       @accept="confirmAlert"
       @decline="declineAlert"
     ></confirm-box>
-    <div class="modal-container" :style="{width: isWidth + '%'}">
+    <div class="modal-container" :style="{width: widthOfModalBox + '%'}">
       <div class="modal-box" v-if="showModal">
         <div id="validationAlerts"></div>
         <form action>
@@ -32,14 +33,14 @@
             style="width:50%;justify-self:end;"
             class="button-normal accept-btn"
             @click="addProduct"
-          >dodaj produkt</button>
+          >dodaj</button>
         </div>
       </div>
     </div>
     <div class="component-navigation">
       <h2>Magazyn</h2>
       <div class="btn-container">
-        <button class="accept-btn" @click="openAddingProduct">dodaj produkt</button>
+        <input type="text" placeholder="wyszukaj" />
       </div>
     </div>
     <div class="table-header">
@@ -56,7 +57,11 @@
       <span>{{product.unit}}</span>
       <span>{{formatCurrency(product.price)}}</span>
       <span>
-        <button @click="deleteProduct(product.id,index)" v-if="product.activeDeleteButton">usuń</button>
+        <button
+          class="accept-btn"
+          @click="deleteProduct(product.id,index)"
+          v-if="product.activeDeleteButton"
+        >usuń</button>
       </span>
     </div>
   </div>
@@ -72,7 +77,7 @@ export default {
     return {
       userToken: "",
       showModal: false,
-      isWidth: 0,
+      widthOfModalBox: 0,
       productTitle: "",
       productQuantity: "",
       productUnit: "",
@@ -89,8 +94,8 @@ export default {
     showDeleteButton() {
       for (let i in this.products) {
         for (let j in this.orders) {
-          if(this.orders[j].orderedProducts.title === this.products[i].title){
-            this.products[i].activeDeleteButton = false
+          if (this.orders[j].orderedProducts.title === this.products[i].title) {
+            this.products[i].activeDeleteButton = false;
           }
         }
       }
@@ -114,7 +119,10 @@ export default {
       console.log("Anulowałeś usuwanie produktu");
     },
     openAddingProduct() {
-      this.isWidth = 100;
+      this.widthOfModalBox = 50;
+      if (window.innerWidth < 767) {
+        this.widthOfModalBox = 100;
+      }
       this.showModal = true;
       this.clearInputs();
     },
@@ -162,7 +170,7 @@ export default {
           .catch(() => {
             console.log("ERROR");
           });
-        this.isWidth = 0;
+        this.widthOfModalBox = 0;
         this.showModal = false;
         this.$store.commit("GET_PRODUCTLIST");
       }
@@ -175,7 +183,7 @@ export default {
     },
     cancelAddingProduct() {
       this.clearInputs();
-      this.isWidth = 0;
+      this.widthOfModalBox = 0;
       this.showModal = false;
     }
   },

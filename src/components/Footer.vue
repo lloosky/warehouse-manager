@@ -1,7 +1,9 @@
 <template>
   <div class="footer-container">
     <footer>
-      <p>by lloosky</p>
+      <a href="https://www.linkedin.com/in/karol-świtalla-34a013180">
+        <p>Designed & made by Karol Świtalla</p>
+      </a>
     </footer>
   </div>
 </template>
@@ -13,18 +15,23 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 footer {
   text-align: center;
-  background-color: #e183007e;
   bottom: -10px;
-  left: 0px;
+  right: 0px;
   position: fixed;
-  color: white;
-  width: 100%;
+  width: 85vw;
   padding-top: 5px;
   display: grid;
   grid-template-columns: auto;
   justify-self: center;
+}
+a {
+  text-decoration: none;
+  color: #404040;
+}
+a:hover {
+  text-decoration: none;
 }
 </style>

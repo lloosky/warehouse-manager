@@ -36,11 +36,13 @@ export default {
   padding: 10px;
   width: 50%;
   height: 100%;
-  background-color: #ffcd88;
+  background-color: #3f88c5;
   justify-self: center;
-  align-self: center;
-  border: 1px solid #e18500;
+  border: 1px solid #163248;
   grid-template-rows: 50% 50%;
+  color: white;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 h3 {
