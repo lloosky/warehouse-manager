@@ -224,6 +224,10 @@ header {
   justify-items: center;
   transition: 0.3s all;
 }
+header ul li a, 
+.table-header span {
+  font-size: .92rem
+}
 @media (max-width: 767px) {
   .login-container {
     width:100vw;
