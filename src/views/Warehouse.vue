@@ -210,9 +210,15 @@ export default {
     },
     filteredProducts() {
       var self = this;
-      return this.products.filter(function(cust) {
-        return cust.title.toLowerCase().indexOf(self.search.toLowerCase()) >= 0;
-      });
+      if (this.products == null || this.products == undefined) {
+        console.log("Warehouse list is undefined");
+      } else {
+        return this.products.filter(function(cust) {
+          return (
+            cust.title.toLowerCase().indexOf(self.search.toLowerCase()) >= 0
+          );
+        });
+      }
     }
   }
 };

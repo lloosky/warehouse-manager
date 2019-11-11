@@ -8,7 +8,7 @@
     </div>
     <ul class="sidebar-menu" @click="closeNavbar">
       <li>
-        <router-link to="/dashboard" active-class="active" >Pulpit</router-link>
+        <router-link to="/dashboard" active-class="active">Pulpit</router-link>
       </li>
       <li>
         <router-link to="/orders" active-class="active">Zamówienia</router-link>
@@ -72,6 +72,7 @@ header .logo ul li {
   text-align: center;
   color: black;
   font-weight: 600;
+  cursor: pointer;
 }
 .sidebar-menu li {
   width: 100%;

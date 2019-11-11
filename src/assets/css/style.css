@@ -159,6 +159,14 @@ select {
   position: relative;
   color: black;
 }
+.order-details .view-container .component-navigation h3 {
+  margin-bottom: 0;
+}
+.order-details .view-container .component-navigation .btn-container a button {
+  background-color: #f44336;
+  color: white;
+  border-radius: 100%;
+}
 .logo-login {
   width: 100%;
   margin-bottom: 15%;
@@ -263,6 +271,7 @@ header ul li a,
   }
   .order-details {
     width: 100%;
+    grid-template-columns: 80% !important;
   }
   .table-row span {
     grid-template-columns: 50% 50%;
@@ -285,11 +294,17 @@ header ul li a,
     grid-template-rows: auto;
     grid-template-columns: 100%;
   }
-  .table-row span a button, .table-row button {
+  .table-row span a button,
+  .table-row button {
     width: 100%;
     padding: 5px;
   }
   .table-header {
     display: none;
+  }
+  .cancel-box,
+  .realize-box,
+  .confirm-box {
+    width: 80% !important;
   }
 }

@@ -186,9 +186,15 @@ export default {
     },
     filteredOrders() {
       var self = this;
-      return this.orders.filter(function(cust) {
-        return cust.name.toLowerCase().indexOf(self.search.toLowerCase()) >= 0;
-      });
+      if (this.orders == null || this.orders == undefined) {
+        console.log("Orders list is undefined");
+      } else {
+        return this.orders.filter(function(cust) {
+          return (
+            cust.name.toLowerCase().indexOf(self.search.toLowerCase()) >= 0
+          );
+        });
+      }
     }
   }
 };
@@ -209,5 +215,6 @@ export default {
   display: grid;
   align-items: center;
   justify-content: center;
+  grid-template-columns: 50%;
 }
 </style>

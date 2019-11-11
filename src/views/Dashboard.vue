@@ -69,9 +69,6 @@ export default {
           `${API_HOST}/api/tasks`,
           {
             task: this.taskContent
-          },
-          {
-            headers: { Authorization: `Bearer ${this.userToken}` }
           }
         )
         .then(data => {

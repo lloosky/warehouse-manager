@@ -26,9 +26,9 @@ export default {
   grid-template-rows: auto;
   width: 100%;
   height: 30%;
-  /* background-color: rgba(0, 0, 0, 0.493); */
   position: absolute;
   top: 25%;
+  left: 0%;
 }
 .confirm-box {
   display: grid;
