@@ -29,7 +29,7 @@
     <span>Dane osoby zamawiającej:</span>
     <p>{{orders[this.index].name}}</p>
     <div class="btn-container">
-      <button class="accept-btn" @click="deleteOrder">anuluj</button>
+      <button class="accept-btn" @click="deleteOrder">usuń</button>
       <button class="accept-btn" @click="realizeOrder">zrealizuj</button>
     </div>
   </div>
@@ -48,8 +48,8 @@ export default {
   props: ["id"],
   data() {
     return {
-      confirmBoxQuestion: "Na pewno chcesz usunąć to zamówienie ?",
-      realizeBoxQuestion: "Na pewno chcesz zrealizować to zamówienie ?",
+      confirmBoxQuestion: "Usunąć zamówienie ?",
+      realizeBoxQuestion: "Zrealizować zamówienie ?",
       showCancelBox: false,
       showRealizeBox: false,
       orderInfo: [],
@@ -60,7 +60,7 @@ export default {
     confirmAlert(reasonOfCancellation) {
       const id = this.orderInfo[0].orderId;
       if (reasonOfCancellation == "") {
-        console.log("Podaj przyczynę usunięcia zamówienia");
+        console.log("Przyczyna usunięcia");
       } else {
         this.$store.commit("REMOVE_ORDER", id);
         console.log(`Zamówienie o id ${id} zostało usunięte`);

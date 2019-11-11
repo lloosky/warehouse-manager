@@ -33,18 +33,14 @@
         <div class="modal-btn-container">
           <button class="button-normal" @click="clearInputs">wyczyść</button>
           <button class="button-normal" @click="cancelAddingOrder">anuluj</button>
-          <button
-            style="width:50%;justify-self:end;"
-            class="button-normal accept-btn"
-            @click="addOrder"
-          >dodaj</button>
+          <button class="button-normal accept-btn" @click="addOrder">dodaj</button>
         </div>
       </div>
     </div>
     <div class="component-navigation">
       <h2>Zamówienia</h2>
       <div class="btn-container">
-        <input type="text" placeholder="wyszukaj" />
+        <input type="text" placeholder="wyszukaj" v-model="search" />
       </div>
     </div>
     <div class="table-header">
@@ -55,14 +51,14 @@
       <span>Obsługa</span>
       <span>Data</span>
     </div>
-    <div class="table-row" v-for="(order, index) in orders " :key="index">
-      <span>{{index+1}}</span>
-      <span>N-SR-{{order.id}}</span>
-      <span>{{order.name}}</span>
-      <span>{{formatCurrency(order.orderedProductsValue)}}</span>
-      <span>{{order.employee}}</span>
-      <span>{{order.data}}</span>
-      <span>
+    <div class="table-row" v-for="(order, index) in filteredOrders " :key="index">
+      <span data-label="Lp.">{{index+1}}</span>
+      <span data-label="Numer zamówienia">N-SR-{{order.id}}</span>
+      <span data-label="Imię i Nazwisko">{{order.name}}</span>
+      <span data-label="Wartość">{{formatCurrency(order.orderedProductsValue)}}</span>
+      <span data-label="Obsługa">{{order.employee}}</span>
+      <span data-label="Data">{{order.data}}</span>
+      <span data-label>
         <router-link :to="`orders/${order.id}`">
           <button class="accept-btn" @click="showOrderDetail(order.id, index)">Otwórz</button>
         </router-link>
@@ -92,7 +88,8 @@ export default {
       whoServes: "",
       data: "",
       selected: "",
-      isWidth: 0
+      isWidth: 0,
+      search: ""
     };
   },
   methods: {
@@ -106,12 +103,12 @@ export default {
       this.clearInputs();
     },
     showOrderDetail(id, index) {
-      this.$store.state.orderIndexId = []
+      this.$store.state.orderIndexId = [];
       this.$store.state.widthOfOrderDetail = 50;
       if (window.innerWidth < 767) {
         this.$store.state.widthOfOrderDetail = 100;
       }
-      this.$store.state.orderIndexId.push({id: id, index: index})
+      this.$store.state.orderIndexId.push({ id: id, index: index });
     },
     worthOfOrder(orderedProducts) {
       const result = orderedProducts.price * this.orderedQuantity;
@@ -186,6 +183,18 @@ export default {
     },
     getOrderDate() {
       return moment().format("ll");
+    },
+    filteredOrders() {
+      var self = this;
+      if (this.orders == null || this.orders == undefined) {
+        console.log("Orders list is undefined");
+      } else {
+        return this.orders.filter(function(cust) {
+          return (
+            cust.name.toLowerCase().indexOf(self.search.toLowerCase()) >= 0
+          );
+        });
+      }
     }
   }
 };
@@ -206,5 +215,6 @@ export default {
   display: grid;
   align-items: center;
   justify-content: center;
+  grid-template-columns: 50%;
 }
 </style>

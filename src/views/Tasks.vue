@@ -10,22 +10,22 @@
       <span>Wartość zadań</span>
     </div>
     <div class="table-row" v-if="(this.workerOneInfo != false)">
-      <span>1</span>
-      <span>Pracownik nr 1</span>
-      <span>{{workerOne.length}}</span>
-      <span>{{ formatCurrency(this.workerOneInfo.reduce((a, b) => a + b)) }}</span>
+      <span data-label="Lp.">1</span>
+      <span data-label="Pracownik">Pracownik nr 1</span>
+      <span data-label="Liczba zadań">{{workerOne.length}}</span>
+      <span data-label="Wartość zadań">{{ formatCurrency(this.workerOneInfo.reduce((a, b) => a + b)) }}</span>
     </div>
     <div class="table-row" v-if="(this.workerTwoInfo != false)">
-      <span>2</span>
-      <span>Pracownik nr 2</span>
-      <span>{{workerTwo.length}}</span>
-      <span>{{ formatCurrency(this.workerTwoInfo.reduce((a, b) => a + b)) }}</span>
+      <span data-label="Lp.">2</span>
+      <span data-label="Pracownik">Pracownik nr 2</span>
+      <span data-label="Liczba zadań">{{workerTwo.length}}</span>
+      <span data-label="Wartość zadań">{{ formatCurrency(this.workerTwoInfo.reduce((a, b) => a + b)) }}</span>
     </div>
     <div class="table-row" v-if="(this.workerThreeInfo != false)">
-      <span>3</span>
-      <span>Pracownik nr 3</span>
-      <span>{{workerThree.length}}</span>
-      <span>{{ formatCurrency(this.workerThreeInfo.reduce((a, b) => a + b)) }}</span>
+      <span data-label="Lp.">3</span>
+      <span data-label="Pracownik">Pracownik nr 3</span>
+      <span data-label="Liczba zadań">{{workerThree.length}}</span>
+      <span data-label="Wartość zadań">{{ formatCurrency(this.workerThreeInfo.reduce((a, b) => a + b)) }}</span>
     </div>
   </div>
 </template>

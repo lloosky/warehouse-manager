@@ -14,6 +14,7 @@ export default new Vuex.Store({
     userToken: null,
     products: null,
     orders: null,
+    tasks: null,
     staff: [
       { worker: 'Worker #1' },
       { worker: 'Worker #2' },
@@ -51,9 +52,27 @@ export default new Vuex.Store({
         }
       }
     },
+    async GET_TASKSLIST(state) {
+      let txt = localStorage.getItem('authResponse');
+      let obj = JSON.parse(txt);
+      state.userToken = window.btoa(obj.body.token);
+      try {
+        const { data } = await Vue.http.get(`${API_HOST}/api/tasks`);
+        state.tasks = data;
+      } catch (err) {
+        if (err.status === 403 || err.status === 404) {
+          this.commit('LOGOUT');
+        }
+      }
+    },
     REMOVE_PRODUCT(state, { id, index }) {
       Vue.http.delete(`${API_HOST}/api/warehouse/${id}`).then(() => {
         state.products.splice(index, 1);
+      });
+    },
+    REMOVE_TASK(state, { id, index }) {
+      Vue.http.delete(`${API_HOST}/api/tasks/${id}`).then(() => {
+        state.tasks.splice(index, 1);
       });
     },
     REMOVE_ORDER(state, id) {
