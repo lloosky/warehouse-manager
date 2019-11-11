@@ -49,7 +49,7 @@ h2 {
   margin-bottom: 0;
 }
 .add-button {
-  position: absolute;
+  position: fixed;
   bottom: 10px;
   right: 30px;
   font-size: 60px;
@@ -105,7 +105,7 @@ select {
 }
 .modal-btn-container {
   display: grid;
-  grid-template-columns: 20% 20% auto;
+  grid-template-columns: auto auto auto;
   position: relative;
   overflow: hidden;
   margin-top: 10px;
@@ -118,7 +118,7 @@ select {
 }
 .component-navigation {
   display: grid;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 60% 40%;
   margin-bottom: 20px;
 }
 .btn-container input {
@@ -134,7 +134,7 @@ select {
   );
   color: white;
   display: grid;
-  grid-template-columns: 5% 45% 15% 15% 15% 5%;
+  grid-template-columns: 5% 45% 15% 15% 12% 8%;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -144,7 +144,7 @@ select {
   background: #ffffff;
   color: black !important;
   display: grid;
-  grid-template-columns: 5% 45% 15% 15% 15% 5%;
+  grid-template-columns: 5% 45% 15% 15% 12% 8%;
   align-items: center;
   transition: 0.3s all;
 }
@@ -204,7 +204,12 @@ label {
   font-size: 20px;
   color: #ffffff;
   margin-top: 20px;
-  background: linear-gradient( 45deg, rgba(2, 0, 36, 1) 0%, rgba(216, 75, 75, 1) 0%, rgba(238, 139, 63, 1) 100% );
+  background: linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(216, 75, 75, 1) 0%,
+    rgba(238, 139, 63, 1) 100%
+  );
   border: none;
   padding: 5px;
   transition: 0.2s all;
@@ -224,13 +229,13 @@ header {
   justify-items: center;
   transition: 0.3s all;
 }
-header ul li a, 
+header ul li a,
 .table-header span {
-  font-size: .92rem
+  font-size: 0.92rem;
 }
 @media (max-width: 767px) {
   .login-container {
-    width:100vw;
+    width: 100vw;
     border: none;
     padding: 20px;
     background-color: transparent;
@@ -258,5 +263,33 @@ header ul li a,
   }
   .order-details {
     width: 100%;
+  }
+  .table-row span {
+    grid-template-columns: 50% 50%;
+    display: grid;
+    grid-template-rows: 100%;
+    align-items: center;
+    margin: 5px;
+  }
+  .table-row {
+    grid-template-columns: 100% !important;
+    margin-bottom: 10px;
+  }
+  .table-row span::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .table-row span:last-of-type {
+    grid-template-rows: auto;
+    grid-template-columns: 100%;
+  }
+  .table-row span a button, .table-row button {
+    width: 100%;
+    padding: 5px;
+  }
+  .table-header {
+    display: none;
   }
 }

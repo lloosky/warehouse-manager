@@ -34,9 +34,9 @@
           </div>
         </div>
         <div class="board-sub-body">
-          <ul v-for="(task, index) in tasks">
+          <ul v-for="(task, index) in tasks" :key="index">
             <li>{{task.task}}</li>
-            <button class="delete-btn" @click="deleteTask(index)">usuń</button>
+            <button class="delete-btn" @click="deleteTask(task.id, index)">usuń</button>
           </ul>
         </div>
         <div class="board-body"></div>
@@ -54,27 +54,53 @@ export default {
   name: "dashboard",
   data() {
     return {
-      tasks: [],
       taskContent: ""
     };
   },
   methods: {
     formatCurrency,
     addTask() {
-      this.tasks.push({task: this.taskContent})
-      this.taskContent = ""
+      let txt = localStorage.getItem("authResponse");
+      let obj = JSON.parse(txt);
+      this.userToken = window.btoa(obj.body.token);
+
+      this.$http
+        .post(
+          `${API_HOST}/api/tasks`,
+          {
+            task: this.taskContent
+          },
+          {
+            headers: { Authorization: `Bearer ${this.userToken}` }
+          }
+        )
+        .then(data => {
+          console.log(data);
+          this.orders.push({
+            task: this.taskContent
+          });
+        })
+        .catch(() => {
+          console.log("ERROR");
+        });
+      this.taskContent = "";
+      this.$store.commit("GET_TASKSLIST");
     },
-    deleteTask(index) {
-      this.tasks.splice(index,1)
+    deleteTask(id, index) {
+      this.$store.commit("REMOVE_TASK", {id, index})
     }
   },
   created() {
     this.$store.commit("GET_ORDERLIST");
     this.$store.commit("GET_PRODUCTLIST");
+    this.$store.commit("GET_TASKSLIST");
   },
   computed: {
     orders() {
       return this.$store.state.orders;
+    },
+    tasks() {
+      return this.$store.state.tasks;
     },
     products() {
       return this.$store.state.products;
@@ -114,6 +140,7 @@ export default {
 .board-sub-body {
   width: 100%;
   padding: 20px;
+  overflow: auto;
 }
 .board-title {
   background: linear-gradient(

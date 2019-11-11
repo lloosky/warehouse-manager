@@ -29,18 +29,14 @@
         <div class="modal-btn-container">
           <button class="button-normal" @click="clearInputs">wyczyść</button>
           <button class="button-normal" @click="cancelAddingProduct">anuluj</button>
-          <button
-            style="width:50%;justify-self:end;"
-            class="button-normal accept-btn"
-            @click="addProduct"
-          >dodaj</button>
+          <button class="button-normal accept-btn" @click="addProduct">dodaj</button>
         </div>
       </div>
     </div>
     <div class="component-navigation">
       <h2>Magazyn</h2>
       <div class="btn-container">
-        <input type="text" placeholder="wyszukaj" />
+        <input type="text" placeholder="wyszukaj" v-model="search" />
       </div>
     </div>
     <div class="table-header">
@@ -50,13 +46,13 @@
       <span>Jednostka</span>
       <span>Cena netto</span>
     </div>
-    <div class="table-row" v-for="(product, index) in products" :key="index">
-      <span>{{index+1}}</span>
-      <span>{{product.title}}</span>
-      <span>{{product.quantity}}</span>
-      <span>{{product.unit}}</span>
-      <span>{{formatCurrency(product.price)}}</span>
-      <span>
+    <div class="table-row" v-for="(product, index) in filteredProducts" :key="index">
+      <span data-label="Lp.">{{index+1}}</span>
+      <span data-label="Nazwa">{{product.title}}</span>
+      <span data-label="Ilość">{{product.quantity}}</span>
+      <span data-label="Jednostka">{{product.unit}}</span>
+      <span data-label="Cena netto">{{formatCurrency(product.price)}}</span>
+      <span data-label>
         <button
           class="accept-btn"
           @click="deleteProduct(product.id,index)"
@@ -83,10 +79,17 @@ export default {
       productUnit: "",
       activeDeleteButton: true,
       productPrice: "",
-      units: [{ unit: "cm" }, { unit: "m2" }, { unit: "szt" }, { unit: "kpl" }],
+      units: [
+        { unit: "cm" },
+        { unit: "m2" },
+        { unit: "szt" },
+        { unit: "kpl" },
+        { unit: "kg" }
+      ],
       confirmBoxQuestion: "Na pewno chcesz usunąć ten produkt ?",
       showConfirmBox: false,
-      productInfo: []
+      productInfo: [],
+      search: ""
     };
   },
   methods: {
@@ -187,14 +190,6 @@ export default {
       this.showModal = false;
     }
   },
-  computed: {
-    products() {
-      return this.$store.state.products;
-    },
-    orders() {
-      return this.$store.state.orders;
-    }
-  },
   created() {
     this.$store.commit("GET_PRODUCTLIST");
     this.$store.commit("GET_ORDERLIST");
@@ -205,6 +200,20 @@ export default {
   },
   components: {
     confirmBox: ConfirmBox
+  },
+  computed: {
+    products() {
+      return this.$store.state.products;
+    },
+    orders() {
+      return this.$store.state.orders;
+    },
+    filteredProducts() {
+      var self = this;
+      return this.products.filter(function(cust) {
+        return cust.title.toLowerCase().indexOf(self.search.toLowerCase()) >= 0;
+      });
+    }
   }
 };
 </script>
@@ -213,5 +222,7 @@ export default {
   display: grid;
   grid-template-columns: auto;
   align-content: center;
+}
+@media (max-width: 767px) {
 }
 </style>
