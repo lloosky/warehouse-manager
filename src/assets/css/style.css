@@ -58,7 +58,7 @@ h2 {
   transition: 0.3s;
 }
 .add-button:hover {
-  transform: scale(1.2);
+  transform: scale(1.2) rotate(90deg);
 }
 .modal-container {
   background-color: white;
