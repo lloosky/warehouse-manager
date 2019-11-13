@@ -1,6 +1,12 @@
 <template>
   <div class="login-page">
     <div class="login-container">
+      <div class="logo">
+      <ul>
+        <li>warehouse</li>
+        <li>manager</li>
+      </ul>
+    </div>
       <form action>
         <label for>Użytkownik:</label>
         <input type="text" v-model="username" />
@@ -63,5 +69,22 @@ form {
   grid-template-rows: auto auto auto auto;
   align-items: center;
   justify-items: center;
+}
+.logo {
+  padding-top: 20px;
+  color: black;
+  justify-self: center; 
+}
+.logo ul {
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+.logo ul li:last-child {
+  letter-spacing: 4px;
+  font-weight: 800;
+}
+.logo ul li {
+  font-size: 30px;
 }
 </style>
