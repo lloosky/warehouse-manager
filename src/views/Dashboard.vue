@@ -20,7 +20,7 @@
           <div>Magazyn</div>
         </div>
         <div class="board-sub-title">Ilość produktów:</div>
-        <div class="board-sub-body">{{this.products.length}}</div>
+        <div class="board-sub-body">{{this.products ? this.products.length : ''}}</div>
         <div class="board-body"></div>
       </div>
       <div class="board">
