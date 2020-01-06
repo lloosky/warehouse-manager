@@ -1,5 +1,5 @@
 function formatCurrency(arg) {
-  return new Intl.NumberFormat('pl-PLN', {
+  return new Intl.NumberFormat('pl-PL', {
     style: 'currency',
     currency: 'PLN'
   }).format(arg);
