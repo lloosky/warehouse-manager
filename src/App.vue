@@ -17,11 +17,11 @@
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
+import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
     appHeader: Header,
     appFooter: Footer
@@ -34,13 +34,7 @@ export default {
       this.$store.state.menuLeft = -225;
     }
   },
-  created() { 
-  },
-  computed: {
-    menuWidth() {
-
-    }
-  }
+  created() {}
 };
 </script>
 <style>

@@ -5,92 +5,90 @@
       <h4 class="btn-container">{{getOrderDate}}</h4>
     </div>
     <div class="dashboard">
-      <div class="board">
-        <div class="board-title">
-          <div>Ostatnie zamówienie: N-SR-{{this.orders[this.orders.length-1].id}}</div>
+      <div class="board" id="board_1">
+        <div class="board-title" id="board_title_1">
+          <div>Ostatnie zamówienie: N-SR-{{(this.orders.length === 0) ? 'błąd' : this.orders[this.orders.length-1].id}}</div>
         </div>
-        <div class="board-sub-title">Wartość:</div>
-        <div
-          class="board-sub-body"
-        >{{formatCurrency(this.orders[this.orders.length-1].orderedProductsValue)}}</div>
-        <div class="board-body"></div>
+        <div class="board-sub-title" id="board_sub_title_1">Wartość:</div>
+        <!-- <div
+          class="board-sub-body" id="board_sub_body_1"
+        >{{"000" ? formatCurrency(this.orders[this.orders.length-1].orderedProductsValue) : ''}}</div> -->
+        <div class="board-body" id="board_body_1"></div>
       </div>
-      <div class="board">
-        <div class="board-title">
+      <div class="board" id="board_2">
+        <div class="board-title" id="board_title_2">
           <div>Magazyn</div>
         </div>
-        <div class="board-sub-title">Ilość produktów:</div>
-        <div class="board-sub-body">{{this.products ? this.products.length : ''}}</div>
-        <div class="board-body"></div>
+        <div class="board-sub-title" id="board_title_2">Ilość produktów:</div>
+        <!-- <div class="board-sub-body" id="board_sub_title_2">{{"lista" ? this.products.length : ''}}</div> -->
+        <div class="board-body" id="board_body_2"></div>
       </div>
-      <div class="board">
-        <div class="board-title">
+      <div class="board" id="board_3">
+        <div class="board-title" id="board_title_3">
           <div>Do zrobienia</div>
         </div>
-        <div class="board-sub-title">
+        <div class="board-sub-title" id="board_title_3">
           <div class="todoInputButton">
-            <input type="text" placeholder="wpisz co masz w planach" v-model="taskContent"/>
+            <input type="text" placeholder="wpisz co masz w planach" v-model="taskContent" />
             <button class="accept-btn" @click="addTask">dodaj</button>
           </div>
         </div>
-        <div class="board-sub-body">
+        <div class="board-sub-body" id="board_sub_title_3">
           <ul v-for="(task, index) in tasks" :key="index">
-            <li>{{task.task}}</li>
+            <li class="taskItem">{{task.task}}</li>
             <button class="delete-btn" @click="deleteTask(task.id, index)">usuń</button>
           </ul>
         </div>
-        <div class="board-body"></div>
+        <div class="board-body" id="board_body_3"></div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import formatCurrency from '../utils/formatCurrency.js';
+import moment from 'moment';
+import store from '../store.js';
+import Vue from 'vue';
+import VueResource from 'vue-resource';
+Vue.use(VueResource);
 const API_HOST = process.env.VUE_APP_API_HOST;
-import formatCurrency from "../utils/formatCurrency.js";
-import moment from "moment";
-moment.locale("pl");
+moment.locale('pl');
 
 export default {
-  name: "dashboard",
+  name: 'dashboard',
+  store: store,
   data() {
     return {
-      taskContent: ""
+      taskContent: ''
     };
   },
   methods: {
     formatCurrency,
     addTask() {
-      let txt = localStorage.getItem("authResponse");
-      let obj = JSON.parse(txt);
-      this.userToken = window.btoa(obj.body.token);
-
-      this.$http
-        .post(
-          `${API_HOST}/api/tasks`,
-          {
-            task: this.taskContent
-          }
-        )
+      Vue.http
+        .post(`${API_HOST}/api/tasks`, {
+          task: this.taskContent
+        })
         .then(data => {
           console.log(data);
-          this.orders.push({
+          this.tasks.push({
             task: this.taskContent
           });
         })
-        .catch(() => {
-          console.log("ERROR");
+        .catch((error) => {
+          console.log('ERROR', error);
         });
-      this.taskContent = "";
-      this.$store.commit("GET_TASKSLIST");
+      this.taskContent = '';
+      this.$store.commit('GET_TASKSLIST');
     },
     deleteTask(id, index) {
-      this.$store.commit("REMOVE_TASK", {id, index})
+      this.$store.commit('REMOVE_TASK', { id, index });
     }
   },
   created() {
-    this.$store.commit("GET_ORDERLIST");
-    this.$store.commit("GET_PRODUCTLIST");
-    this.$store.commit("GET_TASKSLIST");
+    this.$store.commit('GET_ORDERLIST');
+    this.$store.commit('GET_PRODUCTLIST');
+    this.$store.commit('GET_TASKSLIST');
   },
   computed: {
     orders() {
@@ -103,7 +101,7 @@ export default {
       return this.$store.state.products;
     },
     getOrderDate() {
-      return moment().format("ll");
+      return moment().format('ll');
     }
   }
 };
@@ -126,15 +124,14 @@ export default {
   justify-items: center;
   color: black;
 }
-.board:last-of-type {
+.board:nth-of-type(3) {
   grid-template-rows: 15% 25% 60%;
 }
-.board:last-of-type .board-sub-title {
+.board:nth-of-type(3) .board-sub-title {
   width: 100%;
   padding: 20px;
 }
-.board:last-of-type 
-.board-sub-body {
+.board:nth-of-type(3) .board-sub-body {
   width: 100%;
   padding: 20px;
   overflow: auto;

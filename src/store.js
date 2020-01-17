@@ -13,8 +13,8 @@ export default new Vuex.Store({
     encodedUsername: '',
     userToken: null,
     products: null,
-    orders: null,
-    tasks: null,
+    orders: [],
+    tasks: [],
     staff: [
       { worker: 'Worker #1' },
       { worker: 'Worker #2' },

@@ -49,7 +49,7 @@
     <div class="table-row" v-for="(product, index) in filteredProducts" :key="index">
       <span data-label="Lp.">{{index+1}}</span>
       <span data-label="Nazwa">{{product.title}}</span>
-      <span data-label="Ilość">{{product.quantity}}</span>
+      <span data-label="Ilość" id="quantity">{{product.quantity}}</span>
       <span data-label="Jednostka">{{product.unit}}</span>
       <span data-label="Cena netto">{{formatCurrency(product.price)}}</span>
       <span data-label>
@@ -63,33 +63,35 @@
   </div>
 </template>
 <script>
+import ConfirmBox from './../components/ConfirmBox.vue';
+import formatCurrency from '../utils/formatCurrency.js';
+import store from '../store.js';
 const API_HOST = process.env.VUE_APP_API_HOST;
-import ConfirmBox from "./../components/ConfirmBox.vue";
-import formatCurrency from "../utils/formatCurrency.js";
 
 export default {
-  name: "warehouse",
+  name: 'warehouse',
+  store: store,
   data() {
     return {
-      userToken: "",
+      userToken: '',
       showModal: false,
       widthOfModalBox: 0,
-      productTitle: "",
-      productQuantity: "",
-      productUnit: "",
+      productTitle: '',
+      productQuantity: 's',
+      productUnit: '',
       activeDeleteButton: true,
-      productPrice: "",
+      productPrice: '',
       units: [
-        { unit: "cm" },
-        { unit: "m2" },
-        { unit: "szt" },
-        { unit: "kpl" },
-        { unit: "kg" }
+        { unit: 'cm' },
+        { unit: 'm2' },
+        { unit: 'szt' },
+        { unit: 'kpl' },
+        { unit: 'kg' }
       ],
-      confirmBoxQuestion: "Na pewno chcesz usunąć ten produkt ?",
+      confirmBoxQuestion: 'Na pewno chcesz usunąć ten produkt ?',
       showConfirmBox: false,
       productInfo: [],
-      search: ""
+      search: ''
     };
   },
   methods: {
@@ -111,7 +113,7 @@ export default {
       const id = this.productInfo[0].productId;
       const index = this.productInfo[0].productIndex;
 
-      this.$store.commit("REMOVE_PRODUCT", { id, index });
+      this.$store.commit('REMOVE_PRODUCT', { id, index });
       console.log(`Produkt o id ${id} został usunięty pomyślnie`);
       this.showConfirmBox = false;
       this.productInfo = [];
@@ -119,7 +121,7 @@ export default {
     declineAlert() {
       this.productInfo = [];
       this.showConfirmBox = false;
-      console.log("Anulowałeś usuwanie produktu");
+      console.log('Anulowałeś usuwanie produktu');
     },
     openAddingProduct() {
       this.widthOfModalBox = 50;
@@ -130,21 +132,21 @@ export default {
       this.clearInputs();
     },
     addProduct() {
-      let txt = localStorage.getItem("authResponse");
+      let txt = localStorage.getItem('authResponse');
       let obj = JSON.parse(txt);
       this.userToken = window.btoa(obj.body.token);
 
-      const validationInfo = document.getElementById("validationAlerts");
+      const validationInfo = document.getElementById('validationAlerts');
 
       if (
-        this.productTitle == "" ||
-        this.productQuantity == "" ||
-        this.productUnit == "" ||
-        this.productPrice == ""
+        this.productTitle == '' ||
+        this.productQuantity == '' ||
+        this.productUnit == '' ||
+        this.productPrice == ''
       ) {
-        validationInfo.innerHTML = "Uzupełnij wymagane pola";
+        validationInfo.innerHTML = 'Uzupełnij wymagane pola';
       } else if (this.productQuantity < 1 || this.productPrice < 1) {
-        validationInfo.innerHTML = "Cena oraz ilość musi być większa od 0";
+        validationInfo.innerHTML = 'Cena oraz ilość musi być większa od 0';
       } else {
         this.$http
           .post(
@@ -171,18 +173,18 @@ export default {
             });
           })
           .catch(() => {
-            console.log("ERROR");
+            console.log('ERROR');
           });
         this.widthOfModalBox = 0;
         this.showModal = false;
-        this.$store.commit("GET_PRODUCTLIST");
+        this.$store.commit('GET_PRODUCTLIST');
       }
     },
     clearInputs() {
-      this.productTitle = "";
-      this.productQuantity = "";
-      this.productUnit = "";
-      this.productPrice = "";
+      this.productTitle = '';
+      this.productQuantity = '';
+      this.productUnit = '';
+      this.productPrice = '';
     },
     cancelAddingProduct() {
       this.clearInputs();
@@ -191,8 +193,8 @@ export default {
     }
   },
   created() {
-    this.$store.commit("GET_PRODUCTLIST");
-    this.$store.commit("GET_ORDERLIST");
+    this.$store.commit('GET_PRODUCTLIST');
+    this.$store.commit('GET_ORDERLIST');
     this.showDeleteButton();
   },
   updated() {
@@ -208,10 +210,11 @@ export default {
     orders() {
       return this.$store.state.orders;
     },
+    // eslint-disable-next-line vue/return-in-computed-property
     filteredProducts() {
       var self = this;
-      if (this.products == null || this.products == undefined) {
-        console.log("Warehouse list is undefined");
+      if (this.products === null || this.products === undefined) {
+        console.log('Warehouse list is undefined');
       } else {
         return this.products.filter(function(cust) {
           return (
