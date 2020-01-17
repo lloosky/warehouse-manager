@@ -7,12 +7,12 @@
     <div class="dashboard">
       <div class="board" id="board_1">
         <div class="board-title" id="board_title_1">
-          <div>Ostatnie zamówienie: N-SR-{{(this.orders.length === 0) ? 'błąd' : this.orders[this.orders.length-1].id}}</div>
+          <div>Ostatnie zamówienie: N-SR-{{this.orders.length == 0 ? 'błąd' : this.orders[this.orders.length-1].id}}</div>
         </div>
         <div class="board-sub-title" id="board_sub_title_1">Wartość:</div>
-        <!-- <div
+        <div
           class="board-sub-body" id="board_sub_body_1"
-        >{{"000" ? formatCurrency(this.orders[this.orders.length-1].orderedProductsValue) : ''}}</div> -->
+        >{{this.orders.length == 0 || this.orders == null ? 'błąd' : formatCurrency(this.orders[this.orders.length-1].orderedProductsValue)}}</div>
         <div class="board-body" id="board_body_1"></div>
       </div>
       <div class="board" id="board_2">
@@ -20,7 +20,7 @@
           <div>Magazyn</div>
         </div>
         <div class="board-sub-title" id="board_title_2">Ilość produktów:</div>
-        <!-- <div class="board-sub-body" id="board_sub_title_2">{{"lista" ? this.products.length : ''}}</div> -->
+        <div class="board-sub-body" id="board_sub_title_2">{{this.products == null ? 'błąd' : this.products.length}}</div>
         <div class="board-body" id="board_body_2"></div>
       </div>
       <div class="board" id="board_3">
